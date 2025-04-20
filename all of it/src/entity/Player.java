@@ -11,7 +11,7 @@ import mainn.GamePanel;
 import mainn.KeyHandler;
 
 public class Player extends Entity{
-    
+     
     KeyHandler keyH;
     int standCounter = 0;
     int hasKey;
@@ -205,7 +205,7 @@ public class Player extends Entity{
             break;
         }
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
-        // g2.setColor(Color.red);
-        // g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
+        g2.setColor(Color.red);
+        g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
     }
 }
