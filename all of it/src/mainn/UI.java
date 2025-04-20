@@ -52,7 +52,7 @@ public class UI {
         }
         //PLAY STATE
         if (gp.gameState == gp.playState){
-            // DO playstate stuff
+            drawHealthBar();
         }
         // PAUSE STATE
         if (gp.gameState == gp.pauseState){
@@ -173,6 +173,26 @@ public class UI {
         g2.setColor(c);
         g2.setStroke(new BasicStroke(4));
         g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
+
+    }
+    //DRAW HEALTH BAR ON TOP LEFT SIDE OF THE SCREEN
+    public void drawHealthBar(){
+        //HEALTH BAR FRAME
+        int x = gp.tileSize/2;
+        int y = gp.tileSize/2;
+        int width = gp.tileSize*4;
+        int height = gp.tileSize/2;
+
+        g2.setColor(new Color(35,35,35));
+        g2.fillRect(x, y, width, height);
+        
+        //CURRENT HEALTH
+        g2.setColor(new Color(255,0,30));
+        g2.fillRect(x+1, y+1, (int)((width-2)*(double)gp.player.health/gp.player.maxHealth), height-2);
+
+        //MAX HEALTH
+        g2.setColor(new Color(0,0,0));
+        g2.drawRect(x+1, y+1, width-2, height-2);
 
     }
 
