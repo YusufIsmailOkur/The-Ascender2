@@ -17,6 +17,8 @@ public class Player extends Entity{
     int hasKey;
     public int health = 3;
     public int maxHealth = 5;
+    public ArrayList<SuperObject> objects = new ArrayList<>();
+    public ArrayList<SuperWeapon> weapons = new ArrayList<>();
     public Player(GamePanel gp, KeyHandler keyH) {
 
         super(gp); 
