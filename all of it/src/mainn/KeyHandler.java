@@ -114,9 +114,7 @@ public class KeyHandler implements KeyListener {
                 
             }
         }
-        else if (gp.gameState == settingsState){
-            
-        }
+        
     }
 
     @Override
