@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.sql.Time;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import weapon.*;
 
 import object.OBJ_Key;
 
@@ -257,7 +259,7 @@ public class UI {
         drawSubWindow(x, y, width, height);
 
         // Draw the current weapon (first in the list as example)
-        ArrayList<SuperWeapon> weapons = gp.player.getWeapons();
+        ArrayList<SuperWeapon> weapons = gp.player.weapons;
         if (!weapons.isEmpty() && weapons.get(0) != null) {
             int imgX = x + (width - gp.tileSize) / 2;
             int imgY = y;
