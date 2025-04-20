@@ -24,6 +24,9 @@ public class Entity {
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
 
+    public int health=5;
+    public boolean alive = true;
+
     public Entity(GamePanel gp){
         this.gp = gp;
     }
