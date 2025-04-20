@@ -107,11 +107,17 @@ public class KeyHandler implements KeyListener {
                 }
                 else if (gp.ui.menuNum == 4){
                     // HELP
+                    gp.gameState = gp.helpState;
                 }
                 else if (gp.ui.menuNum == 5){
                     // EXIT
                 }
                 
+            }
+        }
+        else if (gp.gameState == gp.helpState){
+            if (code == KeyEvent.VK_ESCAPE){ //exiting to menu state back
+                gp.gameState = gp.menuState;
             }
         }
         
