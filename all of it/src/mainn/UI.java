@@ -71,6 +71,9 @@ public class UI {
         if (gp.gameState == gp.menuState){
             drawMenuScreen();
         }
+        if (gp.gameState == gp.helpState){
+            drawHelpScreen();
+        }
     }
     public void drawTitleScreen(){
 
@@ -194,6 +197,16 @@ public class UI {
         if (menuNum == 5){
             g2.drawString(">", x-gp.tileSize/2, y);
         }
+    }
+    private void drawHelpScreen(){ //add keys and controls. Type "press esc to go back to menu"
+        int x = gp.tileSize * 13/2;
+        int y = gp.tileSize * 2;
+        int width = gp.screenWidth - (gp.tileSize * 12);
+        int height = gp.tileSize * 10;
+
+        drawSubWindow(x, y, width, height);
+
+
     }
     public void drawDialogueScreen(){
 
