@@ -67,10 +67,6 @@ public class UI {
         if (gp.gameState == gp.menuState){
             drawMenuScreen();
         }
-        // SETTİNGS STATE
-        if (gp.gameState == gp.settingsState){
-            drawSettingsScreen();
-        }
     }
     public void drawTitleScreen(){
 
@@ -152,47 +148,47 @@ public class UI {
         g2.drawString(text, x, y);
     }
     public void drawMenuScreen(){
-        int x = gp.tileSize * 6;
+        int x = gp.tileSize * 13/2;
         int y = gp.tileSize * 2;
         int width = gp.screenWidth - (gp.tileSize * 12);
         int height = gp.tileSize * 10;
 
         drawSubWindow(x, y, width, height);
         
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 35F));
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30F));
 
         x += gp.tileSize;
         y += gp.tileSize * 5/3;
 
         g2.drawString("Return to the Game", x, y);
         if (menuNum == 0){
-            g2.drawString(">", x-gp.tileSize, y);
+            g2.drawString(">", x-gp.tileSize/2, y);
         }
         y += 60;
         
         g2.drawString("Fast travel", x, y);
         if (menuNum == 1){
-            g2.drawString(">", x-gp.tileSize, y);
+            g2.drawString(">", x-gp.tileSize/2, y);
         }
         y += 60;
         g2.drawString("Leaderboard", x, y);
         if (menuNum == 2){
-            g2.drawString(">", x-gp.tileSize, y);
+            g2.drawString(">", x-gp.tileSize/2, y);
         }
         y += 60;
         g2.drawString("Settings", x, y);
         if (menuNum == 3){
-            g2.drawString(">", x-gp.tileSize, y);
+            g2.drawString(">", x-gp.tileSize/2, y);
         }
         y += 60;
         g2.drawString("Help", x, y);
         if (menuNum == 4){
-            g2.drawString(">", x-gp.tileSize, y);
+            g2.drawString(">", x-gp.tileSize/2, y);
         }
         y += 60;
         g2.drawString("Exit", x, y);
         if (menuNum == 5){
-            g2.drawString(">", x-gp.tileSize, y);
+            g2.drawString(">", x-gp.tileSize/2, y);
         }
     }
     public void drawDialogueScreen(){
