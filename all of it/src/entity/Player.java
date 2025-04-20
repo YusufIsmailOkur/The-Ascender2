@@ -15,6 +15,8 @@ public class Player extends Entity{
     KeyHandler keyH;
     int standCounter = 0;
     int hasKey;
+    public int health = 3;
+    public int maxHealth = 5;
     public Player(GamePanel gp, KeyHandler keyH) {
 
         super(gp); 
