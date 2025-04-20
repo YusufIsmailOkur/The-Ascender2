@@ -50,10 +50,12 @@ public class UI {
         // TİTLE STATE
         if (gp.gameState == gp.titleState){
             drawTitleScreen();
+            
         }
         //PLAY STATE
         if (gp.gameState == gp.playState){
             drawHealthBar();
+            drawWeaponSlots();
         }
         // PAUSE STATE
         if (gp.gameState == gp.pauseState){
@@ -243,6 +245,32 @@ public class UI {
         g2.setColor(new Color(0,0,0));
         g2.drawRect(x+1, y+1, width-2, height-2);
 
+    }
+    //DRAW 4 SLOTS FOR WEAPONS
+    public void drawWeaponSlots() {
+        int width = gp.tileSize * 4;
+        int height = gp.tileSize;
+        int x = (gp.screenWidth - width) / 2;
+        int y = gp.screenHeight - gp.tileSize - (gp.tileSize / 2);
+
+        // Background panel
+        drawSubWindow(x, y, width, height);
+
+        // Draw the current weapon (first in the list as example)
+        ArrayList<SuperWeapon> weapons = gp.player.getWeapons();
+        if (!weapons.isEmpty() && weapons.get(0) != null) {
+            int imgX = x + (width - gp.tileSize) / 2;
+            int imgY = y;
+            g2.drawImage(weapons.get(0).image, imgX, imgY, gp.tileSize, gp.tileSize, null);
+        }
+
+        // Draw separators between slots
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke(2));
+        for (int i = 1; i < 4; i++) {
+            int lineX = x + (gp.tileSize * i);
+            g2.drawLine(lineX, y, lineX, y + height);
+        }
     }
 
     public int getXForCenteredText(String text){
