@@ -62,6 +62,9 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_F){
                 fPressed = true;
             }
+            if (code == KeyEvent.VK_M){
+                gp.gameState = gp.menuState;
+            }
         }
         // PAUSE STATE
         else if (gp.gameState == gp.pauseState){
@@ -74,6 +77,45 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_F){
                 gp.gameState = gp.playState;
             }
+        }
+        // MENU STATE
+        else if (gp.gameState == gp.menuState){
+            if (code == KeyEvent.VK_W){
+                gp.ui.menuNum--;
+                if (gp.ui.menuNum < 0){
+                    gp.ui.menuNum = 5;
+                }
+            }
+            if (code == KeyEvent.VK_S){
+                gp.ui.menuNum++;
+                if (gp.ui.menuNum > 5){
+                    gp.ui.menuNum = 0;
+                }
+            }
+            if (code == KeyEvent.VK_ENTER){
+                if (gp.ui.menuNum == 0){
+                    gp.gameState = gp.playState;
+                }
+                else if (gp.ui.menuNum == 1){
+                    // Fast TRAVEL
+                }
+                else if (gp.ui.menuNum == 2){
+                    // LeaderBoard
+                }
+                else if (gp.ui.menuNum == 3){
+                    // SETTINGS
+                }
+                else if (gp.ui.menuNum == 4){
+                    // HELP
+                }
+                else if (gp.ui.menuNum == 5){
+                    // EXIT
+                }
+                
+            }
+        }
+        else if (gp.gameState == settingsState){
+            
         }
     }
 
