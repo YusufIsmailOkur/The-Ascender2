@@ -29,4 +29,9 @@ public class AssetSetter {
         gp.npc[0].x = gp.tileSize * 9;
         gp.npc[0].y = gp.tileSize * 2;
     }
+    public void setWeapon(){
+        gp.weapon[0] = new WPN_Sword();
+        gp.weapon[0].x = 8 * gp.tileSize;
+        gp.weapon[0].y = 8 * gp.tileSize;
+    }
 }
