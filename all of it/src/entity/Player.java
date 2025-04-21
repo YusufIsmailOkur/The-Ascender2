@@ -156,9 +156,27 @@ public class Player extends Entity{
                 case "chest":
                 gp.ui.gameFinished = true;
                 break;
+                 case "sword": // ** YENİ: kılıcı yerden al **
+                WPN_Sword sword = new WPN_Sword();
+                weapons[0] = sword;
+                currentWeapon = sword;
+                gp.ui.showMessage("You picked up a sword!");
+                gp.obj[i] = null;
+                break;
             }
         }
     }
+
+    public void pickUpWeapon(int i) {
+        if (i != 999) {
+            SuperWeapon wp = gp.weapon[i];
+            weapons[0] = wp;             
+            currentWeapon = wp;          
+            gp.weapon[i] = null;         
+            gp.ui.showMessage("You picked up a " + wp.name + "!");
+        }
+    }
+    
     public void interactNPC(int i){
         if (i != 999){
 
@@ -214,5 +232,41 @@ public class Player extends Entity{
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
         g2.setColor(Color.red);
         g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
+
+         
+        // Draw current weapon
+        if (currentWeapon != null) {
+            BufferedImage wImg = null;
+            int wx = x, wy = y;
+            switch (direction) {
+                case "up":
+                    wImg = currentWeapon.imageUp;
+                    wy = y - gp.tileSize;
+                    break;
+                case "down":
+                    wImg = currentWeapon.imageDown;
+                    wy = y + gp.tileSize;
+                    break;
+                case "left":
+                    wImg = currentWeapon.imageLeft;
+                    wx = x - gp.tileSize;
+                    break;
+                case "right":
+                    wImg = currentWeapon.imageRight;
+                    wx = x + gp.tileSize;
+                    break;
+            }
+            g2.drawImage(wImg, wx, wy, gp.tileSize, gp.tileSize, null);
+        }
+
+
+        // Collasion
+        g2.setColor(Color.red);
+        g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
+    }
+
+    public void setCurrentWeapon(SuperWeapon w){
+        currentWeapon = w;
     }
 }
+
