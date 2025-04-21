@@ -65,6 +65,19 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_M){
                 gp.gameState = gp.menuState;
             }
+            //Changing Current Weapon In Game
+            if (code == KeyEvent.VK_1){
+                gp.player.setCurrentWeapon(gp.player.weapons[0]);
+            }
+            if (code == KeyEvent.VK_2){
+                gp.player.setCurrentWeapon(gp.player.weapons[1]);
+            }
+            if (code == KeyEvent.VK_3){
+                gp.player.setCurrentWeapon(gp.player.weapons[2]);
+            }
+            if (code == KeyEvent.VK_4){
+                gp.player.setCurrentWeapon(gp.player.weapons[3]);
+            }
         }
         // PAUSE STATE
         else if (gp.gameState == gp.pauseState){
