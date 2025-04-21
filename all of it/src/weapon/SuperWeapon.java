@@ -7,7 +7,10 @@ import mainn.*;
 
 public class SuperWeapon {
     
-    public BufferedImage image;
+    public BufferedImage imageUp, imageDown, imageLeft, imageRight;
+    
+    // Default image
+    public BufferedImage image = imageRight;
     public String name;
     public boolean collision;
     public int x, y;
