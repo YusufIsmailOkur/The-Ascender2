@@ -38,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public SuperObject obj[] = new SuperObject[10];
     public Entity npc[] = new Entity[10];
+    public SuperWeapon[] weapon = new SuperWeapon[10];
 
 
     public int gameState;
@@ -62,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         aSetter.setObject();
         aSetter.setNPC();
+        aSetter.setWeapon();
         gameState = titleState;
     }
 
@@ -139,6 +141,14 @@ public class GamePanel extends JPanel implements Runnable{
                 obj[i].draw(g2, this);
             }
         }
+
+        //WEAPON
+        for (SuperWeapon wp : weapon) {
+            if (wp != null) {
+                g2.drawImage(wp.image, wp.x, wp.y, tileSize, tileSize, null);
+            }
+        }
+
 
         //NPC
         for(int i = 0; i < npc.length; i++){
