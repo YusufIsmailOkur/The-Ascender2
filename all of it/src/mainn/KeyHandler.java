@@ -148,5 +148,21 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
     }
+
+    
+    // public void playMusic(int i){
+    //     GamePanel.getSound().setFile(i);
+    //     GamePanel.getSound().play();
+    //     GamePanel.getSound().loop();
+    // }
+
+    // public void stopMusic(){
+    //     GamePanel.getSound().stop();
+    // }
+
+    // public void playSoundEffect(int i){
+    //     GamePanel.getSound().setFile(i);
+    //     GamePanel.getSound().play();
+    // }
     
 }

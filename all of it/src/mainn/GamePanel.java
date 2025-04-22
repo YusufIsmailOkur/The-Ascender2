@@ -24,6 +24,9 @@ public class GamePanel extends JPanel implements Runnable{
     public final int screenWidth = tileSize* maxScreenCol; // 768 pixels
     public final int screenHeight = tileSize* maxScreenRow; // 576 pixels
 
+    //sound
+    Sound sound = new Sound();
+
     // FPS
     int FPS = 60;
 
@@ -63,6 +66,7 @@ public class GamePanel extends JPanel implements Runnable{
         aSetter.setObject();
         aSetter.setNPC();
         gameState = titleState;
+        playMusic(0);
     }
 
     public void startGameThread(){
@@ -95,10 +99,7 @@ public class GamePanel extends JPanel implements Runnable{
 
                 nextDrawTime += drawInterval;
                 
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            } catch (InterruptedException e) {}
         }
     }
 
@@ -153,5 +154,19 @@ public class GamePanel extends JPanel implements Runnable{
         
         g2.dispose();
         }
+    }
+
+    // public static Sound getSound() {
+    //     return sound;
+    // }
+
+    public void playMusic(int i){
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    public void stopMusic(){
+        sound.stop();
+
     }
 }
