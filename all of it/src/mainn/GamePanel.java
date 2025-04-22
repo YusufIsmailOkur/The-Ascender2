@@ -170,6 +170,10 @@ public class GamePanel extends JPanel implements Runnable{
     //     return sound;
     // }
 
+    public Sound getSound() {
+        return sound;
+    }
+
     public void playMusic(int i){
         sound.setFile(i);
         sound.play();

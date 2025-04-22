@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
+    int previousState = -1;
 
     public boolean upPressed, downPressed, leftPressed, rightPressed, fPressed;
     GamePanel gp;
@@ -133,6 +134,10 @@ public class KeyHandler implements KeyListener {
                 gp.gameState = gp.menuState;
             }
         }
+        //if gameState changes by pressing a key, it changes the music
+        if (previousState != gp.gameState){
+            playMusicByState(gp.gameState);
+        }
         
     }
 
@@ -162,20 +167,30 @@ public class KeyHandler implements KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
+    private void playMusicByState(int currentGameState){
+        stopMusic();
+        if (currentGameState == gp.titleState){
+            playMusic(0);
+        }
+        else{
+            playMusic(1);
+        }
+        previousState = currentGameState;
+    }
     
-    // public void playMusic(int i){
-    //     GamePanel.getSound().setFile(i);
-    //     GamePanel.getSound().play();
-    //     GamePanel.getSound().loop();
-    // }
+    public void playMusic(int i){
+        gp.getSound().setFile(i);
+        gp.getSound().play();
+        gp.getSound().loop();
+    }
 
-    // public void stopMusic(){
-    //     GamePanel.getSound().stop();
-    // }
+    public void stopMusic(){
+        gp.getSound().stop();
+    }
 
-    // public void playSoundEffect(int i){
-    //     GamePanel.getSound().setFile(i);
-    //     GamePanel.getSound().play();
-    // }
+    public void playSoundEffect(int i){
+        gp.getSound().setFile(i);
+        gp.getSound().play();
+    }
     
 }
