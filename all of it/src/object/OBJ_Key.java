@@ -9,6 +9,7 @@ public class OBJ_Key extends SuperObject{
     public OBJ_Key(){
 
         name = "key";
+        craftable = false;
 
         try {
 
