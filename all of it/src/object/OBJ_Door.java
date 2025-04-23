@@ -9,6 +9,7 @@ public class OBJ_Door extends SuperObject{
     public OBJ_Door(){
 
         name = "door";
+        craftable = false;
 
         try {
 
