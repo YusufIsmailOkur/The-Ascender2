@@ -1,5 +1,4 @@
 package mainn;
-
 import javax.swing.JFrame;
 
 public class Main {

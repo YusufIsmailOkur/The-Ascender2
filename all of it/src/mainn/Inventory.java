@@ -99,8 +99,7 @@ public class Inventory extends JPanel implements ActionListener {
         }
         if (displayObjects.isEmpty() && displayWeapons.isEmpty()) {
             JOptionPane.showMessageDialog(this,
-                "Could not find " + term + " item.",
-                JOptionPane.INFORMATION_MESSAGE);
+                "Could not find " + term + " item.");
             displayObjects.addAll(allObjects);
             displayWeapons.addAll(allWeapons);
         }
