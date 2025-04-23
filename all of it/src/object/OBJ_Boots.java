@@ -9,6 +9,7 @@ public class OBJ_Boots extends SuperObject{
     public OBJ_Boots(){
 
         name = "boots";
+        craftable = false;
 
         try {
 
