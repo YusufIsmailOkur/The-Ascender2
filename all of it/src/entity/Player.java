@@ -22,6 +22,7 @@ public class Player extends Entity{
     public int maxHealth = 5;
     public ArrayList<SuperObject> objects = new ArrayList<>();
     public ArrayList<SuperWeapon> weapons = new ArrayList<>();
+    public SuperWeapon currentWeapon;
     public Player(GamePanel gp, KeyHandler keyH) {
 
         super(gp); 
@@ -158,7 +159,7 @@ public class Player extends Entity{
                 break;
                  case "sword": // ** YENİ: kılıcı yerden al **
                 WPN_Sword sword = new WPN_Sword();
-                weapons[0] = sword;
+                weapons.add(sword);
                 currentWeapon = sword;
                 gp.ui.showMessage("You picked up a sword!");
                 gp.obj[i] = null;
@@ -170,7 +171,7 @@ public class Player extends Entity{
     public void pickUpWeapon(int i) {
         if (i != 999) {
             SuperWeapon wp = gp.weapon[i];
-            weapons[0] = wp;             
+            weapons.add(wp);        
             currentWeapon = wp;          
             gp.weapon[i] = null;         
             gp.ui.showMessage("You picked up a " + wp.name + "!");

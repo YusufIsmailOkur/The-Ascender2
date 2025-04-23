@@ -1,5 +1,4 @@
 package mainn;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -68,16 +67,16 @@ public class KeyHandler implements KeyListener {
             }
             //Changing Current Weapon In Game
             if (code == KeyEvent.VK_1){
-                gp.player.setCurrentWeapon(gp.player.weapons[0]);
+                gp.player.setCurrentWeapon(gp.player.weapons.get(0));
             }
             if (code == KeyEvent.VK_2){
-                gp.player.setCurrentWeapon(gp.player.weapons[1]);
+                gp.player.setCurrentWeapon(gp.player.weapons.get(1));
             }
             if (code == KeyEvent.VK_3){
-                gp.player.setCurrentWeapon(gp.player.weapons[2]);
+                gp.player.setCurrentWeapon(gp.player.weapons.get(2));
             }
             if (code == KeyEvent.VK_4){
-                gp.player.setCurrentWeapon(gp.player.weapons[3]);
+                gp.player.setCurrentWeapon(gp.player.weapons.get(3));
             }
         }
         // PAUSE STATE

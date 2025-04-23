@@ -6,6 +6,7 @@ import entity.Entity;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
+import weapon.SuperWeapon;
 
 import java.awt.Color;
 import java.awt.Dimension;

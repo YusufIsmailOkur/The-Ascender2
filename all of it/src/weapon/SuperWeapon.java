@@ -12,6 +12,7 @@ public class SuperWeapon {
     // Default image
     public BufferedImage image = imageRight;
     public String name;
+    public boolean craftable;
     public boolean collision;
     public int x, y;
     public Rectangle solidArea = new Rectangle(0,0,48,48);
