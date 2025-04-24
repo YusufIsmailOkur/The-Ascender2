@@ -5,6 +5,7 @@ import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 public class Sound {
     Clip clip;
@@ -37,5 +38,13 @@ public class Sound {
     public void stop(){
         clip.stop();
     }
+
+    public void setVolume(float value) {
+        if (clip != null) {
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(value * 8.0f - 80.0f);
+        }
+    }
+
 }
 
