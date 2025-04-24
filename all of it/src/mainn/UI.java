@@ -25,8 +25,6 @@ public class UI {
     public String currentDialogue = "";
     public int commandNum = 0;
     public int menuNum= 0;
-    public int settingsNum = 0;
-    public int musicLevel = 5;
 
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("#0.00");
@@ -75,9 +73,6 @@ public class UI {
         }
         if (gp.gameState == gp.helpState){
             drawHelpScreen();
-        }
-        if (gp.gameState == gp.settingsState){
-            drawSettingsScreen();
         }
     }
     public void drawTitleScreen(){
@@ -212,43 +207,6 @@ public class UI {
         drawSubWindow(x, y, width, height);
 
 
-    }
-    private void drawSettingsScreen(){
-        int x = gp.tileSize * 13/2;
-        int y = gp.tileSize * 2;
-        int width = gp.screenWidth - (gp.tileSize * 12);
-        int height = gp.tileSize * 10;
-
-        drawSubWindow(x, y, width, height);
-        
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30F));
-
-        x += gp.tileSize;
-        y += gp.tileSize * 5/3;
-
-        g2.drawString("Full Screen", x, y);
-        if (settingsNum == 0){
-            g2.drawString(">", x-gp.tileSize/2, y);
-        }
-        y += 60;
-        
-        g2.drawString("Game Sound", x, y);
-        if (settingsNum == 1){
-            g2.drawString(">", x-gp.tileSize/2, y+40);
-        }
-
-        y+=20;
-        x+=10;
-        g2.setColor(Color.ORANGE);
-        for (int i = musicLevel; i > 0; i--){ //printing orange squares (which level is sound)
-            g2.fillRect(x, y, 20,20);
-            x+=30;
-        }
-        g2.setColor(Color.GRAY);
-        for (int i = 10 - musicLevel; i > 0; i--){ //gray squares
-            g2.fillRect(x, y, 20,20);
-            x+=30;
-        }
     }
     public void drawDialogueScreen(){
 

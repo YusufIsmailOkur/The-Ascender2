@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -91,6 +92,11 @@ public class Player extends Entity{
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
+            //CHECK MONSTER COLLISION
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            contactDamage(monsterIndex);
+
+
             //if collision is on player cant move
             if (collisionOn == false){
                 switch (direction){
@@ -124,6 +130,14 @@ public class Player extends Entity{
             if (standCounter == 20){
                 spriteNumber = 1;
                 standCounter = 0;
+            }
+        }
+        
+        if (invincibility) {
+            iFrames++;
+            if (iFrames > 60) {
+                invincibility = false;
+                iFrames = 0;
             }
         }
     }
@@ -189,6 +203,15 @@ public class Player extends Entity{
         gp.keyH.fPressed = false;
     }
 
+    public void contactDamage(int i){
+        
+        if (i != 999) {
+            if (invincibility == false) {
+                health -= 1;
+                invincibility = true;
+            }
+        }
+    }
 
     public void draw(Graphics2D g2) {
         
@@ -230,7 +253,11 @@ public class Player extends Entity{
             }
             break;
         }
+        if (invincibility) {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         g2.setColor(Color.red);
         g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
 

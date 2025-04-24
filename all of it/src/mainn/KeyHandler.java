@@ -2,10 +2,8 @@ package mainn;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.plaf.multi.MultiScrollBarUI;
-
 public class KeyHandler implements KeyListener {
-    int previousState = 0; //title state
+    int previousState = -1;
 
     public boolean upPressed, downPressed, leftPressed, rightPressed, fPressed;
     GamePanel gp;
@@ -119,7 +117,6 @@ public class KeyHandler implements KeyListener {
                 }
                 else if (gp.ui.menuNum == 3){
                     // SETTINGS
-                    gp.gameState = gp.settingsState;
                 }
                 else if (gp.ui.menuNum == 4){
                     // HELP
@@ -136,42 +133,9 @@ public class KeyHandler implements KeyListener {
                 gp.gameState = gp.menuState;
             }
         }
-        else if (gp.gameState ==gp.settingsState){
-            if (code == KeyEvent.VK_W){
-                gp.ui.settingsNum--;
-                if (gp.ui.settingsNum < 0){
-                    gp.ui.settingsNum = 1;
-                }
-            }
-            if (code == KeyEvent.VK_S){
-                gp.ui.settingsNum++;
-                if (gp.ui.settingsNum > 1){
-                    gp.ui.settingsNum = 0;
-                }
-            }
-            if (code == KeyEvent.VK_ENTER || gp.ui.settingsNum == 0){
-                //fullscreen
-            }
-            if (gp.ui.settingsNum == 0 || code == KeyEvent.VK_D){ //increasing sound
-                if (gp.ui.musicLevel <= 10 && gp.ui.musicLevel >= 0){
-                    gp.ui.musicLevel++;
-                    gp.getSound().setVolume(gp.ui.musicLevel);
-                }
-            }
-            if (gp.ui.settingsNum == 0 || code == KeyEvent.VK_A){ //decreasing sound
-                if (gp.ui.musicLevel <= 10 && gp.ui.musicLevel >= 0){
-                    gp.ui.musicLevel--;
-                    gp.getSound().setVolume(gp.ui.musicLevel);
-                }
-            }
-            if (code == KeyEvent.VK_ESCAPE){ //exiting to menu state back
-                gp.gameState = gp.menuState;
-            }
-        }
-        if (previousState != gp.gameState){ //if gameState changes by pressing a key, it changes the music
-            if (previousState == gp.titleState){ // if previousstate was titlestate
-                playMusicByState(gp.gameState);
-            } 
+        //if gameState changes by pressing a key, it changes the music
+        if (previousState != gp.gameState){
+            playMusicByState(gp.gameState);
         }
         
     }
