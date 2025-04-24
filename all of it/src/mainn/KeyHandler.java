@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
     int previousState = -1;
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, fPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, fPressed, enterPressed;
     GamePanel gp;
     public KeyHandler (GamePanel gp){
         this.gp = gp;
@@ -64,6 +64,9 @@ public class KeyHandler implements KeyListener {
             }
             if (code == KeyEvent.VK_M){
                 gp.gameState = gp.menuState;
+            }
+            if(code == KeyEvent.VK_ENTER){
+                enterPressed = true;
             }
             //Changing Current Weapon In Game
             if (code == KeyEvent.VK_1){
@@ -159,6 +162,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_F){
             fPressed = false;
+        }
+        if(code == KeyEvent.VK_ENTER){
+            enterPressed = false;
         }
     }
 
