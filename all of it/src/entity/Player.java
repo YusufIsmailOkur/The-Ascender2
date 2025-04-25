@@ -95,7 +95,7 @@ public class Player extends Entity{
             return;
         }
 
-        if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true){
+        if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true || keyH.enterPressed == true){
             if (keyH.upPressed == true){
                 direction = "up";
             }
@@ -107,6 +107,9 @@ public class Player extends Entity{
             }
             else if (keyH.rightPressed == true){
                 direction = "right";
+            }
+            else if (keyH.enterPressed) {
+                attacking = true;
             }
 
             // check tile collision
