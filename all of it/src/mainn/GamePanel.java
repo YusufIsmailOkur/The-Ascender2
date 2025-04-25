@@ -43,6 +43,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public SuperObject obj[] = new SuperObject[10];
     public Entity npc[] = new Entity[10];
+    public Entity monster[] = new Entity[10];
     public SuperWeapon[] weapon = new SuperWeapon[10];
 
 
@@ -68,6 +69,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         aSetter.setObject();
         aSetter.setNPC();
+        aSetter.setMonster();
         aSetter.setWeapon();
         gameState = titleState;
         playMusic(0);
@@ -118,6 +120,11 @@ public class GamePanel extends JPanel implements Runnable{
                     npc[i].update();
                 }
             }
+            for (int i = 0; i < monster.length; i++) {
+                if (monster[i] != null) {
+                    monster[i].update();
+                }
+            }
         }
         if (gameState == pauseState){
 
@@ -160,6 +167,13 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
 
+        //MONSTER
+        for(int i = 0; i < monster.length; i++){
+            if (monster[i] != null){
+                monster[i].draw(g2);
+            }
+        }
+
         //PLAYER
         player.draw(g2);
         ui.draw(g2);
@@ -167,6 +181,10 @@ public class GamePanel extends JPanel implements Runnable{
         g2.dispose();
         }
     }
+
+    // public static Sound getSound() {
+    //     return sound;
+    // }
 
     public Sound getSound() {
         return sound;

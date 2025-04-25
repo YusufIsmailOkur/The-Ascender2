@@ -1,17 +1,20 @@
 package entity;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
+
 import mainn.GamePanel;
 import mainn.KeyHandler;
-import java.util.ArrayList;
-import weapon.*;
-import object.*;
+import object.SuperObject;
+import weapon.SuperWeapon;
+import weapon.WPN_Sword;
 
 public class Player extends Entity{
      
@@ -53,22 +56,6 @@ public class Player extends Entity{
         hasKey = 0;
     }
 
-    public void getPlayerImage(){
-        try{
-            up1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_right_2.png"));
-
-        } catch(IOException e){
-            e.printStackTrace();
-        }
-    }
-
     public void getPlayerAttackImage(){
         try{
             attackUp1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_up_1.png"));
@@ -85,6 +72,22 @@ public class Player extends Entity{
         }
     }
 
+    public void getPlayerImage(){
+        try{
+            up1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_up_1.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_up_2.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_down_1.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_down_2.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_left_1.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_left_2.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_right_1.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_right_2.png"));
+
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public void update(){
 
         if(attacking){
@@ -92,7 +95,7 @@ public class Player extends Entity{
             return;
         }
 
-        if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true || keyH.enterPressed == true){
+        if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true){
             if (keyH.upPressed == true){
                 direction = "up";
             }
@@ -117,6 +120,11 @@ public class Player extends Entity{
             //CHECK ENTİTY COLLİSİON 
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
+
+            //CHECK MONSTER COLLISION
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            contactDamage(monsterIndex);
+
 
             //if collision is on player cant move
             if (collisionOn == false){
@@ -151,6 +159,14 @@ public class Player extends Entity{
             if (standCounter == 20){
                 spriteNumber = 1;
                 standCounter = 0;
+            }
+        }
+        
+        if (invincibility) {
+            iFrames++;
+            if (iFrames > 60) {
+                invincibility = false;
+                iFrames = 0;
             }
         }
     }
@@ -205,23 +221,23 @@ public class Player extends Entity{
         if(spriteCounter >= 5 && spriteCounter <= 25){
             spriteNumber = 2;
 
-            int currentX = this.x;
-            int currentY = this.y;
-            int solidAreaWidth = solidArea.width;
-            int solidAreaHeight = solidArea.height;
+            // int currentX = this.x;
+            // int currentY = this.y;
+            // int solidAreaWidth = solidArea.width;
+            // int solidAreaHeight = solidArea.height;
 
-           /*  switch(direction){
-                case "up": y -= attackArea.height; break;
-                case "down": y += attackArea.height; break;
-                case "left": x -= attackArea.width; break;
-                case "right": x += attackArea.width; break;
-            } */
+            // switch(direction){
+            //     case "up": y -= attackArea.height; break;
+            //     case "down": y += attackArea.height; break;
+            //     case "left": x -= attackArea.width; break;
+            //     case "right": x += attackArea.width; break;
+            // }
 
-            //solidArea.height = attackArea.height;
-            //solidArea.width = attackArea.width;
-            
-            //int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            //damageMonster(monsterIndex);
+            solidArea.height = attackArea.height;
+            solidArea.width = attackArea.width;
+
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            damageMonster(monsterIndex);
         }
         if(spriteCounter > 25){
             spriteNumber = 1;
@@ -249,18 +265,33 @@ public class Player extends Entity{
             }
             gp.keyH.fPressed = false;
         }
-
         else if (gp.keyH.enterPressed == true){
             attacking = true;
         }
-
     }
-    public void damageMonster(int monsterIndex){
-        if(monsterIndex != 999){
 
+    public void contactDamage(int i){
+        
+        if (i != 999) {
+            if (invincibility == false) {
+                health -= 1;
+                invincibility = true;
+            }
         }
     }
 
+    public void damageMonster(int monsterIndex){
+        if(monsterIndex != 999){  
+            if (!gp.monster[monsterIndex].invincibility) {
+                gp.monster[monsterIndex].health--;
+                gp.monster[monsterIndex].invincibility = true;
+
+                if (gp.monster[monsterIndex].health <= 0) {
+                    gp.monster[monsterIndex] = null;
+                }
+            }  
+        }
+    }
 
     public void draw(Graphics2D g2) {
         
@@ -343,7 +374,11 @@ public class Player extends Entity{
             break;
         }
         if(attacking == false){
+            if (invincibility) {
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+            }
             g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
             g2.setColor(Color.red);
             g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
         }
@@ -351,10 +386,18 @@ public class Player extends Entity{
 
             if(direction.equals("up") ||direction.equals("down")){
                 if(direction.equals("up")){
+                    if (invincibility) {
+                        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+                    }
                     g2.drawImage(image, x, y - gp.tileSize, gp.tileSize, gp.tileSize * 2, null);
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
                 }
                 else{
+                    if (invincibility) {
+                        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+                    }
                     g2.drawImage(image, x, y, gp.tileSize, gp.tileSize * 2, null);
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
                 }
                 g2.setColor(Color.red);
                 g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
@@ -362,16 +405,23 @@ public class Player extends Entity{
 
             else{
                 if(direction.equals("left")){
+                    if (invincibility) {
+                        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+                    }
                     g2.drawImage(image, x - gp.tileSize, y, gp.tileSize * 2, gp.tileSize, null);
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
                 }
                 else{
+                    if (invincibility) {
+                        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+                    }
                     g2.drawImage(image, x, y, gp.tileSize * 2, gp.tileSize, null);
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
                 }
                 g2.setColor(Color.red);
                 g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
             }
         }
-
          
         // Draw current weapon
         if (currentWeapon != null) {
