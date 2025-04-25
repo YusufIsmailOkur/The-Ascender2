@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.*;
@@ -24,9 +25,13 @@ public class Entity {
     public int actionLockCounter = 0;
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
+    public int type;
 
     public int health=5;
     public boolean alive = true;
+
+    public boolean invincibility = false;
+    public int iFrames = 0;
 
     public Entity(GamePanel gp){
         this.gp = gp;
@@ -60,7 +65,14 @@ public class Entity {
         collisionOn = false;
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this, false);
-        gp.cChecker.checkPlayer(this);
+        boolean contact = gp.cChecker.checkPlayer(this);
+
+        if (contact && this.type == 2) {
+            if (!gp.player.invincibility) {
+                gp.player.health -= 1;
+                gp.player.invincibility = true;
+            }
+        }
         //if collision is on player cant move
         if (collisionOn == false){
             switch (direction){
@@ -86,7 +98,15 @@ public class Entity {
                 spriteNumber = 1;
             }
             spriteCounter = 0;
-        }    
+        } 
+
+        if (invincibility) {
+            iFrames++;
+            if (iFrames > 30) {
+                invincibility = false;
+                iFrames = 0;
+            }
+        }
     }
 
     public void draw(Graphics2D g2){
@@ -126,6 +146,10 @@ public class Entity {
             }
             break;
         }
+        if (invincibility) {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+        }
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
     }
 }
