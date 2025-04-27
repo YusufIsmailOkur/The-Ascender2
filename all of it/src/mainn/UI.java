@@ -130,7 +130,7 @@ public class UI {
             g2.drawString(">", x - gp.tileSize, y);
         }
 
-        text = "Exit";
+        text = "Exit Game";
         x = getXForCenteredText(text);
         y += gp.tileSize * 1.3;
         g2.setColor(Color.black);
@@ -200,7 +200,7 @@ public class UI {
             g2.drawString(">", x - gp.tileSize / 2, y);
         }
         y += 60;
-        g2.drawString("Exit", x, y);
+        g2.drawString("Exit Game", x, y);
         if (menuNum == 5) {
             g2.drawString(">", x - gp.tileSize / 2, y);
         }
@@ -232,7 +232,14 @@ public class UI {
         g2.drawString("Full Screen", x, y);
         if (settingsNum == 0) {
             g2.drawString(">", x - gp.tileSize / 2, y);
+            g2.setColor(Color.WHITE);
+            g2.drawRect(x + 170, y - 25, 30, 30);
+            if (Main.getIsFullScreen()){ //if it is fullscreen
+                g2.drawLine(x + 170, y - 25, x + 200, y + 5);
+                g2.drawLine(x + 200, y - 25, x + 170, y + 5);
+            }
         }
+
         y += 60;
 
         g2.drawString("Game Sound", x, y);

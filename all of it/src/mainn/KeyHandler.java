@@ -129,70 +129,48 @@ public class KeyHandler implements KeyListener {
                 }
                 else if (gp.ui.menuNum == 5){
                     // EXIT
+                    System.exit(code);
                 }
                 
             }
         }
+        //HELP STATE
         else if (gp.gameState == gp.helpState){
             if (code == KeyEvent.VK_ESCAPE){ //exiting to menu state back
                 gp.gameState = gp.menuState;
             }
         }
-        //if gameState changes by pressing a key, it changes the music
+        //SETTINGS STATE
         else if (gp.gameState ==gp.settingsState){
-
- 
-
             if (code == KeyEvent.VK_W){
- 
-
                 gp.ui.settingsNum--;
- 
-
                 if (gp.ui.settingsNum < 0){
- 
-
                     gp.ui.settingsNum = 1;
- 
-
                 }
- 
-
             }
- 
-
             if (code == KeyEvent.VK_S){
- 
-
                 gp.ui.settingsNum++;
- 
-
                 if (gp.ui.settingsNum > 1){
- 
-
                     gp.ui.settingsNum = 0;
- 
-
                 }
- 
-
             }
-            if (code == KeyEvent.VK_ENTER || gp.ui.settingsNum == 0){
+            if (code == KeyEvent.VK_ENTER && gp.ui.settingsNum == 0){
                 //fullscreen
+                Main.fullScreen();
             }
-            if (gp.ui.settingsNum == 0 || code == KeyEvent.VK_D){ //increasing sound
+            else if (gp.ui.settingsNum == 1 && code == KeyEvent.VK_D){ //increasing sound
                 if (gp.ui.musicLevel < 8){
                     gp.ui.musicLevel++;
                     gp.getSound().setVolume(gp.ui.musicLevel);
                 }
             }
-            if (gp.ui.settingsNum == 0 || code == KeyEvent.VK_A){ //decreasing sound
+            else if (gp.ui.settingsNum == 1 && code == KeyEvent.VK_A){ //decreasing sound
                 if (gp.ui.musicLevel > 0){
                     gp.ui.musicLevel--;
                     gp.getSound().setVolume(gp.ui.musicLevel);
                 }
             }
-            if (code == KeyEvent.VK_ESCAPE){ //exiting to menu state back
+            else if (code == KeyEvent.VK_ESCAPE){ //exiting to menu state back
                 gp.gameState = gp.menuState;
             }
         }
