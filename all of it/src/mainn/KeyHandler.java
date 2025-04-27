@@ -177,77 +177,31 @@ public class KeyHandler implements KeyListener {
  
 
             }
- 
-
             if (code == KeyEvent.VK_ENTER || gp.ui.settingsNum == 0){
- 
-
                 //fullscreen
- 
-
             }
- 
-
             if (gp.ui.settingsNum == 0 || code == KeyEvent.VK_D){ //increasing sound
- 
-
-                if (gp.ui.musicLevel <= 10 && gp.ui.musicLevel >= 0){
- 
-
+                if (gp.ui.musicLevel < 8){
                     gp.ui.musicLevel++;
- 
-
                     gp.getSound().setVolume(gp.ui.musicLevel);
- 
-
                 }
- 
-
             }
- 
-
             if (gp.ui.settingsNum == 0 || code == KeyEvent.VK_A){ //decreasing sound
- 
-
-                if (gp.ui.musicLevel <= 10 && gp.ui.musicLevel >= 0){
- 
-
+                if (gp.ui.musicLevel > 0){
                     gp.ui.musicLevel--;
- 
-
                     gp.getSound().setVolume(gp.ui.musicLevel);
- 
-
                 }
- 
-
             }
- 
-
             if (code == KeyEvent.VK_ESCAPE){ //exiting to menu state back
- 
-
                 gp.gameState = gp.menuState;
- 
-
             }
- 
-
         }
- 
 
         if (previousState != gp.gameState){ //if gameState changes by pressing a key, it changes the music
- 
-
             if (previousState == gp.titleState){ // if previousstate was titlestate
- 
-
                 playMusicByState(gp.gameState);
- 
-
             }
         }
-        
     }
 
     @Override

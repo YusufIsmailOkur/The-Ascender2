@@ -26,7 +26,7 @@ public class UI {
     public int commandNum = 0;
     public int menuNum = 0;
     public int settingsNum = 0;
-    public int musicLevel = 5;
+    public int musicLevel = 8;
 
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("#0.00");
@@ -248,7 +248,7 @@ public class UI {
             x += 30;
         }
         g2.setColor(Color.GRAY);
-        for (int i = 10 - musicLevel; i > 0; i--) { // gray squares
+        for (int i = 8 - musicLevel; i > 0; i--) { // gray squares
             g2.fillRect(x, y, 20, 20);
             x += 30;
         }

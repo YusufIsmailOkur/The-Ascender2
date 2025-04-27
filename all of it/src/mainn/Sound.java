@@ -41,7 +41,7 @@ public class Sound {
     public void setVolume(float value) {
         if (clip != null) {
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(value * 8.0f - 80.0f);
+            gainControl.setValue(value * 10.0f - 80.0f);
         }
     }
 
