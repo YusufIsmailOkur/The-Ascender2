@@ -59,6 +59,7 @@ public class UI {
         // PLAY STATE
         if (gp.gameState == gp.playState) {
             drawHealthBar();
+            drawManaBar();
             drawWeaponSlots();
         }
         // PAUSE STATE
@@ -312,6 +313,27 @@ public class UI {
         g2.fillRect(x + 1, y + 1, (int) ((width - 2) * (double) gp.player.health / gp.player.maxHealth), height - 2);
 
         // MAX HEALTH
+        g2.setColor(new Color(0, 0, 0));
+        g2.drawRect(x + 1, y + 1, width - 2, height - 2);
+
+    }
+
+    // DRAW MANA BAR ON TOP LEFT SIDE OF THE SCREEN
+    public void drawManaBar() {
+        // MANA BAR FRAME
+        int x = gp.tileSize / 2 + gp.tileSize * 4 + 4;
+        int y = gp.tileSize / 2;
+        int width = gp.tileSize * 4;
+        int height = gp.tileSize / 2;
+
+        g2.setColor(new Color(35, 35, 35));
+        g2.fillRect(x, y, width, height);
+
+        // CURRENT MANA
+        g2.setColor(Color.BLUE);
+        g2.fillRect(x + 1, y + 1, (int) ((width - 2) * (double) gp.player.mana / gp.player.MAX_MANA), height - 2);
+
+        // MAX MANA
         g2.setColor(new Color(0, 0, 0));
         g2.drawRect(x + 1, y + 1, width - 2, height - 2);
 
