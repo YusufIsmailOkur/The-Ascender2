@@ -1,6 +1,7 @@
 package mainn;
 
 import javax.swing.JPanel;
+import java.util.ArrayList;
 
 import entity.Entity;
 import entity.Player;
@@ -44,6 +45,7 @@ public class GamePanel extends JPanel implements Runnable{
     public SuperObject obj[] = new SuperObject[10];
     public Entity npc[] = new Entity[10];
     public Entity monster[] = new Entity[10];
+    public ArrayList <Entity> projectiles = new ArrayList<>();
     public SuperWeapon[] weapon = new SuperWeapon[10];
 
 
@@ -125,6 +127,14 @@ public class GamePanel extends JPanel implements Runnable{
                     monster[i].update();
                 }
             }
+            for (int i = 0; i < projectiles.size(); i++) {
+                if (projectiles.get(i) != null) {
+                    projectiles.get(i).update();
+                }
+                if(projectiles.get(i).alive == false){
+                    projectiles.remove(i);
+                }
+            }
         }
         if (gameState == pauseState){
 
@@ -171,6 +181,13 @@ public class GamePanel extends JPanel implements Runnable{
         for(int i = 0; i < monster.length; i++){
             if (monster[i] != null){
                 monster[i].draw(g2);
+            }
+        }
+
+        //PROJECTILE
+        for(int i = 0; i < projectiles.size(); i++){
+            if(projectiles.get(i) != null && projectiles.get(i).alive == true){
+                projectiles.get(i).draw(g2);
             }
         }
 

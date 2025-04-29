@@ -1,13 +1,15 @@
 package weapon;
 
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
-public class WPN_Sword extends SuperWeapon {
+public class WPN_Bow extends SuperWeapon{
+    
 
-    public WPN_Sword() {
+    public WPN_Bow() {
 
-        name = "Sword";
+        name = "Bow";
         attackValue = 1;
         collision = true;
         solidArea.x = 0;
@@ -16,7 +18,7 @@ public class WPN_Sword extends SuperWeapon {
         solidArea.height = 48;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        life = Integer.MAX_VALUE;
+        life = 20; // default arrow count
 
         try {
             imageRight = ImageIO.read(getClass().getResourceAsStream("/res/weapons/SwordRight.png")
@@ -33,5 +35,8 @@ public class WPN_Sword extends SuperWeapon {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    
     }
+
+
 }
