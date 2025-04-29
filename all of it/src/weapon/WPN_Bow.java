@@ -21,16 +21,16 @@ public class WPN_Bow extends SuperWeapon{
         life = 20; // default arrow count
 
         try {
-            imageRight = ImageIO.read(getClass().getResourceAsStream("/res/weapons/SwordRight.png")
+            imageRight = ImageIO.read(getClass().getResourceAsStream("/res/weapons/Bow.png")
             );
             imageLeft  = ImageIO.read(
-                getClass().getResourceAsStream("/res/weapons/SwordLeft.png")
+                getClass().getResourceAsStream("/res/weapons/Bow.png")
             );
             imageUp    = ImageIO.read(
-                getClass().getResourceAsStream("/res/weapons/SwordUp.png")
+                getClass().getResourceAsStream("/res/weapons/Bow.png")
             );
             imageDown  = ImageIO.read(
-                getClass().getResourceAsStream("/res/weapons/SwordDown.png")
+                getClass().getResourceAsStream("/res/weapons/Bow.png")
             );
         } catch (IOException e) {
             e.printStackTrace();

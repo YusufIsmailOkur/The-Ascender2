@@ -7,7 +7,7 @@ import javax.swing.plaf.multi.MultiScrollBarUI;
 public class KeyHandler implements KeyListener {
     int previousState = 0; //title state
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, fPressed, enterPressed, onePressed, twoPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, fPressed, enterPressed, spacePressed, onePressed, twoPressed;
     GamePanel gp;
     public KeyHandler (GamePanel gp){
         this.gp = gp;
@@ -69,6 +69,9 @@ public class KeyHandler implements KeyListener {
             }
             if(code == KeyEvent.VK_ENTER){
                 enterPressed = true;
+            }
+            if(code == KeyEvent.VK_SPACE){
+                spacePressed = true;
             }
             if(code == KeyEvent.VK_1){
                 onePressed = true;
@@ -198,6 +201,9 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_ENTER){
             enterPressed = false;
+        }
+        if(code == KeyEvent.VK_SPACE){
+            spacePressed = false;
         }
         if(code == KeyEvent.VK_1){
             onePressed = false;

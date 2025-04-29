@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import mainn.GamePanel;
 import mainn.KeyHandler;
 import object.OBJ_Arrow;
+import object.OBJ_Fireball;
 import object.SuperObject;
 import weapon.SuperWeapon;
 import weapon.WPN_Bow;
@@ -25,8 +26,12 @@ public class Player extends Entity{
     int hasKey;
     public int health = 3;
     public int maxHealth = 5;
+    public int mana = 2000;
+    public final int MAX_MANA = 2000;
     public boolean attacking = false;
     public boolean bowCooldown = false;
+    public boolean fireballCooldown = false;
+    public int fireballCooldownCount = 0;
     public int bowCooldownCount = 0;
     public ArrayList<SuperObject> objects = new ArrayList<>();
     public ArrayList<SuperWeapon> weapons = new ArrayList<>();
@@ -124,6 +129,23 @@ public class Player extends Entity{
                 bowCooldownCount = 0;
                 bowCooldown = false;
             }
+        }
+
+        if(keyH.spacePressed == true && mana > 100 && !fireballCooldown){
+            mana -= 400;
+            fireballCooldown = true;
+            fireball();
+        }
+        else if(fireballCooldown && fireballCooldownCount < 200){
+            fireballCooldownCount++;
+        }
+
+        else if(fireballCooldown && fireballCooldownCount == 200){
+            fireballCooldown = false;
+            fireballCooldownCount = 0;
+        }
+        if(mana != MAX_MANA){
+            mana++;
         }
 
         if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true || 
@@ -285,6 +307,12 @@ public class Player extends Entity{
             gp.weapon[i] = null;         
             gp.ui.showMessage("You picked up a " + wp.name + "!");
         }
+    }
+
+    public void fireball(){
+        OBJ_Fireball fireball = new OBJ_Fireball(gp);
+        fireball.set(x, y , direction, true, this);
+        gp.projectiles.add(fireball);
     }
     
     public void interactNPC(int i){
