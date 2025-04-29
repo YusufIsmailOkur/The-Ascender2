@@ -19,6 +19,7 @@ public class SuperWeapon {
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
     public int attackValue;
+    public int life;
     
 
     public void draw(Graphics2D g2, GamePanel gp){

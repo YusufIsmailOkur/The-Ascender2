@@ -1,4 +1,5 @@
 package mainn;
+import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.plaf.multi.MultiScrollBarUI;
@@ -6,7 +7,7 @@ import javax.swing.plaf.multi.MultiScrollBarUI;
 public class KeyHandler implements KeyListener {
     int previousState = 0; //title state
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, fPressed, enterPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, fPressed, enterPressed, onePressed, twoPressed;
     GamePanel gp;
     public KeyHandler (GamePanel gp){
         this.gp = gp;
@@ -69,18 +70,11 @@ public class KeyHandler implements KeyListener {
             if(code == KeyEvent.VK_ENTER){
                 enterPressed = true;
             }
-            //Changing Current Weapon In Game
-            if (code == KeyEvent.VK_1){
-                gp.player.setCurrentWeapon(gp.player.weapons.get(0));
+            if(code == KeyEvent.VK_1){
+                onePressed = true;
             }
-            if (code == KeyEvent.VK_2){
-                gp.player.setCurrentWeapon(gp.player.weapons.get(1));
-            }
-            if (code == KeyEvent.VK_3){
-                gp.player.setCurrentWeapon(gp.player.weapons.get(2));
-            }
-            if (code == KeyEvent.VK_4){
-                gp.player.setCurrentWeapon(gp.player.weapons.get(3));
+            if(code == KeyEvent.VK_2){
+                twoPressed = true;
             }
         }
         // PAUSE STATE
@@ -204,6 +198,12 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_ENTER){
             enterPressed = false;
+        }
+        if(code == KeyEvent.VK_1){
+            onePressed = false;
+        }
+        if(code == KeyEvent.VK_2){
+            twoPressed = false;
         }
     }
 

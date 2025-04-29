@@ -12,8 +12,10 @@ import javax.imageio.ImageIO;
 
 import mainn.GamePanel;
 import mainn.KeyHandler;
+import object.OBJ_Arrow;
 import object.SuperObject;
 import weapon.SuperWeapon;
+import weapon.WPN_Bow;
 import weapon.WPN_Sword;
 
 public class Player extends Entity{
@@ -24,6 +26,8 @@ public class Player extends Entity{
     public int health = 3;
     public int maxHealth = 5;
     public boolean attacking = false;
+    public boolean bowCooldown = false;
+    public int bowCooldownCount = 0;
     public ArrayList<SuperObject> objects = new ArrayList<>();
     public ArrayList<SuperWeapon> weapons = new ArrayList<>();
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
@@ -54,6 +58,11 @@ public class Player extends Entity{
         speed = 5;
         direction = "down";
         hasKey = 0;
+
+        weapons.add(new WPN_Sword());
+        weapons.add(new WPN_Bow());
+        currentWeapon = weapons.get(0);
+
     }
 
     public void getPlayerAttackImage(){
@@ -90,12 +99,35 @@ public class Player extends Entity{
 
     public void update(){
 
-        if(attacking){
-            attackAnimation();
+        if(attacking && currentWeapon.name.equalsIgnoreCase("Sword")){
+            meleeAttackAnimation();
             return;
         }
 
-        if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true || keyH.enterPressed == true){
+        else if(attacking && currentWeapon.name.equalsIgnoreCase("Bow")){
+
+            if(currentWeapon.life > 0  && !bowCooldown){
+                OBJ_Arrow arrow = new OBJ_Arrow(gp);
+                arrow.set(x, y , direction, true, this);
+                gp.projectiles.add(arrow);
+                currentWeapon.life--;
+                bowCooldown = true;
+            }
+            attacking = false;
+        }
+        
+        if(bowCooldown){
+            if(bowCooldownCount < 120){
+                bowCooldownCount++;
+            }
+            else{
+                bowCooldownCount = 0;
+                bowCooldown = false;
+            }
+        }
+
+        if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true || 
+            keyH.enterPressed == true || keyH.onePressed == true || keyH.twoPressed == true){
             if (keyH.upPressed == true){
                 direction = "up";
             }
@@ -108,9 +140,16 @@ public class Player extends Entity{
             else if (keyH.rightPressed == true){
                 direction = "right";
             }
-            else if (keyH.enterPressed) {
+            if (keyH.enterPressed) {
                 attacking = true;
             }
+            if (keyH.onePressed){
+                currentWeapon = weapons.get(0);
+            }
+            else if(keyH.twoPressed){
+                currentWeapon = weapons.get(1);
+            }
+
 
             // check tile collision
             collisionOn = false;
@@ -130,7 +169,7 @@ public class Player extends Entity{
 
 
             //if collision is on player cant move
-            if (collisionOn == false){
+            if (collisionOn == false && keyH.enterPressed == false){
                 switch (direction){
                     case "up":
                     y -= speed;
@@ -147,14 +186,16 @@ public class Player extends Entity{
                 }
             }
 
-            spriteCounter++;
-            if(spriteCounter > 10){
-                if (spriteNumber == 1){
-                    spriteNumber = 2;
-                } else if (spriteNumber == 2){
-                    spriteNumber = 1;
+            if(keyH.enterPressed == false){
+                spriteCounter++;
+                if(spriteCounter > 10){
+                    if (spriteNumber == 1){
+                        spriteNumber = 2;
+                    } else if (spriteNumber == 2){
+                        spriteNumber = 1;
+                    }
+                    spriteCounter = 0;
                 }
-                spriteCounter = 0;
             }
         } else {
             standCounter++;
@@ -214,7 +255,7 @@ public class Player extends Entity{
         }
     }
 
-    public void attackAnimation(){
+    public void meleeAttackAnimation(){
 
         spriteCounter++;
 
@@ -223,19 +264,6 @@ public class Player extends Entity{
         }
         if(spriteCounter >= 5 && spriteCounter <= 25){
             spriteNumber = 2;
-
-            // int currentX = this.x;
-            // int currentY = this.y;
-            // int solidAreaWidth = solidArea.width;
-            // int solidAreaHeight = solidArea.height;
-
-            // switch(direction){
-            //     case "up": y -= attackArea.height; break;
-            //     case "down": y += attackArea.height; break;
-            //     case "left": x -= attackArea.width; break;
-            //     case "right": x += attackArea.width; break;
-            // }
-
             solidArea.height = attackArea.height;
             solidArea.width = attackArea.width;
 
@@ -304,7 +332,7 @@ public class Player extends Entity{
         BufferedImage image = null;
         switch (direction){
             case "up":
-            if(attacking == false){
+            if(attacking == false || currentWeapon.name.equalsIgnoreCase("bow")){
                 if(spriteNumber == 1){
                     image = up1;
                 }
@@ -312,7 +340,7 @@ public class Player extends Entity{
                     image = up2;
                 }
             }
-            if(attacking == true){
+            if(attacking == true && currentWeapon.name.equalsIgnoreCase("sword")){
                 if(spriteNumber == 1){
                     image = attackUp1;
                 }
@@ -322,7 +350,7 @@ public class Player extends Entity{
             }
             break;
             case "down":
-            if(attacking == false){
+            if(attacking == false || currentWeapon.name.equalsIgnoreCase("bow")){
                 if(spriteNumber == 1){
                     image = down1;
                 }
@@ -330,7 +358,7 @@ public class Player extends Entity{
                     image = down2;
                 }
             }
-            if(attacking == true){
+            if(attacking == true && currentWeapon.name.equalsIgnoreCase("sword")){
                 if(spriteNumber == 1){
                     image = attackDown1;
                 }
@@ -340,7 +368,7 @@ public class Player extends Entity{
             }
             break;
             case "left":
-            if(attacking == false){
+            if(attacking == false || currentWeapon.name.equalsIgnoreCase("bow")){
                 if(spriteNumber == 1){
                     image = left1;
                 }
@@ -348,7 +376,7 @@ public class Player extends Entity{
                     image = left2;
                 }
             }
-            if(attacking == true){
+            if(attacking == true && currentWeapon.name.equalsIgnoreCase("sword")){
                 if(spriteNumber == 1){
                     image = attackLeft1;
                 }
@@ -358,7 +386,7 @@ public class Player extends Entity{
             }
             break;
             case "right":
-            if(attacking == false){
+            if(attacking == false || currentWeapon.name.equalsIgnoreCase("bow")){
                 if(spriteNumber == 1){
                     image = right1;
                 }
@@ -366,7 +394,7 @@ public class Player extends Entity{
                     image = right2;
                 }
             }
-            if(attacking == true){
+            if(attacking == true && currentWeapon.name.equalsIgnoreCase("sword")){
                 if(spriteNumber == 1){
                     image = attackRight1;
                 }
@@ -376,7 +404,7 @@ public class Player extends Entity{
             }
             break;
         }
-        if(attacking == false){
+        if(attacking == false || currentWeapon.name.equalsIgnoreCase("Bow")){
             if (invincibility) {
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
             }
@@ -427,38 +455,34 @@ public class Player extends Entity{
         }
          
         // Draw current weapon
-        if (currentWeapon != null) {
-            BufferedImage wImg = null;
-            int wx = x, wy = y;
-            switch (direction) {
-                case "up":
-                    wImg = currentWeapon.imageUp;
-                    wy = y - gp.tileSize;
-                    break;
-                case "down":
-                    wImg = currentWeapon.imageDown;
-                    wy = y + gp.tileSize;
-                    break;
-                case "left":
-                    wImg = currentWeapon.imageLeft;
-                    wx = x - gp.tileSize;
-                    break;
-                case "right":
-                    wImg = currentWeapon.imageRight;
-                    wx = x + gp.tileSize;
-                    break;
-            }
-            g2.drawImage(wImg, wx, wy, gp.tileSize, gp.tileSize, null);
-        }
+        // if (currentWeapon != null) {
+        //     BufferedImage wImg = null;
+        //     int wx = x, wy = y;
+        //     switch (direction) {
+        //         case "up":
+        //             wImg = currentWeapon.imageUp;
+        //             wy = y - gp.tileSize;
+        //             break;
+        //         case "down":
+        //             wImg = currentWeapon.imageDown;
+        //             wy = y + gp.tileSize;
+        //             break;
+        //         case "left":
+        //             wImg = currentWeapon.imageLeft;
+        //             wx = x - gp.tileSize;
+        //             break;
+        //         case "right":
+        //             wImg = currentWeapon.imageRight;
+        //             wx = x + gp.tileSize;
+        //             break;
+        //     }
+        //     g2.drawImage(wImg, wx, wy, gp.tileSize, gp.tileSize, null);
+        // }
 
 
         // Collasion
         g2.setColor(Color.red);
         g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
-    }
-
-    public void setCurrentWeapon(SuperWeapon w){
-        currentWeapon = w;
     }
 }
 
