@@ -79,6 +79,9 @@ public class KeyHandler implements KeyListener {
             if(code == KeyEvent.VK_2){
                 twoPressed = true;
             }
+            if (gp.player.health <= 0){
+                gp.gameState = gp.deathState;
+            }
         }
         // PAUSE STATE
         else if (gp.gameState == gp.pauseState){
@@ -169,6 +172,38 @@ public class KeyHandler implements KeyListener {
             }
             else if (code == KeyEvent.VK_ESCAPE){ //exiting to menu state back
                 gp.gameState = gp.menuState;
+            }
+        }
+        else if (gp.gameState == gp.deathState){
+            if (code == KeyEvent.VK_W){
+                gp.ui.deathScreenNum--;
+                if (gp.ui.deathScreenNum < 0){
+                    gp.ui.deathScreenNum = 3;
+                }
+            }
+            if (code == KeyEvent.VK_S){
+                gp.ui.deathScreenNum++;
+                if (gp.ui.deathScreenNum > 3){
+                    gp.ui.deathScreenNum = 0;
+                }
+            }
+            if (code == KeyEvent.VK_ENTER){
+                if (gp.ui.deathScreenNum == 0){
+                    gp.player.health += 1;
+                    gp.gameState = gp.playState;
+                }
+                else if (gp.ui.deathScreenNum == 1){
+                    // new game no SAVING AND RESET THE ENTİRE GAME
+                }
+                else if (gp.ui.deathScreenNum == 2){
+                    gp.gameState = gp.titleState;
+                    // DO SAVING AND PUT THE CORRECT MUSIC
+
+                }
+                else if (gp.ui.deathScreenNum == 3){
+                    // EXIT
+                    System.exit(code);
+                }
             }
         }
 

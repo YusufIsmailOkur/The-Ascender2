@@ -57,6 +57,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int menuState = 4;
     public final int settingsState = 5;
     public final int helpState = 6;
+    public final int deathState = 7;
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -64,7 +65,6 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true); // rendering performance
         this.addKeyListener(keyH);
         this.setFocusable(true);
-
     }
 
     public void setupGame(){
