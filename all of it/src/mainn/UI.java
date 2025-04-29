@@ -26,6 +26,7 @@ public class UI {
     public int commandNum = 0;
     public int menuNum = 0;
     public int settingsNum = 0;
+    public int deathScreenNum = 0;
     public int musicLevel = 8;
 
     double playTime;
@@ -79,6 +80,9 @@ public class UI {
         }
         if (gp.gameState == gp.settingsState) {
             drawSettingsScreen();
+        }
+        if (gp.gameState == gp.deathState){
+            drawDeathScreen();
         }
     }
 
@@ -283,6 +287,40 @@ public class UI {
             y += 30;
         }
 
+    }
+    public void drawDeathScreen(){
+        int x = gp.tileSize * 13 / 2;
+        int y = gp.tileSize * 2;
+        int width = gp.screenWidth - (gp.tileSize * 12);
+        int height = gp.tileSize * 10;
+
+        drawSubWindow(x, y, width, height);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30F));
+
+        x += gp.tileSize;
+        y += gp.tileSize * 5 / 3;
+
+        g2.drawString("Keep Going", x, y);
+        if (deathScreenNum == 0) {
+            g2.drawString(">", x - gp.tileSize / 2, y);
+        }
+        y += 60;
+
+        g2.drawString("Start a new Game", x, y);
+        if (deathScreenNum == 1) {
+            g2.drawString(">", x - gp.tileSize / 2, y);
+        }
+        y += 60;
+        g2.drawString("Go back to title screen", x, y);
+        if (deathScreenNum == 2) {
+            g2.drawString(">", x - gp.tileSize / 2, y);
+        }
+        y += 60;
+        g2.drawString("Exit Game", x, y);
+        if (deathScreenNum == 3) {
+            g2.drawString(">", x - gp.tileSize / 2, y);
+        }
     }
 
     public void drawSubWindow(int x, int y, int width, int height) {
