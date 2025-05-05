@@ -26,4 +26,8 @@ public class SuperWeapon {
 
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
     }
+    @Override
+    public String toString(){
+        return "Weapon";
+    }
 }
