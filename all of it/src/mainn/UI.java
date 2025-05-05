@@ -377,30 +377,40 @@ public class UI {
 
     }
 
-    // DRAW 4 SLOTS FOR WEAPONS
+     // DRAW 5 SLOTS FOR WEAPONS (4 weapon slots + 1 add slot)
     public void drawWeaponSlots() {
-        int width = gp.tileSize * 4;
-        int height = gp.tileSize;
-        int x = (gp.screenWidth - width) / 2;
+        int slotCount = 5;
+        int slotWidth = gp.tileSize;
+        int slotHeight = gp.tileSize;
+        int totalWidth = slotWidth * slotCount;
+        int xStart = (gp.screenWidth - totalWidth) / 2;
         int y = gp.screenHeight - gp.tileSize - (gp.tileSize / 2);
+        drawSubWindow(xStart, y, totalWidth, slotHeight);
 
-        // Background panel
-        drawSubWindow(x, y, width, height);
-
-        // Draw the current weapon (first in the list as example)
-        ArrayList<SuperWeapon> weapons = gp.player.weapons;
-        if (!weapons.isEmpty() && weapons.get(0) != null) {
-            int imgX = x + (width - gp.tileSize) / 2;
-            int imgY = y;
-            g2.drawImage(weapons.get(0).image, imgX, imgY, gp.tileSize, gp.tileSize, null);
-        }
-
-        // Draw separators between slots
         g2.setColor(Color.white);
         g2.setStroke(new BasicStroke(2));
-        for (int i = 1; i < 4; i++) {
-            int lineX = x + (gp.tileSize * i);
-            g2.drawLine(lineX, y, lineX, y + height);
+
+        for (int i = 0; i < slotCount; i++) {
+            int slotX = xStart + slotWidth * i;
+            if (i > 0) {
+                g2.drawLine(slotX, y, slotX, y + slotHeight);
+            }
+
+            if (i < 4) {
+                if (gp.player.weapons.size() > i && gp.player.weapons.get(i) != null) {
+                    BufferedImage img = gp.player.weapons.get(i).imageRight;
+                    g2.drawImage(img, slotX, y, slotWidth, slotHeight, null);
+                }
+            }
+            // Fifth slot: plus sign for adding a new weapon
+            else {
+                g2.setFont(new Font("Arial", Font.BOLD, slotWidth / 2));
+                FontMetrics fm = g2.getFontMetrics();
+                int textWidth = fm.stringWidth("+");
+                int textX = slotX + (slotWidth - textWidth) / 2;
+                int textY = y + (slotHeight + fm.getAscent()) / 2 - 4;
+                g2.drawString("+", textX, textY);
+            }
         }
     }
 
