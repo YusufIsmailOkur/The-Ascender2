@@ -61,6 +61,10 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_P){
                 gp.gameState = gp.pauseState;
             }
+            if (code == KeyEvent.VK_I) {
+                gp.gameState = gp.inventoryState;
+                gp.inventory.setVisible(true);
+            }
             if (code == KeyEvent.VK_F){
                 fPressed = true;
             }
@@ -132,6 +136,13 @@ public class KeyHandler implements KeyListener {
                     System.exit(code);
                 }
                 
+            }
+        }
+        //INVENTORY STATE
+        else if (gp.gameState == gp.inventoryState) {
+            if (code == KeyEvent.VK_I || code == KeyEvent.VK_ESCAPE) {
+                gp.gameState = gp.playState;
+                gp.inventory.setVisible(false);
             }
         }
         //HELP STATE

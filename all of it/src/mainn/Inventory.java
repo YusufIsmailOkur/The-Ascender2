@@ -13,16 +13,19 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import object.SuperObject;
 import weapon.SuperWeapon;
 
 public class Inventory extends JPanel implements ActionListener {
     private GamePanel gp;
-    private Font arial_40, arial_80B;
-    private int screenX, screenY;
-    private int slotCol = 4, slotRow = 4, slotSize = 48, slotGap = 5;
+    private Font titleFont, sectionFont;
+
+    private int slotCol = 4, slotSize = 48, slotGap = 5;
     private int frameX, frameY, frameWidth, frameHeight;
+    private int slotsStartX, slotsStartY;
 
     private ArrayList<SuperObject> allObjects;
     private ArrayList<SuperWeapon> allWeapons;
@@ -32,126 +35,157 @@ public class Inventory extends JPanel implements ActionListener {
     private JTextField searchField;
     private JButton craftToggle;
     private boolean craftMode = false;
-    private ArrayList<JButton> craftButtons = new ArrayList<>();
+    private ArrayList<JButton> craftButtons = new ArrayList<>();//ALL craftable objects will have one craft button(Might change)
 
     public Inventory(GamePanel gp) {
         this.gp = gp;
         setPreferredSize(new Dimension(gp.screenWidth, gp.screenHeight));
         setLayout(null);
+        setBackground(Color.BLACK);
 
-        // Fonts
-        arial_40 = new Font("Arial", Font.PLAIN, 40);
-        arial_80B = new Font("Arial", Font.BOLD, 80);
+        titleFont = new Font("Arial", Font.BOLD, 60);
+        sectionFont = new Font("Arial", Font.PLAIN, 30);
 
-        // Coordinates
-        screenX = gp.screenWidth / 2 - (slotCol * slotSize + (slotCol - 1) * slotGap) / 2;
-        screenY = gp.screenHeight / 2 - (slotRow * slotSize + (slotRow - 1) * slotGap) / 2;
-        frameX = screenX - 10;
-        frameY = screenY - 10;
-        frameWidth = (slotCol * slotSize + (slotCol - 1) * slotGap) + 20;
-        frameHeight = (slotRow * slotSize + (slotRow - 1) * slotGap) + 20;
+        int margin = 50;
+        frameX = margin;
+        frameY = margin;
+        frameWidth = gp.screenWidth - 2 * margin;
+        frameHeight = 80 + 2 * (slotSize * 2 + slotGap * 3) + 100;
 
-        // Get lists
+        slotsStartX = frameX + 20;
+        slotsStartY = frameY + 120;
+
         allObjects = gp.player.objects;
         allWeapons = gp.player.weapons;
         displayObjects = new ArrayList<>(allObjects);
         displayWeapons = new ArrayList<>(allWeapons);
 
-        // Search field
+        //DYNAMIC Search Bar
         searchField = new JTextField();
-        searchField.setFont(arial_40);
-        searchField.setBounds(frameX + frameWidth - 200, frameY + 10, 180, 40);
-        searchField.addActionListener(this);
+        searchField.setFont(sectionFont);
+        int sfW = 200, sfH = 40;
+        int sfX = frameX + frameWidth - sfW - 20;
+        int sfY = frameY + 20;
+        searchField.setBounds(sfX, sfY, sfW, sfH);
+        //TO DO
         add(searchField);
 
-        // Craft toggle button
-        craftToggle = new JButton("Craft");
+
+        // Craft Mode BUTTON
+        craftToggle = new JButton("Craft Mode");
         craftToggle.setFont(new Font("Arial", Font.PLAIN, 20));
-        craftToggle.setBounds(frameX + 20, frameY + frameHeight + 10, 100, 40);
+        int ctW = 140, ctH = 40;
+        int ctX = sfX + sfW + 10;
+        int ctY = sfY;
+        craftToggle.setBounds(ctX, ctY, ctW, ctH);
         craftToggle.addActionListener(this);
         add(craftToggle);
+
+        // FILTER AT BEGINNING
+        applyFilters();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == searchField) {
-            filterItems(searchField.getText().trim().toLowerCase());
-        } else if (e.getSource() == craftToggle) {
+        if (e.getSource() == craftToggle) {
             craftMode = !craftMode;
-            craftToggle.setText(craftMode ? "Exit Craft" : "Craft");
-            refreshCraftButtons();
+            if(craftMode)
+            {
+                craftToggle.setText("Exit Craft");
+            }
+            else
+            {
+                craftToggle.setText("Craft Mode");
+            }
+            applyFilters();//Apply filters after action
         } else if (craftButtons.contains(e.getSource())) {
-            JButton btn = (JButton) e.getSource();
-            String itemName = btn.getActionCommand();
+            String itemName = ((JButton) e.getSource()).getActionCommand();
             JOptionPane.showMessageDialog(this, "Crafting: " + itemName);
-            // TODO: implement actual crafting logic here
         }
     }
 
-    private void filterItems(String term) {
+    private void applyFilters() {
+        String term = searchField.getText().trim().toLowerCase();
+
         displayObjects.clear();
-        displayWeapons.clear();
         for (SuperObject obj : allObjects) {
-            if (obj.name.toLowerCase().contains(term)) displayObjects.add(obj);
+            boolean matchesSearch = obj.name.toLowerCase().contains(term);
+            boolean matchesCraft = !craftMode || obj.craftable;
+            if (matchesSearch && matchesCraft) {
+                displayObjects.add(obj);
+            }
         }
+
+        displayWeapons.clear();
         for (SuperWeapon wp : allWeapons) {
-            if (wp.name.toLowerCase().contains(term)) displayWeapons.add(wp);
+            boolean matchesSearch = wp.name.toLowerCase().contains(term);
+            boolean matchesCraft = !craftMode || wp.craftable;
+            if(!craftMode)
+
+            if (matchesSearch && matchesCraft) {
+                displayWeapons.add(wp);
+            }
         }
+
         if (displayObjects.isEmpty() && displayWeapons.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                "Could not find " + term + " item.");
-            displayObjects.addAll(allObjects);
-            displayWeapons.addAll(allWeapons);
+            if (!term.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Could not find \"" + term + "\" item.");
+            }
+            // ShOW ALL if EMPtY
+            if (!craftMode) {
+                displayObjects.addAll(allObjects);
+                displayWeapons.addAll(allWeapons);
+            }
         }
+
         refreshCraftButtons();
         repaint();
     }
 
     private void refreshCraftButtons() {
-        // Remove old craft buttons
-        for (JButton btn : craftButtons) remove(btn);
+        for (JButton b : craftButtons)
+        {
+            remove(b);
+        }
         craftButtons.clear();
 
-        if (craftMode) {
-            int idx = 0;
-            // Objects
-            for (SuperObject obj : displayObjects) {
-                if (obj.craftable) {
-                    int col = idx % slotCol;
-                    int row = idx / slotCol;
-                    int x = screenX + col * (slotSize + slotGap);
-                    int y = screenY + row * (slotSize + slotGap) - 25;
-                    JButton btn = new JButton("Craft");
-                    btn.setFont(new Font("Arial", Font.PLAIN, 14));
-                    btn.setBounds(x, y, 60, 20);
-                    btn.setActionCommand(obj.name);
-                    btn.addActionListener(this);
-                    add(btn);
-                    craftButtons.add(btn);
-                }
-                idx++;
-            }
-            // Weapons
-            for (SuperWeapon wp : displayWeapons) {
-                if (wp.craftable) {
-                    int col = idx % slotCol;
-                    int row = idx / slotCol;
-                    int x = screenX + col * (slotSize + slotGap);
-                    int y = screenY + row * (slotSize + slotGap) - 25;
-                    JButton btn = new JButton("Craft");
-                    btn.setFont(new Font("Arial", Font.PLAIN, 14));
-                    btn.setBounds(x, y, 60, 20);
-                    btn.setActionCommand(wp.name);
-                    btn.addActionListener(this);
-                    add(btn);
-                    craftButtons.add(btn);
-                }
-                idx++;
-            }
+        if (!craftMode)
+        {
+            return;
         }
 
+        for (int oindx = 0; oindx < displayObjects.size(); oindx++)
+        {
+            SuperObject obj = displayObjects.get(oindx);
+            if (obj.craftable)
+            {
+                addCraftButton(obj.name, oindx);
+            }
+        }
+        int base = slotCol * 2;
+        for (int windx = 0; windx < displayWeapons.size(); windx++)
+        {
+            SuperWeapon wp = displayWeapons.get(windx);
+            if (wp.craftable)
+            {
+                addCraftButton(wp.name, base + windx);
+            }
+        }
         revalidate();
-        repaint();
+    }
+
+    private void addCraftButton(String name, int idx) {
+        int col = idx % slotCol;
+        int row = idx / slotCol;
+        int x = slotsStartX + col * (slotSize + slotGap) + 10;
+        int y = slotsStartY + row * (slotSize + slotGap) - 30;
+        JButton btn = new JButton("Craft");
+        btn.setFont(new Font("Arial", Font.PLAIN, 14));
+        btn.setBounds(x, y, 60, 20);
+        btn.setActionCommand(name);
+        btn.addActionListener(this);
+        add(btn);
+        craftButtons.add(btn);
     }
 
     @Override
@@ -159,39 +193,60 @@ public class Inventory extends JPanel implements ActionListener {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        // Background frame
-        g2.setColor(Color.BLACK);
+        g2.setColor(Color.DARK_GRAY);
         g2.fillRect(frameX, frameY, frameWidth, frameHeight);
+
         g2.setColor(Color.WHITE);
-        g2.setStroke(new BasicStroke(5));
+        g2.setStroke(new BasicStroke(4));
         g2.drawRect(frameX, frameY, frameWidth, frameHeight);
 
-        // Header
-        g2.setFont(arial_80B);
-        g2.drawString("INVENTORY", frameX + 20, frameY + 80);
+        g2.setFont(titleFont);
+        g2.drawString("INVENTORY", frameX + 20, frameY + 60);
 
-        // Draw objects
-        int idx = 0;
-        for (SuperObject obj : displayObjects) {
-            int col = idx % slotCol;
-            int row = idx / slotCol;
-            int x = screenX + col * (slotSize + slotGap);
-            int y = screenY + row * (slotSize + slotGap);
-            if (obj != null && obj.image != null) {
-                g2.drawImage(obj.image, x, y, slotSize, slotSize, null);
-            }
-            idx++;
+        g2.setFont(sectionFont);
+        g2.drawString("OBJECTS", frameX + 20, frameY + 100);
+        drawSlots(g2, displayObjects, slotsStartY);
+
+        int weaponsY = slotsStartY + 2 * (slotSize + slotGap) + 40;
+        g2.drawString("WEAPONS", frameX + 20, weaponsY - 10);
+        drawSlots(g2, displayWeapons, weaponsY);
+
+        //Highlight craftable objects!!!!!!!!!!!Might NOT work properly
+        if (craftMode)
+        {
+            g2.setColor(Color.YELLOW);
+            g2.setStroke(new BasicStroke(3));
         }
-        // Draw weapons
-        for (SuperWeapon wp : displayWeapons) {
-            int col = idx % slotCol;
-            int row = idx / slotCol;
-            int x = screenX + col * (slotSize + slotGap);
-            int y = screenY + row * (slotSize + slotGap);
-            if (wp != null && wp.imageRight != null) {
-                g2.drawImage(wp.imageRight, x, y, slotSize, slotSize, null);
+    }
+
+    //DRAW SLOTS even EMPTY
+    private void drawSlots(Graphics2D g2, ArrayList<?> items, int startY) {
+        g2.setStroke(new BasicStroke(2));
+        for (int row = 0; row < 2; row++)
+        {
+            for (int col = 0; col < slotCol; col++)
+            {
+                int x = slotsStartX + col * (slotSize + slotGap);
+                int y = startY + row * (slotSize + slotGap);
+
+                g2.setColor(Color.BLACK);
+                g2.fillRect(x, y, slotSize, slotSize);
+
+                g2.setColor(Color.GRAY);
+                g2.drawRect(x, y, slotSize, slotSize);
+
+                int idx = row * slotCol + col;
+                if (idx < items.size()) {
+                    Object obj = items.get(idx);
+                    if (obj.toString().equals("Object")) {
+                        SuperObject so = (SuperObject) obj;
+                        g2.drawImage(so.image, x, y, slotSize, slotSize, null);
+                    } else if (obj.toString().equals("Weapon")) {
+                        SuperWeapon sw = (SuperWeapon) obj;
+                        g2.drawImage(sw.imageRight, x, y, slotSize, slotSize, null);
+                    }
+                }
             }
-            idx++;
         }
     }
 }
