@@ -58,6 +58,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int settingsState = 5;
     public final int helpState = 6;
     public final int deathState = 7;
+    public final int inventoryState = 8;
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -65,6 +66,11 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true); // rendering performance
         this.addKeyListener(keyH);
         this.setFocusable(true);
+
+        //INventory
+        inventory.setBounds(0, 0, screenWidth, screenHeight);
+        inventory.setVisible(false);
+        this.add(inventory);
     }
 
     public void setupGame(){
@@ -149,6 +155,11 @@ public class GamePanel extends JPanel implements Runnable{
         // TİTLE SCREEN
         if (gameState == titleState){
             ui.draw(g2);
+        }
+        //INVENTORY SCREEN
+        else if (gameState == inventoryState)
+        {
+            inventory.paintComponent(g);
         }
         // OTHERS
         else {
