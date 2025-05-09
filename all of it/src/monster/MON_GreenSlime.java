@@ -51,7 +51,6 @@ public class MON_GreenSlime extends Entity{
     }
 
     public void setAction(){
-
         actionLockCounter++;
 
         if (actionLockCounter == 120){
@@ -59,9 +58,15 @@ public class MON_GreenSlime extends Entity{
             String dy = player.y - this.y < 0 ? "up" : "down";
             if (Math.abs(player.x - this.x) < Math.abs(player.y - this.y)) {
                 direction = dy;
-                }
+                if (collisionOn) {
+                    direction = dx;
+                } 
+            }
             else if (Math.abs(player.y - this.y) < Math.abs(player.x - this.x)) {
                 direction = dx;
+                if (collisionOn) {
+                    direction = dy;
+                }
             }
             actionLockCounter = 0;
         }
