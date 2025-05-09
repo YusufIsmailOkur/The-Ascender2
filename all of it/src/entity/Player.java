@@ -195,7 +195,7 @@ public class Player extends Entity{
 
 
             //if collision is on player cant move
-            if (collisionOn == false && keyH.enterPressed == false){
+            if (collisionOn == false && keyH.enterPressed == false && keyH.onePressed == false && keyH.twoPressed == false){
                 switch (direction){
                     case "up":
                     y -= speed;
@@ -212,7 +212,7 @@ public class Player extends Entity{
                 }
             }
 
-            if(keyH.enterPressed == false){
+            if(keyH.enterPressed == false && keyH.onePressed == false && keyH.twoPressed == false){
                 spriteCounter++;
                 if(spriteCounter > 10){
                     if (spriteNumber == 1){
