@@ -54,8 +54,8 @@ public class Player extends Entity{
         solidArea.width = 32;
         solidArea.height = 30;
 
-        attackArea.width = 36;
-        attackArea.height = 36;
+        attackArea.width = 48;
+        attackArea.height = 48;
 
         setDefaultValues();
         getPlayerImage();
@@ -294,11 +294,41 @@ public class Player extends Entity{
         }
         if(spriteCounter >= 5 && spriteCounter <= 25){
             spriteNumber = 2;
+
+            int currentX = x;
+            int currentY = y;
+            int solidAreaWidth = solidArea.width;
+            int solidAreaHeight = solidArea.height;
+
+            switch (direction) {
+                case "up":
+                    y -= attackArea.height;
+                    break;
+                case "down":
+                    y += attackArea.height;
+                    break;
+                case "left":
+                    x -= attackArea.width;
+                    break;
+
+                case "right":
+                    x += attackArea.width;
+                    break;
+            
+                default:
+                    break;
+            }
+
             solidArea.height = attackArea.height;
             solidArea.width = attackArea.width;
 
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster[currentFloor]);
             damageMonster(monsterIndex);
+
+            x = currentX;
+            y = currentY;
+            solidArea.width = solidAreaWidth;
+            solidArea.height = solidAreaHeight;
         }
         if(spriteCounter > 25){
             spriteNumber = 1;

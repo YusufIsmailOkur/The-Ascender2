@@ -45,13 +45,14 @@ public class AssetSetter {
 
         gp.monster[currentFloor][0] = new MON_GreenSlime(gp);
         gp.monster[currentFloor][0].x = gp.tileSize * 12;
-        gp.monster[currentFloor][0].y = gp.tileSize * 3;
+        gp.monster[currentFloor][0].y = gp.tileSize * 10;
         gp.monster[currentFloor][1] = new MON_GreenSlime(gp);
         gp.monster[currentFloor][1].x = gp.tileSize * 11;
-        gp.monster[currentFloor][1].y = gp.tileSize * 3;
+        gp.monster[currentFloor][1].y = gp.tileSize * 11;
         gp.monster[currentFloor][2] = new MON_GreenSlime(gp);
         gp.monster[currentFloor][2].x = gp.tileSize * 10;
-        gp.monster[currentFloor][2].y = gp.tileSize * 3;
+        gp.monster[currentFloor][2].y = gp.tileSize * 12;
+        
     }
     public void setWeapon(){
         gp.weapon[0] = new WPN_Sword();
