@@ -1,6 +1,9 @@
 package mainn;
 
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import entity.Entity;
@@ -13,6 +16,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Graphics;
+import java.util.Scanner;
+
+import static javax.swing.JOptionPane.*;
 
 public class GamePanel extends JPanel implements Runnable{
     
@@ -60,8 +66,6 @@ public class GamePanel extends JPanel implements Runnable{
     public final int deathState = 7;
     public final int inventoryState = 8;
 
-    public int roomNumber = 11;
-
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
@@ -82,7 +86,7 @@ public class GamePanel extends JPanel implements Runnable{
         aSetter.setMonster();
         aSetter.setWeapon();
         gameState = titleState;
-        // playMusic(0);
+        playMusic(0);
     }
 
     public void startGameThread(){
@@ -166,7 +170,6 @@ public class GamePanel extends JPanel implements Runnable{
         // OTHERS
         else {
             // TİLE
-        tileM.loadMap("/res/maps/map" + roomNumber + ".txt");
         tileM.draw(g2);
 
         // OBJECT
@@ -229,5 +232,49 @@ public class GamePanel extends JPanel implements Runnable{
     public void stopMusic(){
         sound.stop();
 
+    }
+    public void askName(){
+        String name = showInputDialog("What is your name?");
+        while(true) {
+            if (checkNameValidity(name)) {
+                player.name = name;
+                writeNameToFile();
+                break;
+            } else {
+                showMessageDialog("Your name already exists. Please enter another");
+                name = showInputDialog("What is your name?");
+            }
+        }
+    }
+    public void writeNameToFile() {
+        try (PrintWriter writer = new PrintWriter(new File("names.txt"))) {
+            if (player.name!=null&& !player.name.isEmpty()) {
+                writer.println(player.name);
+                showMessageDialog("Your name succesfully saved");
+            } else {
+                showMessageDialog("Error: Name is null");
+            }
+        } catch (FileNotFoundException e) {
+            showMessageDialog("Error");
+        }
+    }
+
+    private void showMessageDialog(String s) {
+        JOptionPane.showMessageDialog(this, s);
+    }
+    //Looks all names and if its same returns false if its first time returns true
+    private boolean checkNameValidity(String name) {
+        try (Scanner fileScanner = new Scanner(new File("names.txt"))) {
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine().trim();
+                if (!line.isEmpty() && name.equals(line)) {
+                    return false;
+                }
+            }
+            return true;
+        } catch (FileNotFoundException e) {
+            System.err.println("names.txt not found; assuming first run.");
+            return true;
+        }
     }
 }
