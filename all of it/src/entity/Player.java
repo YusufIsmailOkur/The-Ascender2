@@ -248,6 +248,7 @@ public class Player extends Entity{
             switch(objectName){
                 case "key":
                 hasKey++;
+                objects.add(gp.obj[currentFloor][i]);
                 gp.obj[currentFloor][i]= null;
                 gp.ui.showMessage("You got a key !!");
                 break;
@@ -256,6 +257,11 @@ public class Player extends Entity{
                 if (hasKey > 0){
                     gp.obj[currentFloor][i] = null;
                     hasKey--;
+                    for(SuperObject obj : objects){
+                         if(obj.name.equals("Key")){
+                              objects.remove(obj);
+                        }
+                    }
                     gp.ui.showMessage("You opened the Door !!");
                 } else {
                     gp.ui.showMessage("You need a key!");

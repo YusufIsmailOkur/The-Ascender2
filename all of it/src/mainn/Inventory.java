@@ -67,19 +67,39 @@ public class Inventory extends JPanel implements ActionListener {
         int sfX = frameX + frameWidth - sfW - 20;
         int sfY = frameY + 20;
         searchField.setBounds(sfX, sfY, sfW, sfH);
-        //TO DO
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override public void insertUpdate(DocumentEvent e) { applyFilters(); }
+            @Override public void removeUpdate(DocumentEvent e) { applyFilters(); }
+            @Override public void changedUpdate(DocumentEvent e) { applyFilters(); }
+        });
         add(searchField);
-
 
         // Craft Mode BUTTON
         craftToggle = new JButton("Craft Mode");
         craftToggle.setFont(new Font("Arial", Font.PLAIN, 20));
-        int ctW = 140, ctH = 40;
-        int ctX = sfX + sfW + 10;
-        int ctY = sfY;
+        int ctW = 200, ctH = 40;
+        int ctX = sfX + sfW + 10 - 200;
+        int ctY = sfY*2;
         craftToggle.setBounds(ctX, ctY, ctW, ctH);
         craftToggle.addActionListener(this);
         add(craftToggle);
+
+        //EXIT BUTTON
+        JButton exitButton = new JButton("Exit");
+        exitButton.setFont(new Font("Arial", Font.PLAIN, 20));
+        int ebW = 100, ebH = 40;
+        int ebX = frameX + frameWidth - ebW - 20;
+        int ebY = frameY + frameHeight - ebH - 20;
+        exitButton.setBounds(ebX, ebY, ebW, ebH);
+        exitButton.addActionListener(e -> {
+            // 1) switch back to play state
+            gp.gameState = gp.playState;
+
+            // 2) hide the inventory overlay
+            this.setVisible(false);
+
+        });
+        add(exitButton);
 
         // FILTER AT BEGINNING
         applyFilters();
@@ -238,11 +258,10 @@ public class Inventory extends JPanel implements ActionListener {
                 int idx = row * slotCol + col;
                 if (idx < items.size()) {
                     Object obj = items.get(idx);
-                    if (obj.toString().equals("Object")) {
-                        SuperObject so = (SuperObject) obj;
+                    if (obj instanceof SuperObject so) {
                         g2.drawImage(so.image, x, y, slotSize, slotSize, null);
-                    } else if (obj.toString().equals("Weapon")) {
-                        SuperWeapon sw = (SuperWeapon) obj;
+                    }
+                    else if (obj instanceof SuperWeapon sw) {
                         g2.drawImage(sw.imageRight, x, y, slotSize, slotSize, null);
                     }
                 }
