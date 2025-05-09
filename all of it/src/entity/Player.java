@@ -36,7 +36,6 @@ public class Player extends Entity{
     public SuperWeapon currentWeapon;
 
     public String name;
-    public int lastCompletedLevel=0;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
