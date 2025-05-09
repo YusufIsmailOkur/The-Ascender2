@@ -37,6 +37,7 @@ public class Player extends Entity{
     public ArrayList<SuperWeapon> weapons = new ArrayList<>();
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
     public SuperWeapon currentWeapon;
+    public int currentFloor = 0;
     public Player(GamePanel gp, KeyHandler keyH) {
 
         super(gp); 
@@ -182,11 +183,11 @@ public class Player extends Entity{
             pickUpObject(objIndex);
 
             //CHECK ENTİTY COLLİSİON 
-            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc[currentFloor]);
             interactNPC(npcIndex);
 
             //CHECK MONSTER COLLISION
-            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster[currentFloor]);
             contactDamage(monsterIndex);
 
 
@@ -239,18 +240,18 @@ public class Player extends Entity{
 
     public void pickUpObject(int i){
         if (i != 999){
-            String objectName =gp.obj[i].name;
+            String objectName =gp.obj[currentFloor][i].name;
 
             switch(objectName){
                 case "key":
                 hasKey++;
-                gp.obj[i]= null;
+                gp.obj[currentFloor][i]= null;
                 gp.ui.showMessage("You got a key !!");
                 break;
 
                 case "door":
                 if (hasKey > 0){
-                    gp.obj[i] = null;
+                    gp.obj[currentFloor][i] = null;
                     hasKey--;
                     gp.ui.showMessage("You opened the Door !!");
                 } else {
@@ -260,7 +261,7 @@ public class Player extends Entity{
                 break;
                 case "boots":
                 speed++;
-                gp.obj[i] = null;
+                gp.obj[currentFloor][i] = null;
                 gp.ui.showMessage("You just speed UP!");
                 break;
                 case "chest":
@@ -271,7 +272,11 @@ public class Player extends Entity{
                 weapons.add(sword);
                 currentWeapon = sword;
                 gp.ui.showMessage("You picked up a sword!");
-                gp.obj[i] = null;
+                gp.obj[currentFloor][i] = null;
+                break;
+                case "elevator":
+                currentFloor++;
+                gp.tileM.loadMap("/res/maps/map" + (currentFloor+1) + ".txt");
                 break;
             }
         }
@@ -289,7 +294,7 @@ public class Player extends Entity{
             solidArea.height = attackArea.height;
             solidArea.width = attackArea.width;
 
-            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster[currentFloor]);
             damageMonster(monsterIndex);
         }
         if(spriteCounter > 25){
@@ -320,7 +325,7 @@ public class Player extends Entity{
 
             if (gp.keyH.fPressed == true){
                 gp.gameState = gp.dialogueState;
-                gp.npc[i].speak();
+                gp.npc[currentFloor][i].speak();
             }
             gp.keyH.fPressed = false;
         }
@@ -341,12 +346,12 @@ public class Player extends Entity{
 
     public void damageMonster(int monsterIndex){
         if(monsterIndex != 999){  
-            if (!gp.monster[monsterIndex].invincibility) {
-                gp.monster[monsterIndex].health--;
-                gp.monster[monsterIndex].invincibility = true;
+            if (!gp.monster[currentFloor][monsterIndex].invincibility) {
+                gp.monster[currentFloor][monsterIndex].health--;
+                gp.monster[currentFloor][monsterIndex].invincibility = true;
 
-                if (gp.monster[monsterIndex].health <= 0) {
-                    gp.monster[monsterIndex] = null;
+                if (gp.monster[currentFloor][monsterIndex].health <= 0) {
+                    gp.monster[currentFloor][monsterIndex] = null;
                 }
             }  
         }

@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable{
     // FPS
     int FPS = 60;
 
-    TileManager tileM = new TileManager(this);
+    public TileManager tileM = new TileManager(this);
     public KeyHandler keyH = new KeyHandler(this);
 
     Thread gameThread;
@@ -42,9 +42,9 @@ public class GamePanel extends JPanel implements Runnable{
     public Player player = new Player(this, keyH);
     public Inventory inventory = new Inventory(this);
 
-    public SuperObject obj[] = new SuperObject[10];
-    public Entity npc[] = new Entity[10];
-    public Entity monster[] = new Entity[10];
+    public SuperObject obj[][] = new SuperObject[10][10];
+    public Entity npc[][] = new Entity[10][10];
+    public Entity monster[][] = new Entity[10][10];
     public ArrayList <Entity> projectiles = new ArrayList<>();
     public SuperWeapon[] weapon = new SuperWeapon[10];
 
@@ -119,18 +119,22 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update(){
 
+        
+
         if (gameState == playState){
             //player
             player.update();
+            int currentFloor = player.currentFloor;
+            tileM.loadMap("\"/res/maps/map02.txt\"");
             //npc
             for (int i = 0; i <npc.length; i++){
-                if (npc[i] != null){
-                    npc[i].update();
+                if (npc[currentFloor][i] != null){
+                    npc[currentFloor][i].update();
                 }
             }
-            for (int i = 0; i < monster.length; i++) {
-                if (monster[i] != null) {
-                    monster[i].update();
+            for (int i = 0; i < monster[0].length; i++) {
+                if (monster[currentFloor][i] != null) {
+                    monster[currentFloor][i].update();
                 }
             }
             for (int i = 0; i < projectiles.size(); i++) {
@@ -149,6 +153,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
 
         super.paintComponent(g);
+        int currentFloor = player.currentFloor;
 
         Graphics2D g2 = (Graphics2D)g;
 
@@ -164,12 +169,13 @@ public class GamePanel extends JPanel implements Runnable{
         // OTHERS
         else {
             // TİLE
+        //tileM.loadMap("\"/res/maps/map" + currentFloor + ".txt");
         tileM.draw(g2);
 
         // OBJECT
-        for (int i = 0; i < obj.length; i++){
-            if (obj[i] != null){
-                obj[i].draw(g2, this);
+        for (int i = 0; i < obj[0].length; i++){
+            if (obj[currentFloor][i] != null){
+                obj[currentFloor][i].draw(g2, this);
             }
         }
 
@@ -182,16 +188,16 @@ public class GamePanel extends JPanel implements Runnable{
 
 
         //NPC
-        for(int i = 0; i < npc.length; i++){
-            if (npc[i] != null){
-                npc[i].draw(g2);
+        for(int i = 0; i < npc[0].length; i++){
+            if (npc[currentFloor][i] != null){
+                npc[currentFloor][i].draw(g2);
             }
         }
 
         //MONSTER
-        for(int i = 0; i < monster.length; i++){
-            if (monster[i] != null){
-                monster[i].draw(g2);
+        for(int i = 0; i < monster[0].length; i++){
+            if (monster[currentFloor][i] != null){
+                monster[currentFloor][i].draw(g2);
             }
         }
 

@@ -26,7 +26,7 @@ public class Projectile extends Entity {
     public void update(){
 
         if(user.equals(gp.player)){
-            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster[gp.player.currentFloor]);
             if(monsterIndex != 999){
                 gp.player.damageMonster(monsterIndex);
                 this.alive = false;
