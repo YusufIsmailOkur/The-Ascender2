@@ -266,12 +266,16 @@ public class Player extends Entity{
                 case "chest":
                 gp.ui.gameFinished = true;
                 break;
-                 case "sword": // ** YENİ: kılıcı yerden al **
+                case "sword": // ** YENİ: kılıcı yerden al **
                 WPN_Sword sword = new WPN_Sword();
                 weapons.add(sword);
                 currentWeapon = sword;
                 gp.ui.showMessage("You picked up a sword!");
                 gp.obj[i] = null;
+                break;
+                case "elevator":
+                gp.roomNumber++;
+
                 break;
             }
         }
