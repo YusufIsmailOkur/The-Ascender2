@@ -280,6 +280,8 @@ public class Player extends Entity{
                 case "elevator":
                 currentFloor++;
                 gp.tileM.loadMap("/res/maps/map" + (currentFloor+1) + ".txt");
+                x = 1*gp.tileSize;
+                y = 7*gp.tileSize;
                 break;
             }
         }
@@ -299,6 +301,8 @@ public class Player extends Entity{
 
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster[currentFloor]);
             damageMonster(monsterIndex);
+
+            
         }
         if(spriteCounter > 25){
             spriteNumber = 1;
