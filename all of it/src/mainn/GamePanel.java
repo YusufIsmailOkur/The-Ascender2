@@ -1,9 +1,7 @@
 package mainn;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 
 import entity.Entity;
@@ -255,16 +253,11 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
     public void writeNameToFile() {
-        try (PrintWriter writer = new PrintWriter(new File("names.txt"))) {
-            if (player.name!=null&& !player.name.isEmpty()) {
-                writer.println("Start");
-                writer.println(player.name);
-                writer.println("End");
-                showMessageDialog("Your name succesfully saved");
-            } else {
-                showMessageDialog("Error: Name is null");
-            }
-        } catch (FileNotFoundException e) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("names.txt", true))) {
+            writer.println("Start");
+            writer.println(player.name);
+            writer.println("End");
+        } catch (IOException e) {
             showMessageDialog("Error");
         }
     }
@@ -306,17 +299,17 @@ public class GamePanel extends JPanel implements Runnable{
                 lines.remove(startIndex);
             }
             lines.add(startIndex, name);
-            lines.add(startIndex++, String.valueOf(player.currentFloor));
-            lines.add(startIndex++, String.valueOf(player.health));
-            lines.add(startIndex++, "Obj");
+            lines.add(++startIndex, String.valueOf(player.currentFloor));
+            lines.add(++startIndex, String.valueOf(player.health));
+            lines.add(++startIndex, "Obj");
             for (SuperObject obj : player.objects) {
-                lines.add(startIndex++, obj.name);
+                lines.add(++startIndex, obj.name);
             }
-            lines.add(startIndex++, "Weapons");
+            lines.add(++startIndex, "Weapons");
             for (SuperWeapon wpn : player.weapons) {
-                lines.add(startIndex++, wpn.name);
+                lines.add(++startIndex, wpn.name);
             }
-            lines.add(startIndex++, "End");
+            lines.add(++startIndex, "End");
             try (PrintWriter writer = new PrintWriter(new File("names.txt"))) {
                 for (String line : lines) {
                     writer.println(line);
