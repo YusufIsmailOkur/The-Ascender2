@@ -60,6 +60,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int deathState = 7;
     public final int inventoryState = 8;
 
+    public int roomNumber = 11;
+
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
@@ -80,7 +82,7 @@ public class GamePanel extends JPanel implements Runnable{
         aSetter.setMonster();
         aSetter.setWeapon();
         gameState = titleState;
-        playMusic(0);
+        // playMusic(0);
     }
 
     public void startGameThread(){
@@ -164,6 +166,7 @@ public class GamePanel extends JPanel implements Runnable{
         // OTHERS
         else {
             // TİLE
+        tileM.loadMap("/res/maps/map" + roomNumber + ".txt");
         tileM.draw(g2);
 
         // OBJECT
