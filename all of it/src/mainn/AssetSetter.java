@@ -2,11 +2,10 @@ package mainn;
 
 import entity.NPC_OldMan;
 import monster.MON_GreenSlime;
-import object.OBJ_Boots;
-import object.OBJ_Chest;
-import object.OBJ_Door;
-import object.OBJ_Elevator;
-import object.OBJ_Key;
+
+
+import object.*;
+
 import weapon.*;
 
 public class AssetSetter {
@@ -23,6 +22,7 @@ public class AssetSetter {
         gp.obj[0][1] = new OBJ_Key();
         gp.obj[0][1].x = 5 * gp.tileSize;
         gp.obj[0][1].y = 5 * gp.tileSize;
+
 
         gp.obj[0][0] = new OBJ_Door();
         gp.obj[0][0].x = 11 * gp.tileSize;

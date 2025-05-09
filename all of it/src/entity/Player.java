@@ -1,9 +1,6 @@
 package entity;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,7 +34,13 @@ public class Player extends Entity{
     public ArrayList<SuperWeapon> weapons = new ArrayList<>();
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
     public SuperWeapon currentWeapon;
+
     public int currentFloor = 0;
+
+
+    public String name;
+
+
     public Player(GamePanel gp, KeyHandler keyH) {
 
         super(gp); 
@@ -363,6 +366,21 @@ public class Player extends Entity{
         // g2.fillRect(x, y, gp.tileSize, gp.tileSize);
 
         BufferedImage image = null;
+        if (name != null) {
+            g2.setFont(new Font("Arial", Font.BOLD, 14));
+            g2.setColor(Color.WHITE);
+            FontMetrics fm = g2.getFontMetrics();
+            int textWidth = fm.stringWidth(name);
+            int textX = x + (gp.tileSize - textWidth) / 2;
+            int textY = y - 6;
+
+            g2.setColor(Color.BLACK);
+            g2.drawString(name, textX + 1, textY + 1);
+            g2.setColor(Color.WHITE);
+            g2.drawString(name, textX, textY);
+
+
+        }
         switch (direction){
             case "up":
             if(attacking == false || currentWeapon.name.equalsIgnoreCase("bow")){

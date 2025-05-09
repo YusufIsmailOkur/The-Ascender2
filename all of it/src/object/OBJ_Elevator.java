@@ -17,6 +17,6 @@ public class OBJ_Elevator extends SuperObject{
         } catch(IOException e){
             e.printStackTrace();
         }
-        collision = false;
+        collision = true;
     }
 }
