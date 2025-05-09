@@ -53,7 +53,8 @@ public class GamePanel extends JPanel implements Runnable{
     public Entity monster[][] = new Entity[10][10];
     public ArrayList <Entity> projectiles = new ArrayList<>();
     public SuperWeapon[] weapon = new SuperWeapon[10];
-
+    public SuperObject[] allObjects = {"Arrow","boots","chest","key","door","elevator","Fireball"};//Should updated for every new object
+    public SuperWeapons[] allWeapons = {"Bow","Sword"}; //Should updated for every new weapon
 
     public int gameState;
     public final int titleState = 0;
@@ -255,7 +256,9 @@ public class GamePanel extends JPanel implements Runnable{
     public void writeNameToFile() {
         try (PrintWriter writer = new PrintWriter(new File("names.txt"))) {
             if (player.name!=null&& !player.name.isEmpty()) {
+                writer.println("Start");
                 writer.println(player.name);
+                writer.println("End");
                 showMessageDialog("Your name succesfully saved");
             } else {
                 showMessageDialog("Error: Name is null");
@@ -268,19 +271,87 @@ public class GamePanel extends JPanel implements Runnable{
     private void showMessageDialog(String s) {
         JOptionPane.showMessageDialog(this, s);
     }
-    //Looks all names and if its same returns false if its first time returns true
-    private boolean checkNameValidity(String name) {
+    public void writePlayersValuesToFile(String name) {
+        ArrayList<String> lines = new ArrayList<>();
         try (Scanner fileScanner = new Scanner(new File("names.txt"))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine().trim();
-                if (!line.isEmpty() && name.equals(line)) {
-                    return false;
+                lines.add(line);
+            }
+            int startIndex = lines.indexOf(name);
+            int endIndex = lines.indexOf("End", startIndex);
+            for (int i = startIndex; i <= endIndex; i++) {
+                lines.remove(startIndex);
+            }
+            lines.add(startIndex, name);
+            lines.add(startIndex++, String.valueOf(player.currentFloor));
+            lines.add(startIndex++, String.valueOf(player.health));
+            lines.add(startIndex++, "Obj");
+            for (SuperObject obj : player.objects) {
+                lines.add(startIndex++, obj.name);
+            }
+            lines.add(startIndex++, "Weapons");
+            for (SuperWeapon wpn : player.weapons) {
+                lines.add(startIndex++, wpn.name);
+            }
+            lines.add(startIndex++, "End");
+            try (PrintWriter writer = new PrintWriter(new File("names.txt"))) {
+                for (String line : lines) {
+                    writer.println(line);
                 }
             }
-            return true;
         } catch (FileNotFoundException e) {
-            System.err.println("names.txt not found; assuming first run.");
-            return true;
+            showMessageDialog("Error");
         }
     }
+
+    public void readAndSetPlayerValuesFromFile(String name) {
+        try (Scanner fileScanner = new Scanner(new File("names.txt"))) {
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine().trim();
+                if (line.equals(name)) {
+                    player.currentFloor = Integer.valueOf(fileScanner.nextLine());
+                    player.health = Integer.valueOf(fileScanner.nextLine());
+                    String objOrWeapon = fileScanner.nextLine();
+                    fileScanner.nextLine();
+                    while (!fileScanner.nextLine().equals("Weapons")) {
+                        for(SuperObject obj : allObjects) {
+                            if (obj.name.equals("Arrow")) {
+                                player.objects.add(new OBJ_Arrow());
+                            }
+                            else if (obj.name.equals("boots")) {
+                                player.objects.add(new OBJ_Boots());
+                            }
+                            else if (obj.name.equals("chest")) {
+                                player.objects.add(new OBJ_Chest());
+                            }
+                            else if (obj.name.equals("key")) {
+                                player.objects.add(new OBJ_Key());
+                            }
+                            else if (obj.name.equals("door")) {
+                                player.objects.add(new OBJ_Door());
+                            }
+                            else if (obj.name.equals("elevator")) {
+                                player.objects.add(new OBJ_Elevator());
+                            }
+                            else if (obj.name.equals("Fireball")) {
+                                player.objects.add(new OBJ_Fireball());
+                        }
+                    }
+                    while (!fileScanner.nextLine().equals("End")) {
+                        for(SuperWeapon wpn : allWeapons) {
+                            if (wpn.name.equals("Bow")) {
+                                player.weapons.add(new Bow());
+                            }
+                            else if (wpn.name.equals("Sword")) {
+                                player.weapons.add(new Sword());
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            showMessageDialog("Error");
+        }
 }
