@@ -399,8 +399,24 @@ public class UI {
 
             if (i < 4) {
                 if (gp.player.weapons.size() > i && gp.player.weapons.get(i) != null) {
-                    BufferedImage img = gp.player.weapons.get(i).imageRight;
-                    g2.drawImage(img, slotX, y, slotWidth, slotHeight, null);
+                    if(!gp.player.weapons.get(i).name.equals("Bow")) {
+                        BufferedImage img = gp.player.weapons.get(i).imageRight;
+                        g2.drawImage(img, slotX, y, slotWidth, slotHeight, null);
+                    } else {
+                        // Draw the bow image
+                        BufferedImage img = gp.player.weapons.get(i).imageRight;
+                        g2.drawImage(img, slotX, y, slotWidth, slotHeight, null);
+                        //Write arrow count under the bow image
+                        g2.setFont(new Font("Arial", Font.PLAIN, 16));
+                        g2.setColor(Color.white);
+                        String arrowCount = String.valueOf(gp.player.weapons.get(i).life);
+                        FontMetrics fm = g2.getFontMetrics();
+                        int textWidth = fm.stringWidth(arrowCount);
+                        int textX = slotX + (slotWidth - textWidth) / 2-10;
+                        int textY = y + 10+ slotHeight + fm.getAscent() / 2 - 4;
+                        g2.drawString("Arrow: "+arrowCount, textX, textY);
+
+                    }
                 }
             }
             // Fifth slot: plus sign for adding a new weapon
