@@ -211,6 +211,7 @@ public class KeyHandler implements KeyListener {
                 else if (gp.ui.deathScreenNum == 2){
                     gp.gameState = gp.titleState;
                     // DO SAVING AND PUT THE CORRECT MUSIC
+                    gp.writePlayersValuesToFile(gp.player.name);
 
                 }
                 else if (gp.ui.deathScreenNum == 3){
