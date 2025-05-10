@@ -24,7 +24,7 @@ public class TileManager {
     public TileManager(GamePanel gp){
         this.gp = gp;
 
-        tile = new Tile[10];
+        tile = new Tile[50];
         mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
     
         getTileImage();
@@ -44,6 +44,21 @@ public class TileManager {
         setup(4, "grass", false);
 
         setup(5, "dirtPath", false);
+
+        //puzzle room
+        setup(6, "greyTile", false);
+        setup(7, "table_ground1", true);
+        setup(8, "table_ground2", true);
+        setup(9, "table_ground3", true);
+        setup(10, "table_ground4", true);
+        setup(11, "table_ground5", true);
+        setup(12, "table_ground6", true);
+        setup(13, "bottom", true);
+        setup(14, "upper", true);
+        setup(15, "random1", true);
+        setup(16, "random2", true);
+        setup(17, "random3", true);
+
     }
     public void setup(int index, String imageName, boolean collision){
 
