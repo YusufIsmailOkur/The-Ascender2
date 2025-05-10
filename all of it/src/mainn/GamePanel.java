@@ -55,7 +55,7 @@ public class GamePanel extends JPanel implements Runnable{
     public SuperWeapon[] weapon = new SuperWeapon[10];
     public String[] allObjects = {"Arrow","boots","chest","key","door","elevator","Fireball"};//Should updated for every new object
     public String[] allWeapons = {"Bow","Sword"}; //Should updated for every new weapon
-
+    public UtilityTool uTool = new UtilityTool();
 
     public int gameState;
     public final int titleState = 0;

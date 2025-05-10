@@ -294,7 +294,7 @@ public class UI {
     
                     g2.setColor(new Color(35,35,35));
                     g2.fillRect(x - 1, y - 1, gp.tileSize * 8 + 2, 22);
-    
+                    
                     g2.setColor(new Color(255,0,30));
                     g2.fillRect(x, y, gp.tileSize * 8 * monster.health / monster.maxHealth, 20);
     
@@ -426,8 +426,8 @@ public class UI {
      // DRAW 5 SLOTS FOR WEAPONS (4 weapon slots + 1 add slot)
     public void drawWeaponSlots() {
         int slotCount = 5;
-        int slotWidth = gp.tileSize;
-        int slotHeight = gp.tileSize;
+        int slotWidth = gp.tileSize * 3/2;
+        int slotHeight = gp.tileSize * 3/2;
         int totalWidth = slotWidth * slotCount;
         int xStart = (gp.screenWidth - totalWidth) / 2;
         int y = gp.screenHeight - gp.tileSize - (gp.tileSize / 2);
@@ -446,19 +446,19 @@ public class UI {
                 if (gp.player.weapons.size() > i && gp.player.weapons.get(i) != null) {
                     if(!gp.player.weapons.get(i).name.equals("Bow")) {
                         BufferedImage img = gp.player.weapons.get(i).imageRight;
-                        g2.drawImage(img, slotX, y, slotWidth, slotHeight, null);
+                        g2.drawImage(img, slotX + 6, y +6, slotWidth - 15, slotHeight- 15, null);
                     } else {
                         // Draw the bow image
                         BufferedImage img = gp.player.weapons.get(i).imageRight;
-                        g2.drawImage(img, slotX, y, slotWidth, slotHeight, null);
+                        g2.drawImage(img, slotX + 6, y +6, slotWidth - 15, slotHeight- 15, null);
                         //Write arrow count under the bow image
                         g2.setFont(new Font("Arial", Font.PLAIN, 16));
                         g2.setColor(Color.white);
                         String arrowCount = String.valueOf(gp.player.weapons.get(i).life);
                         FontMetrics fm = g2.getFontMetrics();
                         int textWidth = fm.stringWidth(arrowCount);
-                        int textX = slotX + (slotWidth - textWidth) / 2-10;
-                        int textY = y + 10+ slotHeight + fm.getAscent() / 2 - 4;
+                        int textX = slotX + (slotWidth - textWidth) / 2-25;
+                        int textY = y - 15 + slotHeight + fm.getAscent() / 2 - 4;
                         g2.drawString("Arrow: "+arrowCount, textX, textY);
 
                     }
