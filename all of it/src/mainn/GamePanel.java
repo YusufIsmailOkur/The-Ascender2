@@ -259,6 +259,19 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
     }
+    public void askNameAndSetPlayerValues(){
+        String name = showInputDialog("Enter name for Load game");
+        while(true) {
+            if (!checkNameValidity(name)) {
+                player.name = name;
+                readAndSetPlayerValuesFromFile(name);
+                break;
+            } else {
+                showMessageDialog("Couldnt find your name. Please enter another");
+                name = showInputDialog("Enter name for Load game");
+            }
+        }
+    }
     public void writeNameToFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter("names.txt", true))) {
             writer.println("Start");
@@ -308,6 +321,13 @@ public class GamePanel extends JPanel implements Runnable{
             lines.add(startIndex, name);
             lines.add(++startIndex, String.valueOf(player.currentFloor));
             lines.add(++startIndex, String.valueOf(player.health));
+            int count =0;
+            for(int i=0; i<player.weapons.size();i++){
+                if(player.weapons.get(i).name.equals("Bow")){
+                    count=player.weapons.get(i).life;
+                }
+            }
+            lines.add(++startIndex, String.valueOf(count));
             lines.add(++startIndex, "Obj");
             for (SuperObject obj : player.objects) {
                 lines.add(++startIndex, obj.name);
@@ -332,36 +352,46 @@ public class GamePanel extends JPanel implements Runnable{
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine().trim();
                 if (line.equals(name)) {
-                    player.currentFloor = Integer.valueOf(fileScanner.nextLine());
-                    player.health = Integer.valueOf(fileScanner.nextLine());
-                    String objOrWeapon = fileScanner.nextLine();
-                    fileScanner.nextLine();
-                    while (!fileScanner.nextLine().equals("Weapons")) {
-                        for (String s : allObjects) {
-                            if (s.equals("boots")) {
-                                player.objects.add(new OBJ_Boots());
-                            } else if (s.equals("chest")) {
-                                player.objects.add(new OBJ_Chest());
-                            } else if (s.equals("key")) {
-                                player.objects.add(new OBJ_Key());
-                            } else if (s.equals("door")) {
-                                player.objects.add(new OBJ_Door());
-                            } else if (s.equals("elevator")) {
-                                player.objects.add(new OBJ_Elevator());
-                            }
-                            while (!fileScanner.nextLine().equals("End")) {
-                                for (String st : allWeapons) {
-                                    if (st.equals("Bow")) {
-                                        player.weapons.add(new WPN_Bow());
-                                    } else if (st.equals("Sword")) {
-                                        player.weapons.add(new WPN_Sword());
-                                    }
-                                }
-                            }
-                            break;
+                    player.currentFloor = Integer.parseInt(fileScanner.nextLine());
+                    int health = Integer.parseInt(fileScanner.nextLine());
+                    if(health<=0){
+                        health= health+2;
+                    }
+                    player.health=health;
+                    int arrowCount = (Integer.parseInt(fileScanner.nextLine()));
+                    String s = fileScanner.nextLine();
+                    player.objects.clear();
+                    while (!s.equals("Weapons")) {
+                        if (s.equals("boots")) {
+                            player.objects.add(new OBJ_Boots());
+                        } else if (s.equals("chest")) {
+                            player.objects.add(new OBJ_Chest());
+                        } else if (s.equals("key")) {
+                            player.objects.add(new OBJ_Key());
+                        } else if (s.equals("door")) {
+                            player.objects.add(new OBJ_Door());
+                        } else if (s.equals("elevator")) {
+                            player.objects.add(new OBJ_Elevator());
+                        }
+                        s= fileScanner.nextLine();
+                    }
+                    player.weapons.clear();
+                    String st = fileScanner.nextLine();
+                    while (!st.equals("End")) {
+                        if (st.equals("Bow")) {
+                            player.weapons.add(new WPN_Bow());
+                        } else if (st.equals("Sword")) {
+                            player.weapons.add(new WPN_Sword());
+                        }
+                        st= fileScanner.nextLine();
+                    }
+                    for(int i=0; i<player.weapons.size();i++){
+                        if(player.weapons.get(i).name.equals("Bow")){
+                            player.weapons.get(i).life=arrowCount;
                         }
                     }
-                }
+                    break;
+                }         
             }
         } catch (FileNotFoundException e) {
             showMessageDialog("Error");
