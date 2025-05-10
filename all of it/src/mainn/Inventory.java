@@ -50,7 +50,7 @@ public class Inventory extends JPanel implements ActionListener {
         frameX = margin;
         frameY = margin;
         frameWidth = gp.screenWidth - 2 * margin;
-        frameHeight = 80 + 2 * (slotSize * 2 + slotGap * 3) + 100;
+        frameHeight = gp.screenHeight - 2 * margin;
 
         slotsStartX = frameX + 20;
         slotsStartY = frameY + 120;
@@ -227,7 +227,11 @@ public class Inventory extends JPanel implements ActionListener {
         g2.drawString("OBJECTS", frameX + 20, frameY + 100);
         drawSlots(g2, displayObjects, slotsStartY);
 
-        int weaponsY = slotsStartY + 2 * (slotSize + slotGap) + 40;
+
+
+        g2.setFont(sectionFont);
+        g2.setColor(Color.WHITE);
+        int weaponsY = slotsStartY + 4 * (slotSize + slotGap) + 40;
         g2.drawString("WEAPONS", frameX + 20, weaponsY - 10);
         drawSlots(g2, displayWeapons, weaponsY);
 
@@ -260,12 +264,23 @@ public class Inventory extends JPanel implements ActionListener {
                     Object obj = items.get(idx);
                     if (obj instanceof SuperObject so) {
                         g2.drawImage(so.image, x, y, slotSize, slotSize, null);
+                        //WRITE NAME
+                        g2.setColor(Color.WHITE);
+                        g2.setFont(new Font("Arial", Font.PLAIN, 15));
+                        g2.drawString(so.name, x, y + slotGap + 60);
                     }
                     else if (obj instanceof SuperWeapon sw) {
                         g2.drawImage(sw.imageRight, x, y, slotSize, slotSize, null);
+                        //WRITE NAME
+                        g2.setColor(Color.WHITE);
+                        g2.setFont(new Font("Arial", Font.PLAIN, 15));
+                        g2.drawString(sw.name, x, y+slotGap+ 60);
+
                     }
                 }
             }
+            //ADDING SPACE BETWEEN ROWS
+            startY += slotSize + slotGap;   
         }
     }
 }
