@@ -3,6 +3,7 @@ package mainn;
 import entity.NPC_OldMan;
 import monster.MON_GreenSlime;
 import monster.MON_SlimeBoss;
+import monster.MON_Zombie;
 import object.*;
 
 import weapon.*;
@@ -62,6 +63,10 @@ public class AssetSetter {
         gp.monster[0][2] = new MON_GreenSlime(gp);
         gp.monster[0][2].x = gp.tileSize * 10;
         gp.monster[0][2].y = gp.tileSize * 3;
+
+        gp.monster[0][3] = new MON_Zombie(gp);
+        gp.monster[0][3].x = gp.tileSize * 12;
+        gp.monster[0][3].y = gp.tileSize * 13;
 
         gp.monster[2][0] = new MON_GreenSlime(gp);
         gp.monster[2][0].x = gp.tileSize * 1;

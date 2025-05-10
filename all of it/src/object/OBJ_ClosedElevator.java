@@ -13,7 +13,7 @@ public class OBJ_ClosedElevator extends SuperObject{
 
         try {
 
-            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/elevator.png")); // need photo
+            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/elevator.png")); 
         } catch(IOException e){
             e.printStackTrace();
         }
