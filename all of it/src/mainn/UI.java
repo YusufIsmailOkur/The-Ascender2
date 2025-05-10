@@ -8,6 +8,9 @@ import java.awt.image.BufferedImage;
 import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import entity.*;
+import monster.MON_GreenSlime;
 import weapon.*;
 import java.awt.*;
 
@@ -29,6 +32,7 @@ public class UI {
     public int settingsNum = 0;
     public int deathScreenNum = 0;
     public int musicLevel = 8;
+    public boolean isSetup = false; 
 
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("#0.00");
@@ -63,6 +67,10 @@ public class UI {
             drawHealthBar();
             drawManaBar();
             drawWeaponSlots();
+            if(isSetup){
+                drawMonsterHealthBar();
+            }
+            
         }
         // PAUSE STATE
         if (gp.gameState == gp.pauseState) {
@@ -266,6 +274,43 @@ public class UI {
             x += 30;
         }
     }
+
+    public void drawMonsterHealthBar(){
+        for(int i = 0; i < gp.monster[gp.player.currentFloor].length; i++){
+            Entity monster = gp.monster[gp.player.currentFloor][i];
+
+            if(monster != null ){
+                if(monster.isBoss == false){
+
+                    g2.setColor(new Color(35,35,35));
+                    g2.fillRect(monster.x - 1, monster.y - 16, gp.tileSize + 2, 12);
+
+                    g2.setColor(new Color(255,0,30));
+                    g2.fillRect(monster.x, monster.y - 15, gp.tileSize * monster.health / monster.maxHealth, 10);
+                }
+                else if (monster.isBoss == true){
+                    int x = gp.screenWidth / 2 - gp.tileSize * 4;
+                    int y = gp.tileSize * 12;
+    
+                    g2.setColor(new Color(35,35,35));
+                    g2.fillRect(x - 1, y - 1, gp.tileSize * 8 + 2, 22);
+    
+                    g2.setColor(new Color(255,0,30));
+                    g2.fillRect(x, y, gp.tileSize * 8 * monster.health / monster.maxHealth, 20);
+    
+                    g2.setFont(g2.getFont().deriveFont(Font.BOLD, 24f));
+                    g2.setColor(Color.WHITE);
+                    g2.drawString(monster.name, x + 4, y - 10);
+                }
+
+            }
+
+            
+        }
+
+        
+    }
+
 
     public void drawDialogueScreen() {
 

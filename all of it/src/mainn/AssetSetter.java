@@ -2,8 +2,7 @@ package mainn;
 
 import entity.NPC_OldMan;
 import monster.MON_GreenSlime;
-
-
+import monster.MON_SlimeBoss;
 import object.*;
 
 import weapon.*;
@@ -32,11 +31,13 @@ public class AssetSetter {
         gp.obj[0][2].x = 17 * gp.tileSize;
         gp.obj[0][2].y = 8 * gp.tileSize;
 
-        gp.obj[1][2] = new OBJ_Elevator();
-        gp.obj[1][2].x = 17 * gp.tileSize;
-        gp.obj[1][2].y = 8 * gp.tileSize;
+        gp.obj[1][0] = new OBJ_Elevator();
+        gp.obj[1][0].x = 17 * gp.tileSize;
+        gp.obj[1][0].y = 8 * gp.tileSize;
 
-        
+        gp.obj[2][0] = new OBJ_Elevator();
+        gp.obj[2][0].x = 19 * gp.tileSize;
+        gp.obj[2][0].y = 4 * gp.tileSize;
     }
     public void setNPC(){
         int currentFloor = gp.player.currentFloor;
@@ -57,6 +58,9 @@ public class AssetSetter {
         gp.monster[currentFloor][2] = new MON_GreenSlime(gp);
         gp.monster[currentFloor][2].x = gp.tileSize * 10;
         gp.monster[currentFloor][2].y = gp.tileSize * 3;
+        gp.monster[3][0] = new MON_SlimeBoss(gp);
+        gp.monster[3][0].x = gp.tileSize * 10;
+        gp.monster[3][0].y = gp.tileSize * 7;
     }
     public void setWeapon(){
         gp.weapon[0] = new WPN_Sword();

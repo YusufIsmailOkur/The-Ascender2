@@ -8,7 +8,7 @@ public class WPN_Sword extends SuperWeapon {
     public WPN_Sword() {
 
         name = "Sword";
-        attackValue = 1;
+        attackValue = 2;
         collision = true;
         solidArea.x = 0;
         solidArea.y = 0;
