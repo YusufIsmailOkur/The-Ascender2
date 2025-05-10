@@ -20,6 +20,7 @@ public class Player extends Entity{
      
     KeyHandler keyH;
     int standCounter = 0;
+    public long totalTime;
     int hasKey;
     public int mana = 2000;
     public final int MAX_MANA = 2000;
