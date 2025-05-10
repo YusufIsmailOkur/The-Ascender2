@@ -11,6 +11,7 @@ public class Entity {
     GamePanel gp;
     public int x,y;
     public int speed;
+    public boolean hasfinishedTalking = false;
 
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     public String direction;
@@ -44,6 +45,17 @@ public class Entity {
 
     public void setAction() {}
     public void speak() {
+
+        int dialoguelength = 0;
+        for (int i = 0;i < dialogues.length; i++){
+            if (dialogues[i] != null){
+                dialoguelength++;
+            } else break;
+        }
+
+        if (dialoguelength-1 == dialogueIndex){
+            hasfinishedTalking = true;
+        }
         if (dialogues[dialogueIndex] == null){
             dialogueIndex = 0;
         }

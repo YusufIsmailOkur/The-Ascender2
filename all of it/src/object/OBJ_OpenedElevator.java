@@ -1,0 +1,22 @@
+package object;
+
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+public class OBJ_OpenedElevator extends SuperObject{
+    
+    public OBJ_OpenedElevator(){
+
+        name = "openedelevator";
+        craftable = false;
+
+        try {
+
+            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/elevator.png")); 
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        collision = true;
+    }
+}

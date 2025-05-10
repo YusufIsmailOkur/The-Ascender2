@@ -1,9 +1,5 @@
 package mainn;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.sql.Time;
 import java.text.DecimalFormat;
@@ -33,6 +29,20 @@ public class UI {
     public int deathScreenNum = 0;
     public int musicLevel = 8;
     public boolean isSetup = false; 
+
+    int storyCharIndex = 0;
+    int storyCounter = 0;
+    boolean storyFinished = false;
+    int waitAfterStory = 120; // 2 saniye (60 FPS üzerinden)
+    String[] storyLines = {
+        "They said it was for progress... for a better world.",
+        "But the experiments went too far—tampering with nature, rewriting the laws of physics.",
+        "Now the sun scorches the earth, and oceans boil into the sky.",
+        "The world has burned under the weight of ambition.",
+        "You awaken in one of the last surviving research facilities… alone, surrounded by silence.",
+        "Something draws you upward.",
+        "Answers lie above… or maybe, monsters born of them."
+    };
 
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("#0.00");
@@ -92,6 +102,9 @@ public class UI {
         }
         if (gp.gameState == gp.deathState){
             drawDeathScreen();
+        }
+        if (gp.gameState == gp.storyState){
+            drawStoryScreen(g2);
         }
     }
 
@@ -164,6 +177,55 @@ public class UI {
         g2.setColor(Color.white);
         g2.drawString(text, x, y);
     }
+
+    public void drawStoryScreen(Graphics2D g2) {
+        // Arka planı tamamen siyah yap
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+    
+        // Yazı ayarları
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 22F));
+    
+        int x = 50;
+        int y = 80; // üstten biraz erken başlasın
+        int lineSpacing = 35;
+    
+        for (int i = 0; i < storyLines.length; i++) {
+            String fullLine = storyLines[i];
+    
+            if (i < storyCharIndex) {
+                g2.setColor(i == storyLines.length - 1 ? Color.RED : Color.WHITE);
+                g2.drawString(fullLine, x, y + i * lineSpacing);
+            } else if (i == storyCharIndex) {
+                int charsToShow = storyCounter / 3;
+                if (charsToShow > fullLine.length()) charsToShow = fullLine.length();
+    
+                String partial = fullLine.substring(0, charsToShow);
+                g2.setColor(i == storyLines.length - 1 ? Color.RED : Color.WHITE);
+                g2.drawString(partial, x, y + i * lineSpacing);
+    
+                if (charsToShow == fullLine.length()) {
+                    storyCharIndex++;
+                    storyCounter = 0;
+                    if (storyCharIndex == storyLines.length) {
+                        storyFinished = true;
+                    }
+                }
+                break;
+            }
+        }
+    
+        if (!storyFinished) {
+            storyCounter++;
+        } else {
+            waitAfterStory--;
+            if (waitAfterStory <= 0) {
+                gp.gameState = gp.playState;
+            }
+        }
+    }
+    
+
 
     public void drawPauseScreen() {
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
