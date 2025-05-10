@@ -12,7 +12,7 @@ public class NPC_OldMan extends Entity{
         super(gp);
 
         direction = "down";
-        speed = 1;
+        speed = 0;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         getImage();
@@ -23,13 +23,13 @@ public class NPC_OldMan extends Entity{
         try{
 
             up1 = ImageIO.read(getClass().getResourceAsStream("/res/oldManNPC/oldman_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/res/oldManNPC/oldman_up_2.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/res/oldManNPC/oldman_up_1.png"));
             down1 = ImageIO.read(getClass().getResourceAsStream("/res/oldManNPC/oldman_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/res/oldManNPC/oldman_down_2.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/res/oldManNPC/oldman_down_1.png"));
             left1 = ImageIO.read(getClass().getResourceAsStream("/res/oldManNPC/oldman_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/res/oldManNPC/oldman_left_2.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/res/oldManNPC/oldman_left_1.png"));
             right1 = ImageIO.read(getClass().getResourceAsStream("/res/oldManNPC/oldman_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/res/oldManNPC/oldman_right_2.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/res/oldManNPC/oldman_right_1.png"));
 
         } catch(IOException e){
             e.printStackTrace();
@@ -37,36 +37,36 @@ public class NPC_OldMan extends Entity{
     }
     public void setDialogue(){
 
-        dialogues[0] = "Hello, Adventurer!";
-        dialogues[1] = "So what is your purpose here, Adventurer.\nTo find the Treasure?";
-        dialogues[2] = "Well i would've loved to help you... \nBut you know things get hard at this age.";
-        dialogues[3] = "Good luck on your adventure, bizzare man. \nUntil next time...";
+        dialogues[0] = "I see you've made it here, somehow… \nThe truth you're looking for—it's locked away, high above.";
+        dialogues[1] = "But the path is no longer safe. Security puzzles still guard the \nhalls, and failed experiments now roam free.";
+        dialogues[2] = "I wish I could help, but my body gave out long ago.";
+        dialogues[3] = "Take this key. It opens the first door… and your journey begins.";
     }
 
 
-    public void setAction(){
+    // public void setAction(){
 
-        actionLockCounter++;
+    //     actionLockCounter++;
 
-        if (actionLockCounter == 120){
-            Random random = new Random();
-            int i = random.nextInt(100) + 1; // pick up number from 1 to 100
+    //     if (actionLockCounter == 120){
+    //         Random random = new Random();
+    //         int i = random.nextInt(100) + 1; // pick up number from 1 to 100
 
-            if (i <= 25){
-                direction = "up";
-            }
-            if (i > 25 && i <= 50){
-                direction = "down";
-            }
-            if (i > 50 && i <= 75){
-                direction = "left";
-            }
-            if (i > 75 && i <= 100){
-                direction = "right";
-            }
-            actionLockCounter = 0;
-        }
-    }
+    //         if (i <= 25){
+    //             direction = "up";
+    //         }
+    //         if (i > 25 && i <= 50){
+    //             direction = "down";
+    //         }
+    //         if (i > 50 && i <= 75){
+    //             direction = "left";
+    //         }
+    //         if (i > 75 && i <= 100){
+    //             direction = "right";
+    //         }
+    //         actionLockCounter = 0;
+    //     }
+    // }
     public void speak(){
         super.speak();
     }

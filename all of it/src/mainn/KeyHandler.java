@@ -36,7 +36,7 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_ENTER){
                 if (gp.ui.commandNum == 0){
                     gp.askName();
-                    gp.gameState = gp.playState;
+                    gp.gameState = gp.storyState;
                     timeStart=System.currentTimeMillis();
                 }
                 else if (gp.ui.commandNum == 1){

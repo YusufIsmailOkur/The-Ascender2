@@ -35,7 +35,7 @@ public class TileManager {
 
         setup(0, "grass2", false);
 
-        setup(1, "wall4", true);
+        setup(1, "whiteWall", true);
 
         setup(2, "water", true);
 
@@ -43,7 +43,7 @@ public class TileManager {
 
         setup(4, "grass", false);
 
-        setup(5, "dirtPath", false);
+        setup(5, "whiteTile", false);
 
         //puzzle room
         setup(6, "greyTile", false);

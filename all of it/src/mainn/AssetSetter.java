@@ -19,18 +19,23 @@ public class AssetSetter {
     public void setObject(){
     int currentFloor = gp.player.currentFloor;
 
-        gp.obj[0][1] = new OBJ_Key();
-        gp.obj[0][1].x = 5 * gp.tileSize;
-        gp.obj[0][1].y = 5 * gp.tileSize;
+        // gp.obj[0][1] = new OBJ_Key();
+        // gp.obj[0][1].x = 5 * gp.tileSize;
+        // gp.obj[0][1].y = 5 * gp.tileSize;
 
 
-        gp.obj[0][0] = new OBJ_Door();
-        gp.obj[0][0].x = 11 * gp.tileSize;
-        gp.obj[0][0].y = 3 * gp.tileSize;
+        // gp.obj[0][0] = new OBJ_Door();
+        // gp.obj[0][0].x = 11 * gp.tileSize;
+        // gp.obj[0][0].y = 3 * gp.tileSize;
+        gp.obj[0][0] = new OBJ_ClosedElevator();
+        gp.obj[0][0].x = 0 * gp.tileSize;
+        gp.obj[0][0].y = 7 * gp.tileSize;
         
-        gp.obj[0][2] = new OBJ_Elevator();
-        gp.obj[0][2].x = 17 * gp.tileSize;
-        gp.obj[0][2].y = 8 * gp.tileSize;
+        gp.obj[0][1] = new OBJ_Elevator();
+        gp.obj[0][1].x = 19 * gp.tileSize;
+        gp.obj[0][1].y = 7 * gp.tileSize;
+
+        // gp.obj [0] [2] is set in player class
 
         gp.obj[1][0] = new OBJ_Elevator();
         gp.obj[1][0].x = 17 * gp.tileSize;
@@ -48,25 +53,25 @@ public class AssetSetter {
         int currentFloor = gp.player.currentFloor;
 
         gp.npc[0][0] = new NPC_OldMan(gp);
-        gp.npc[0][0].x = gp.tileSize * 9;
-        gp.npc[0][0].y = gp.tileSize * 2;
+        gp.npc[0][0].x = gp.tileSize * 10;
+        gp.npc[0][0].y = gp.tileSize * 4;
     }
     public void setMonster(){
         int currentFloor = gp.player.currentFloor;
 
-        gp.monster[0][0] = new MON_GreenSlime(gp);
-        gp.monster[0][0].x = gp.tileSize * 12;
-        gp.monster[0][0].y = gp.tileSize * 3;
-        gp.monster[0][1] = new MON_GreenSlime(gp);
-        gp.monster[0][1].x = gp.tileSize * 11;
-        gp.monster[0][1].y = gp.tileSize * 3;
-        gp.monster[0][2] = new MON_GreenSlime(gp);
-        gp.monster[0][2].x = gp.tileSize * 10;
-        gp.monster[0][2].y = gp.tileSize * 3;
+        // gp.monster[0][0] = new MON_GreenSlime(gp);
+        // gp.monster[0][0].x = gp.tileSize * 12;
+        // gp.monster[0][0].y = gp.tileSize * 3;
+        // gp.monster[0][1] = new MON_GreenSlime(gp);
+        // gp.monster[0][1].x = gp.tileSize * 11;
+        // gp.monster[0][1].y = gp.tileSize * 3;
+        // gp.monster[0][2] = new MON_GreenSlime(gp);
+        // gp.monster[0][2].x = gp.tileSize * 10;
+        // gp.monster[0][2].y = gp.tileSize * 3;
 
-        gp.monster[0][3] = new MON_Zombie(gp);
-        gp.monster[0][3].x = gp.tileSize * 12;
-        gp.monster[0][3].y = gp.tileSize * 13;
+        // gp.monster[0][3] = new MON_Zombie(gp);
+        // gp.monster[0][3].x = gp.tileSize * 12;
+        // gp.monster[0][3].y = gp.tileSize * 13;
 
         gp.monster[2][0] = new MON_GreenSlime(gp);
         gp.monster[2][0].x = gp.tileSize * 1;

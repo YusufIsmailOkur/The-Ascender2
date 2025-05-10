@@ -10,7 +10,9 @@ import javax.imageio.ImageIO;
 import mainn.GamePanel;
 import mainn.KeyHandler;
 import object.OBJ_Arrow;
+import object.OBJ_ClosedElevator;
 import object.OBJ_Fireball;
+import object.OBJ_Key;
 import object.SuperObject;
 import weapon.SuperWeapon;
 import weapon.WPN_Bow;
@@ -64,8 +66,8 @@ public class Player extends Entity{
         getPlayerAttackImage();
     }
     public void setDefaultValues(){
-        x = 100;
-        y = 100;
+        x = 1 * gp.tileSize;
+        y = 7 * gp.tileSize;
         speed = 5;
         direction = "down";
         hasKey = 0;
@@ -268,29 +270,49 @@ public class Player extends Entity{
                 } else {
                     gp.ui.showMessage("You need a key!");
                 }
-
                 break;
+                
                 case "boots":
                 speed++;
                 gp.obj[currentFloor][i] = null;
                 gp.ui.showMessage("You just speed UP!");
                 break;
+
                 case "chest":
                 gp.ui.gameFinished = true;
                 break;
-                 case "sword": // ** YENİ: kılıcı yerden al **
+
+                case "sword": // ** YENİ: kılıcı yerden al **
                 WPN_Sword sword = new WPN_Sword();
                 weapons.add(sword);
                 currentWeapon = sword;
                 gp.ui.showMessage("You picked up a sword!");
                 gp.obj[currentFloor][i] = null;
                 break;
+
                 case "elevator":
+                if (hasKey > 0){
+                    int xs = gp.obj[currentFloor][i].x;
+                    int ys = gp.obj[currentFloor][i].y;
+                    gp.obj[currentFloor][i] = null;
+                    gp.obj[currentFloor][i] = new OBJ_ClosedElevator();
+                    gp.obj[currentFloor][i].x = xs;
+                    gp.obj[currentFloor][i].y = ys;
+
+                    currentFloor++;
+                    gp.tileM.loadMap("/res/maps/map" + (currentFloor+1) + ".txt");
+                    x = 1*gp.tileSize;
+                    y = 7*gp.tileSize;
+                    hasKey--;
+                }
+                break;
+
+                case "openedelevator":
                 currentFloor++;
                 gp.tileM.loadMap("/res/maps/map" + (currentFloor+1) + ".txt");
                 x = 1*gp.tileSize;
                 y = 7*gp.tileSize;
-                break;
+
                 case "closedelevator":
                 
                 break;
@@ -374,6 +396,11 @@ public class Player extends Entity{
                 gp.npc[currentFloor][i].speak();
             }
             gp.keyH.fPressed = false;
+            if (i == 0 && gp.npc[currentFloor][i] instanceof NPC_OldMan && gp.npc[currentFloor][i].hasfinishedTalking){
+                gp.obj[currentFloor][2] = new OBJ_Key();
+                gp.obj[currentFloor][2].x = gp.npc[currentFloor][i].x + gp.tileSize;
+                gp.obj[currentFloor][2].y = gp.npc[currentFloor][i].y + gp.tileSize;
+            }
         }
         else if (gp.keyH.enterPressed == true){
             attacking = true;
