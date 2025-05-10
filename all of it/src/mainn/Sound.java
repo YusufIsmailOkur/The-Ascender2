@@ -6,6 +6,10 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
+// 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 
+//14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 
+// 17 16 16 15 16 17 17 16 15 15 17 17 15 16 16 15 16 15 16
+
 
 public class Sound {
     Clip clip;
