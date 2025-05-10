@@ -6,6 +6,8 @@ import javax.swing.plaf.multi.MultiScrollBarUI;
 
 public class KeyHandler implements KeyListener {
     int previousState = 0; //title state
+    long timeStart;
+    long timeEnd;
 
     public boolean upPressed, downPressed, leftPressed, rightPressed, fPressed, enterPressed, spacePressed, onePressed, twoPressed;
     GamePanel gp;
@@ -35,10 +37,12 @@ public class KeyHandler implements KeyListener {
                 if (gp.ui.commandNum == 0){
                     gp.askName();
                     gp.gameState = gp.playState;
+                    timeStart=System.currentTimeMillis();
                 }
                 else if (gp.ui.commandNum == 1){
                     gp.askNameAndSetPlayerValues();
                     gp.gameState = gp.playState;
+                    timeStart=System.currentTimeMillis();
                 }
                 else if (gp.ui.commandNum == 2){
                     System.exit(0);
@@ -125,6 +129,7 @@ public class KeyHandler implements KeyListener {
                 }
                 else if (gp.ui.menuNum == 2){
                     // LeaderBoard
+                    gp.gameState = gp.leaderBoardState;
                 }
                 else if (gp.ui.menuNum == 3){
                     // SETTINGS
@@ -136,6 +141,10 @@ public class KeyHandler implements KeyListener {
                 }
                 else if (gp.ui.menuNum == 5){
                     // EXIT
+                    //Save Values
+                    timeEnd = System.currentTimeMillis();  
+                    gp.player.totalTime+= timeEnd-timeStart;
+                    gp.writePlayersValuesToFile(gp.player.name);
                     System.exit(code);
                 }
                 
