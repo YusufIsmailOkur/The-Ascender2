@@ -28,8 +28,24 @@ public class Projectile extends Entity {
         if(user.equals(gp.player)){
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster[gp.player.currentFloor]);
             if(monsterIndex != 999){
-                gp.player.damageMonster(monsterIndex);
+                if(monsterIndex != 999){  
+                    if (!gp.monster[gp.player.currentFloor][monsterIndex].invincibility) {
+                        gp.monster[gp.player.currentFloor][monsterIndex].health -= attack;
+                        gp.monster[gp.player.currentFloor][monsterIndex].invincibility = true;
+        
+                        if (gp.monster[gp.player.currentFloor][monsterIndex].health <= 0) {
+                            gp.monster[gp.player.currentFloor][monsterIndex] = null;
+                        }
+                    }  
+                }
                 this.alive = false;
+            }
+        }
+        else if(!user.equals(gp.player)){
+            boolean contact = gp.cChecker.checkPlayer(this);
+            if(gp.player.invincibility == false && contact == true){
+                damagePlayer(attack);
+                alive = false;
             }
         }
         switch (direction) {

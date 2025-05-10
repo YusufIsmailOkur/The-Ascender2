@@ -18,6 +18,9 @@ public class Entity {
     public int spriteNumber = 1;
     public Rectangle solidArea = new Rectangle(0,0,48,48);
     public Rectangle attackArea = new Rectangle(0,0,0,0);
+    public boolean isBoss;
+    public int damage;
+    public Projectile projectile;
 
     public int solidAreaDefaultX, solidAreaDefaultY;
 
@@ -26,8 +29,10 @@ public class Entity {
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
     public int type;
+    public String name;
 
-    public int health=5;
+    public int health = 5;
+    public int maxHealth = 5;
     public boolean alive = true;
 
     public boolean invincibility = false;
@@ -60,6 +65,7 @@ public class Entity {
             break;
         }
     }
+
     public void update(){
         setAction();
         collisionOn = false;
@@ -68,10 +74,7 @@ public class Entity {
         boolean contact = gp.cChecker.checkPlayer(this);
 
         if (contact && this.type == 2) {
-            if (!gp.player.invincibility) {
-                gp.player.health -= 1;
-                gp.player.invincibility = true;
-            }
+            damagePlayer(damage);
         }
         //if collision is on player cant move
         if (collisionOn == false){
@@ -106,6 +109,13 @@ public class Entity {
                 invincibility = false;
                 iFrames = 0;
             }
+        }
+    }
+
+    public void damagePlayer(int damage){
+        if (!gp.player.invincibility) {
+            gp.player.health -= 1;
+            gp.player.invincibility = true;
         }
     }
 

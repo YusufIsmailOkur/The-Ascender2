@@ -85,6 +85,7 @@ public class GamePanel extends JPanel implements Runnable{
         aSetter.setNPC();
         aSetter.setMonster();
         aSetter.setWeapon();
+        ui.isSetup = true;
         gameState = titleState;
         playMusic(0);
     }
@@ -125,7 +126,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update(){
 
-        
 
         if (gameState == playState){
             //player
@@ -154,6 +154,13 @@ public class GamePanel extends JPanel implements Runnable{
         }
         if (gameState == pauseState){
 
+        }
+        if(monster[3][0] == null){
+
+            obj[3][0] = new OBJ_Elevator();
+            obj[3][0].x = 18 * tileSize;
+            obj[3][0].y = 8 * tileSize;
+            
         }
     }
     public void paintComponent(Graphics g){

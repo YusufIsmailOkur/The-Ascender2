@@ -21,8 +21,6 @@ public class Player extends Entity{
     KeyHandler keyH;
     int standCounter = 0;
     int hasKey;
-    public int health = 3;
-    public int maxHealth = 5;
     public int mana = 2000;
     public final int MAX_MANA = 2000;
     public boolean attacking = false;
@@ -53,6 +51,9 @@ public class Player extends Entity{
         solidAreaDefaultY = solidArea.y;
         solidArea.width = 32;
         solidArea.height = 30;
+
+        health = 20;
+        maxHealth = 20;
 
         attackArea.width = 36;
         attackArea.height = 36;
@@ -302,13 +303,41 @@ public class Player extends Entity{
         }
         if(spriteCounter >= 5 && spriteCounter <= 25){
             spriteNumber = 2;
+
+            int currentX = x;
+            int currentY = y;
+            int solidAreaWidth = solidArea.width;
+            int solidAreaHeight = solidArea.height;
+
+            switch (direction) {
+                case "up":
+                    y -= attackArea.height;
+                    break;
+                case "down":
+                    y += attackArea.height;
+                    break;
+                case "left":
+                    x -= attackArea.width;
+                    break;
+
+                case "right":
+                    x += attackArea.width;
+                    break;
+            
+                default:
+                    break;
+            }
+
             solidArea.height = attackArea.height;
             solidArea.width = attackArea.width;
 
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster[currentFloor]);
-            damageMonster(monsterIndex);
+            damageMonster(monsterIndex, weapons.get(0).attackValue);
 
-            
+            x = currentX;
+            y = currentY;
+            solidArea.width = solidAreaWidth;
+            solidArea.height = solidAreaHeight;
         }
         if(spriteCounter > 25){
             spriteNumber = 1;
@@ -357,10 +386,10 @@ public class Player extends Entity{
         }
     }
 
-    public void damageMonster(int monsterIndex){
+    public void damageMonster(int monsterIndex, int damage){
         if(monsterIndex != 999){  
             if (!gp.monster[currentFloor][monsterIndex].invincibility) {
-                gp.monster[currentFloor][monsterIndex].health--;
+                gp.monster[currentFloor][monsterIndex].health -= damage;
                 gp.monster[currentFloor][monsterIndex].invincibility = true;
 
                 if (gp.monster[currentFloor][monsterIndex].health <= 0) {
