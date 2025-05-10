@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import entity.Entity;
 import entity.Player;
+import environment.EnvironmentManager;
 import object.*;
 import tile.TileManager;
 import weapon.*;
@@ -38,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public TileManager tileM = new TileManager(this);
     public KeyHandler keyH = new KeyHandler(this);
+    EnvironmentManager eManager = new EnvironmentManager(this);
 
     Thread gameThread;
     public CollisionChecker cChecker = new CollisionChecker(this);
@@ -88,6 +90,7 @@ public class GamePanel extends JPanel implements Runnable{
         ui.isSetup = true;
         gameState = titleState;
         playMusic(0);
+        eManager.setup(); 
     }
 
     public void startGameThread(){
@@ -182,7 +185,6 @@ public class GamePanel extends JPanel implements Runnable{
         // OTHERS
         else {
             // TİLE
-        //tileM.loadMap("\"/res/maps/map" + currentFloor + ".txt");
         tileM.draw(g2);
 
         // OBJECT
@@ -223,15 +225,18 @@ public class GamePanel extends JPanel implements Runnable{
 
         //PLAYER
         player.draw(g2);
+
+        //Environment
+        if (player.currentFloor == 2){
+            eManager.draw(g2);
+        }
+
+        //UI
         ui.draw(g2);
         
         g2.dispose();
         }
     }
-
-    // public static Sound getSound() {
-    //     return sound;
-    // }
 
     public Sound getSound() {
         return sound;

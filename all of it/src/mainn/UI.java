@@ -67,7 +67,7 @@ public class UI {
             drawHealthBar();
             drawManaBar();
             drawWeaponSlots();
-            if(isSetup){
+            if(isSetup && gp.player.currentFloor != 2){
                 drawMonsterHealthBar();
             }
             
