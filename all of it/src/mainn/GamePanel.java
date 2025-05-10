@@ -179,6 +179,12 @@ public class GamePanel extends JPanel implements Runnable{
         {
             inventory.paintComponent(g);
         }
+        //LEADERBOARD SCREEN
+        else if (gameState == leaderBoardState)
+        {
+            LeaderBoard lb = new LeaderBoard(this);
+            lb.paintComponent(g);
+        }
         // OTHERS
         else {
             // TİLE
@@ -321,6 +327,7 @@ public class GamePanel extends JPanel implements Runnable{
             lines.add(startIndex, name);
             lines.add(++startIndex, String.valueOf(player.currentFloor));
             lines.add(++startIndex, String.valueOf(player.health));
+            lines.add(++startIndex, String.valueOf(player.totalTime));
             int count =0;
             for(int i=0; i<player.weapons.size();i++){
                 if(player.weapons.get(i).name.equals("Bow")){
@@ -358,6 +365,7 @@ public class GamePanel extends JPanel implements Runnable{
                         health= health+2;
                     }
                     player.health=health;
+                    player.totalTime =Long.parseLong(fileScanner.nextLine());
                     int arrowCount = (Integer.parseInt(fileScanner.nextLine()));
                     String s = fileScanner.nextLine();
                     player.objects.clear();
