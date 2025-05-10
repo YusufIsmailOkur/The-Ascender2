@@ -38,6 +38,10 @@ public class AssetSetter {
         gp.obj[2][0] = new OBJ_Elevator();
         gp.obj[2][0].x = 19 * gp.tileSize;
         gp.obj[2][0].y = 4 * gp.tileSize;
+
+        gp.obj[2][1] = new OBJ_ClosedElevator();
+        gp.obj[2][1].x = 0 * gp.tileSize;
+        gp.obj[2][1].y = 7 * gp.tileSize;
     }
     public void setNPC(){
         int currentFloor = gp.player.currentFloor;
@@ -49,15 +53,44 @@ public class AssetSetter {
     public void setMonster(){
         int currentFloor = gp.player.currentFloor;
 
-        gp.monster[currentFloor][0] = new MON_GreenSlime(gp);
-        gp.monster[currentFloor][0].x = gp.tileSize * 12;
-        gp.monster[currentFloor][0].y = gp.tileSize * 3;
-        gp.monster[currentFloor][1] = new MON_GreenSlime(gp);
-        gp.monster[currentFloor][1].x = gp.tileSize * 11;
-        gp.monster[currentFloor][1].y = gp.tileSize * 3;
-        gp.monster[currentFloor][2] = new MON_GreenSlime(gp);
-        gp.monster[currentFloor][2].x = gp.tileSize * 10;
-        gp.monster[currentFloor][2].y = gp.tileSize * 3;
+        gp.monster[0][0] = new MON_GreenSlime(gp);
+        gp.monster[0][0].x = gp.tileSize * 12;
+        gp.monster[0][0].y = gp.tileSize * 3;
+        gp.monster[0][1] = new MON_GreenSlime(gp);
+        gp.monster[0][1].x = gp.tileSize * 11;
+        gp.monster[0][1].y = gp.tileSize * 3;
+        gp.monster[0][2] = new MON_GreenSlime(gp);
+        gp.monster[0][2].x = gp.tileSize * 10;
+        gp.monster[0][2].y = gp.tileSize * 3;
+
+        gp.monster[2][0] = new MON_GreenSlime(gp);
+        gp.monster[2][0].x = gp.tileSize * 1;
+        gp.monster[2][0].y = gp.tileSize * 1;
+        gp.monster[2][1] = new MON_GreenSlime(gp);
+        gp.monster[2][1].x = gp.tileSize * 3;
+        gp.monster[2][1].y = gp.tileSize * 1;
+        gp.monster[2][2] = new MON_GreenSlime(gp);
+        gp.monster[2][2].x = gp.tileSize * 13;
+        gp.monster[2][2].y = gp.tileSize * 2;
+        gp.monster[2][3] = new MON_GreenSlime(gp);
+        gp.monster[2][3].x = gp.tileSize * 8;
+        gp.monster[2][3].y = gp.tileSize * 13;
+        gp.monster[2][4] = new MON_GreenSlime(gp);
+        gp.monster[2][4].x = gp.tileSize * 8;
+        gp.monster[2][4].y = gp.tileSize * 9;
+        gp.monster[2][5] = new MON_GreenSlime(gp);
+        gp.monster[2][5].x = gp.tileSize * 11;
+        gp.monster[2][5].y = gp.tileSize * 11;
+        gp.monster[2][6] = new MON_GreenSlime(gp);
+        gp.monster[2][6].x = gp.tileSize * 11;
+        gp.monster[2][6].y = gp.tileSize * 11;
+        gp.monster[2][7] = new MON_GreenSlime(gp);
+        gp.monster[2][7].x = gp.tileSize * 13;
+        gp.monster[2][7].y = gp.tileSize * 11;
+        gp.monster[2][8] = new MON_GreenSlime(gp);
+        gp.monster[2][8].x = gp.tileSize * 11;
+        gp.monster[2][8].y = gp.tileSize * 5;
+
         gp.monster[3][0] = new MON_SlimeBoss(gp);
         gp.monster[3][0].x = gp.tileSize * 10;
         gp.monster[3][0].y = gp.tileSize * 7;

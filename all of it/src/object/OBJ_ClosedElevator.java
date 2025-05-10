@@ -4,11 +4,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class OBJ_Elevator extends SuperObject{
+public class OBJ_ClosedElevator extends SuperObject{
     
-    public OBJ_Elevator(){
+    public OBJ_ClosedElevator(){
 
-        name = "elevator";
+        name = "closedelevator";
         craftable = false;
 
         try {

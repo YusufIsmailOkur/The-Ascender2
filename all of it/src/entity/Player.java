@@ -291,6 +291,9 @@ public class Player extends Entity{
                 x = 1*gp.tileSize;
                 y = 7*gp.tileSize;
                 break;
+                case "closedelevator":
+                
+                break;
             }
         }
     }
@@ -501,8 +504,8 @@ public class Player extends Entity{
             }
             g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-            g2.setColor(Color.red);
-            g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
+            // g2.setColor(Color.red);
+            // g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
         }
         else{
 
@@ -521,8 +524,8 @@ public class Player extends Entity{
                     g2.drawImage(image, x, y, gp.tileSize, gp.tileSize * 2, null);
                     g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
                 }
-                g2.setColor(Color.red);
-                g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
+                // g2.setColor(Color.red);
+                // g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
             }
 
             else{
@@ -540,8 +543,8 @@ public class Player extends Entity{
                     g2.drawImage(image, x, y, gp.tileSize * 2, gp.tileSize, null);
                     g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
                 }
-                g2.setColor(Color.red);
-                g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
+                // g2.setColor(Color.red);
+                // g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
             }
         }
          
@@ -572,8 +575,8 @@ public class Player extends Entity{
 
 
         // Collasion
-        g2.setColor(Color.red);
-        g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
+        // g2.setColor(Color.red);
+        // g2.drawRect(x + solidArea.x, y + solidArea.y, solidArea.width, solidArea.height);
     }
 }
 
