@@ -38,8 +38,12 @@ public class AssetSetter {
         // gp.obj [0] [2] is set in player class
 
         gp.obj[1][0] = new OBJ_Elevator();
-        gp.obj[1][0].x = 17 * gp.tileSize;
-        gp.obj[1][0].y = 8 * gp.tileSize;
+        gp.obj[1][0].x = 19 * gp.tileSize;
+        gp.obj[1][0].y = 7 * gp.tileSize;
+
+        gp.obj[1][1] = new OBJ_Key();
+        gp.obj[1][1].x = 11 * gp.tileSize;  
+        gp.obj[1][1].y = 7  * gp.tileSize;      
 
         gp.obj[2][0] = new OBJ_Elevator();
         gp.obj[2][0].x = 19 * gp.tileSize;
@@ -48,6 +52,18 @@ public class AssetSetter {
         gp.obj[2][1] = new OBJ_ClosedElevator();
         gp.obj[2][1].x = 0 * gp.tileSize;
         gp.obj[2][1].y = 7 * gp.tileSize;
+
+        gp.obj[2][2] = new OBJ_Key();
+        gp.obj[2][2].x = 18 * gp.tileSize;  
+        gp.obj[2][2].y = 2  * gp.tileSize;      
+
+        gp.obj[3][0] = new OBJ_ClosedElevator();
+        gp.obj[3][0].x = 0 * gp.tileSize;
+        gp.obj[3][0].y = 7 * gp.tileSize;
+
+        gp.obj[3][1] =new OBJ_Elevator();
+        gp.obj[3][1].x = 19 * gp.tileSize;
+        gp.obj[3][1].y = 7 * gp.tileSize;
     }
     public void setNPC(){
         int currentFloor = gp.player.currentFloor;
