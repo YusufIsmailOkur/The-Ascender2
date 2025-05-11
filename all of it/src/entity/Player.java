@@ -31,10 +31,12 @@ public class Player extends Entity{
     public boolean fireballCooldown = false;
     public int fireballCooldownCount = 0;
     public int bowCooldownCount = 0;
+    public int maxInventorySize = 8;
     public ArrayList<SuperObject> objects = new ArrayList<>();
     public ArrayList<SuperWeapon> weapons = new ArrayList<>();
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
     public SuperWeapon currentWeapon;
+    public WPN_Bow bow;
 
     public int currentFloor = 0;
 
@@ -73,7 +75,8 @@ public class Player extends Entity{
         hasKey = 0;
 
         weapons.add(new WPN_Sword());
-        weapons.add(new WPN_Bow());
+        bow = new WPN_Bow();
+        weapons.add(bow);
         currentWeapon = weapons.get(0);
 
     }
@@ -279,7 +282,9 @@ public class Player extends Entity{
                 break;
 
                 case "chest":
-                gp.ui.gameFinished = true;
+                if(keyH.fPressed == true){
+                    gp.obj[currentFloor][i].interact();
+                }
                 break;
 
                 case "sword": // ** YENİ: kılıcı yerden al **

@@ -24,4 +24,6 @@ public class SuperObject {
     public String toString(){
         return "Object";
     }
+
+    public void interact(){}
 }

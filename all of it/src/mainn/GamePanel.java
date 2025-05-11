@@ -383,7 +383,7 @@ public class GamePanel extends JPanel implements Runnable{
                         if (s.equals("boots")) {
                             player.objects.add(new OBJ_Boots());
                         } else if (s.equals("chest")) {
-                            player.objects.add(new OBJ_Chest());
+                            //player.objects.add(new OBJ_Chest());
                         } else if (s.equals("key")) {
                             player.objects.add(new OBJ_Key());
                         } else if (s.equals("door")) {
