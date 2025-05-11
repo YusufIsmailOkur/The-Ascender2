@@ -40,6 +40,11 @@ public class Projectile extends Entity {
                 }
                 this.alive = false;
             }
+
+            gp.cChecker.checkTile(this);
+            if(collisionOn){
+                this.alive = false;
+            }
         }
         else if(!user.equals(gp.player)){
             boolean contact = gp.cChecker.checkPlayer(this);
@@ -48,6 +53,8 @@ public class Projectile extends Entity {
                 alive = false;
             }
         }
+
+
         switch (direction) {
             case "up" : y -= speed; break;
             case "down" : y += speed; break;

@@ -12,7 +12,7 @@ public class KeyHandler implements KeyListener {
     long timeStart;
     long timeEnd;
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, fPressed, enterPressed, spacePressed, onePressed, twoPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, fPressed, enterPressed, spacePressed, onePressed, twoPressed, threePressed;
     GamePanel gp;
     public KeyHandler (GamePanel gp){
         this.gp = gp;
@@ -91,6 +91,9 @@ public class KeyHandler implements KeyListener {
             }
             if(code == KeyEvent.VK_2){
                 twoPressed = true;
+            }
+            if(code == KeyEvent.VK_3){
+                threePressed = true;
             }
             if(code == KeyEvent.VK_5){
                 gp.gameState = gp.weaponListState;
@@ -290,6 +293,9 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_2){
             twoPressed = false;
+        }
+        if(code == KeyEvent.VK_3){
+            threePressed = false;
         }
     }
 

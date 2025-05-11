@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 
 import entity.Entity;
 import mainn.GamePanel;
+import mainn.WeaponListPanel;
 import weapon.WPN_DiamondSword;
 
 public class OBJ_Chest extends SuperObject{
@@ -29,11 +30,6 @@ public class OBJ_Chest extends SuperObject{
             image = ImageIO.read(getClass().getResourceAsStream("/res/objects/chest.png"));
         } catch(IOException e){
             e.printStackTrace();
-        }
-
-        if(loot.equalsIgnoreCase("diamond sword")){
-            gp.player.weapons.add(new WPN_DiamondSword());
-
         }
     }
 
