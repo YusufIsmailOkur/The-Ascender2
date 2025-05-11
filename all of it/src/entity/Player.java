@@ -82,18 +82,35 @@ public class Player extends Entity{
     }
 
     public void getPlayerAttackImage(){
-        try{
-            attackUp1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_up_1.png"));
-            attackUp2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_up_2.png"));
-            attackDown1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_down_1.png"));
-            attackDown2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_down_2.png"));
-            attackRight1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_right_1.png"));
-            attackRight2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_right_2.png"));
-            attackLeft1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_left_1.png"));
-            attackLeft2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_left_2.png"));
+        if(currentWeapon.name.equalsIgnoreCase("sword")){
+            try{
+                attackUp1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_up_1.png"));
+                attackUp2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_up_2.png"));
+                attackDown1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_down_1.png"));
+                attackDown2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_down_2.png"));
+                attackRight1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_right_1.png"));
+                attackRight2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_right_2.png"));
+                attackLeft1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_left_1.png"));
+                attackLeft2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_left_2.png"));
+            }
+            catch(IOException e){
+                e.printStackTrace();
+            }
         }
-        catch(IOException e){
-            e.printStackTrace();
+        else if(currentWeapon.name.equalsIgnoreCase("Diamond Sword")){
+            try{
+                attackUp1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_up_1_s.png"));
+                attackUp2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_up_2_s.png"));
+                attackDown1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_down_1_s.png"));
+                attackDown2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_down_2_s.png"));
+                attackRight1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_right_1_s.png"));
+                attackRight2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_right_2_s.png"));
+                attackLeft1 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_left_1_s.png"));
+                attackLeft2 = ImageIO.read(getClass().getResourceAsStream("/res/player/boy_attack_left_2_s.png"));
+            }
+            catch(IOException e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -115,7 +132,8 @@ public class Player extends Entity{
 
     public void update(){
 
-        if(attacking && currentWeapon.name.equalsIgnoreCase("Sword")){
+        if(attacking && (currentWeapon.name.equalsIgnoreCase("Sword") || currentWeapon.name.equalsIgnoreCase("diamond sword"))){
+            getPlayerAttackImage();
             meleeAttackAnimation();
             return;
         }
@@ -160,7 +178,7 @@ public class Player extends Entity{
         }
 
         if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true || 
-            keyH.enterPressed == true || keyH.onePressed == true || keyH.twoPressed == true){
+            keyH.enterPressed == true || keyH.onePressed == true || keyH.twoPressed == true || keyH.fPressed == true || keyH.threePressed == true){
             if (keyH.upPressed == true){
                 direction = "up";
             }
@@ -182,6 +200,12 @@ public class Player extends Entity{
             else if(keyH.twoPressed){
                 currentWeapon = weapons.get(1);
             }
+            else if(keyH.threePressed){
+                if(weapons.size() >= 3){
+                    currentWeapon = weapons.get(2);
+                    getPlayerAttackImage();
+                }
+            }
 
 
             // check tile collision
@@ -202,7 +226,7 @@ public class Player extends Entity{
 
 
             //if collision is on player cant move
-            if (collisionOn == false && keyH.enterPressed == false && keyH.onePressed == false && keyH.twoPressed == false){
+            if (collisionOn == false && keyH.enterPressed == false && keyH.onePressed == false && keyH.twoPressed == false && keyH.fPressed == false && keyH.threePressed == false){
                 switch (direction){
                     case "up":
                     y -= speed;
@@ -219,7 +243,7 @@ public class Player extends Entity{
                 }
             }
 
-            if(keyH.enterPressed == false && keyH.onePressed == false && keyH.twoPressed == false){
+            if(keyH.enterPressed == false && keyH.onePressed == false && keyH.twoPressed == false && keyH.fPressed == false && keyH.threePressed == false){
                 spriteCounter++;
                 if(spriteCounter > 10){
                     if (spriteNumber == 1){
@@ -363,7 +387,7 @@ public class Player extends Entity{
             solidArea.width = attackArea.width;
 
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster[currentFloor]);
-            damageMonster(monsterIndex, weapons.get(0).attackValue);
+            damageMonster(monsterIndex, currentWeapon.attackValue);
 
             x = currentX;
             y = currentY;
@@ -466,7 +490,7 @@ public class Player extends Entity{
                     image = up2;
                 }
             }
-            if(attacking == true && currentWeapon.name.equalsIgnoreCase("sword")){
+            if(attacking == true && (currentWeapon.name.equalsIgnoreCase("sword") || currentWeapon.name.equalsIgnoreCase("diamond sword"))){
                 if(spriteNumber == 1){
                     image = attackUp1;
                 }
@@ -484,7 +508,7 @@ public class Player extends Entity{
                     image = down2;
                 }
             }
-            if(attacking == true && currentWeapon.name.equalsIgnoreCase("sword")){
+            if(attacking == true && (currentWeapon.name.equalsIgnoreCase("sword") || currentWeapon.name.equalsIgnoreCase("diamond sword"))){
                 if(spriteNumber == 1){
                     image = attackDown1;
                 }
@@ -502,7 +526,7 @@ public class Player extends Entity{
                     image = left2;
                 }
             }
-            if(attacking == true && currentWeapon.name.equalsIgnoreCase("sword")){
+            if(attacking == true && (currentWeapon.name.equalsIgnoreCase("sword") || currentWeapon.name.equalsIgnoreCase("diamond sword"))){
                 if(spriteNumber == 1){
                     image = attackLeft1;
                 }
@@ -520,7 +544,7 @@ public class Player extends Entity{
                     image = right2;
                 }
             }
-            if(attacking == true && currentWeapon.name.equalsIgnoreCase("sword")){
+            if(attacking == true && (currentWeapon.name.equalsIgnoreCase("sword") || currentWeapon.name.equalsIgnoreCase("diamond sword"))){
                 if(spriteNumber == 1){
                     image = attackRight1;
                 }

@@ -174,6 +174,10 @@ public class GamePanel extends JPanel implements Runnable{
             obj[3][2] = new OBJ_Key();
             obj[3][2].x = 11 * tileSize;
             obj[3][2].y = 7 * tileSize;
+
+            obj[3][3] = new OBJ_Chest(this, "diamond sword");
+            obj[3][3].x = 10 * tileSize;
+            obj[3][3].y = 5 * tileSize;
             
         }
     }
