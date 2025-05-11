@@ -47,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable{
     public UI ui = new UI(this);
     public Player player = new Player(this, keyH);
     public Inventory inventory = new Inventory(this);
+    public WeaponListPanel weaponList = new WeaponListPanel(this);
 
     public SuperObject obj[][] = new SuperObject[10][10];
     public Entity npc[][] = new Entity[10][10];
@@ -69,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int inventoryState = 8;    
     public final int leaderBoardState=9;
     public final int storyState = 10;
+    public final int weaponListState = 11;
 
     static boolean haskilledSlimeBoss = false;
 
@@ -83,6 +85,11 @@ public class GamePanel extends JPanel implements Runnable{
         inventory.setBounds(0, 0, screenWidth, screenHeight);
         inventory.setVisible(false);
         this.add(inventory);
+        //Weapon List
+        weaponList.setBounds(0, 0, screenWidth, screenHeight);
+        weaponList.setVisible(false);
+        this.add(weaponList);
+    }
     }
 
     public void setupGame(){
@@ -192,6 +199,10 @@ public class GamePanel extends JPanel implements Runnable{
         {
             LeaderBoard lb = new LeaderBoard(this);
             lb.paintComponent(g);
+        }
+        //WEAPON LIST
+        else if(gameState == weaponListState) {
+            weaponList.paintComponent(g);
         }
         // OTHERS
         else {
