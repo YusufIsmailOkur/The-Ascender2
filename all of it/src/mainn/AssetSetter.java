@@ -36,6 +36,10 @@ public class AssetSetter {
         gp.obj[0][1].x = 19 * gp.tileSize;
         gp.obj[0][1].y = 7 * gp.tileSize;
 
+        gp.obj[0][2] = new OBJ_Chest(gp, "10");
+        gp.obj[0][2].x = 10 * gp.tileSize;
+        gp.obj[0][2].y = 7 * gp.tileSize;
+
         // gp.obj [0] [2] is set in player class
 
         gp.obj[1][0] = new OBJ_Elevator();
