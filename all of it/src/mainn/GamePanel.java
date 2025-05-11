@@ -70,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int leaderBoardState=9;
     public final int storyState = 10;
 
+    static boolean haskilledSlimeBoss = false;
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -161,11 +162,12 @@ public class GamePanel extends JPanel implements Runnable{
         if (gameState == pauseState){
 
         }
-        if(monster[3][0] == null){
+        if(monster[3][0] == null && haskilledSlimeBoss == false){
 
-            obj[3][0] = new OBJ_Elevator();
-            obj[3][0].x = 18 * tileSize;
-            obj[3][0].y = 8 * tileSize;
+            haskilledSlimeBoss = true;
+            obj[3][2] = new OBJ_Key();
+            obj[3][2].x = 11 * tileSize;
+            obj[3][2].y = 7 * tileSize;
             
         }
     }
