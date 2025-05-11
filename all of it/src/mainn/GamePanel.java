@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
     public Entity monster[][] = new Entity[10][10];
     public ArrayList <Entity> projectiles = new ArrayList<>();
     public SuperWeapon[] weapon = new SuperWeapon[10];
-    public String[] allObjects = {"Arrow","boots","chest","key","door","elevator","Fireball"};//Should updated for every new object
+    public String[] allObjects = {"Arrow","boots","chest","key","door","elevator","Fireball", "compass", "letter", "screwdriver"};//Should updated for every new object
     public String[] allWeapons = {"Bow","Sword"}; //Should updated for every new weapon
     public UtilityTool uTool = new UtilityTool();
 
@@ -89,7 +89,6 @@ public class GamePanel extends JPanel implements Runnable{
         weaponList.setBounds(0, 0, screenWidth, screenHeight);
         weaponList.setVisible(false);
         this.add(weaponList);
-    }
     }
 
     public void setupGame(){

@@ -7,6 +7,7 @@ import mainn.*;
 
 public class SuperObject {
     
+    public boolean interactable = false;
     public BufferedImage image;
     public String name;
     public boolean collision;
@@ -26,4 +27,9 @@ public class SuperObject {
     }
 
     public void interact(){}
+
+    public boolean isInteractable() {
+        return interactable;
+    }
+
 }

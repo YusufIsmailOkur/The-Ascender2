@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import object.OBJ_Compass;
 import object.SuperObject;
 import weapon.SuperWeapon;
 
@@ -36,6 +38,8 @@ public class Inventory extends JPanel implements ActionListener {
     private JButton craftToggle;
     private boolean craftMode = false;
     private ArrayList<JButton> craftButtons = new ArrayList<>();//ALL craftable objects will have one craft button(Might change)
+    private ArrayList<JButton> interactButtons = new ArrayList<>();
+    private HashMap<JButton, SuperObject> interactableMap = new HashMap<>();
 
     public Inventory(GamePanel gp) {
         this.gp = gp;
@@ -121,6 +125,9 @@ public class Inventory extends JPanel implements ActionListener {
         } else if (craftButtons.contains(e.getSource())) {
             String itemName = ((JButton) e.getSource()).getActionCommand();
             JOptionPane.showMessageDialog(this, "Crafting: " + itemName);
+        }
+        else if (interactButtons.contains(e.getSource())){
+            interactableMap.get(e.getSource()).interact();
         }
     }
 
@@ -262,6 +269,19 @@ public class Inventory extends JPanel implements ActionListener {
                 int idx = row * slotCol + col;
                 if (idx < items.size()) {
                     Object obj = items.get(idx);
+
+                    //making the picture a button if it is interactable
+                    if(items.get(idx) instanceof SuperObject){
+                        if (((SuperObject)items.get(idx)).isInteractable()){
+                            JButton button = new JButton();
+                            button.setBounds(x, y, slotSize, slotSize);
+                            interactableMap.put(button, ((SuperObject)items.get(idx)));
+                            add(button);
+                            interactButtons.add(button);
+                    }
+
+                    }
+
                     if (obj instanceof SuperObject so) {
                         g2.drawImage(so.image, x, y, slotSize, slotSize, null);
                         //WRITE NAME
