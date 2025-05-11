@@ -1,7 +1,10 @@
 package mainn;
+import weapon.SuperWeapon;
+
 import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import javax.swing.plaf.multi.MultiScrollBarUI;
 
 public class KeyHandler implements KeyListener {
@@ -88,6 +91,10 @@ public class KeyHandler implements KeyListener {
             }
             if(code == KeyEvent.VK_2){
                 twoPressed = true;
+            }
+            if(code == KeyEvent.VK_5){
+                gp.gameState = gp.weaponListState;
+                gp.weaponList.setVisible(true);
             }
             if (gp.player.health <= 0){
                 gp.gameState = gp.deathState;
@@ -195,6 +202,20 @@ public class KeyHandler implements KeyListener {
             }
             else if (code == KeyEvent.VK_ESCAPE){ //exiting to menu state back
                 gp.gameState = gp.menuState;
+            }
+        }
+        //LEADERBOARD STATE
+        else if (gp.gameState == gp.leaderBoardState){
+            if (code == KeyEvent.VK_ESCAPE){ //exiting to menu state back
+                gp.gameState = gp.menuState;
+            }
+        }
+        //WEAPONLIST STATE
+        else if (gp.gameState == gp.weaponListState){
+            if (code == KeyEvent.VK_ESCAPE){ //exiting to menu state back
+                gp.player.weapons = WeaponListPanel.weapons;
+                gp.gameState = gp.playState;
+                gp.weaponList.setVisible(false);
             }
         }
         else if (gp.gameState == gp.deathState){
