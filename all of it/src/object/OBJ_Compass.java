@@ -27,28 +27,27 @@ public class OBJ_Compass extends SuperObject{
 
     @Override
     public void interact() {
-        //Create the dialog
-        JDialog dialog = new JDialog();
-        dialog.setUndecorated(true); 
-        dialog.setSize(400, 300); 
+        //create the dialog
+    JDialog dialog = new JDialog((java.awt.Frame) null, true); //make the dialog modal so user cannot click anywhere until he close the image
+        dialog.setUndecorated(true);
+        dialog.setSize(400, 300);
         dialog.setLocationRelativeTo(null);
         dialog.setAlwaysOnTop(true);
 
-        //Load the image
-
-        //Create a panel to draw the image
+        //create a panel to draw the image
         JPanel imagePanel = new JPanel() {
+            @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
             }
         };
-
+        imagePanel.setFocusable(true); //debug
         dialog.add(imagePanel);
-        dialog.setVisible(true);
 
-        //ESC key to close
-        dialog.addKeyListener(new KeyAdapter() {
+        // ESC key to close
+        imagePanel.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     dialog.dispose();
@@ -56,7 +55,8 @@ public class OBJ_Compass extends SuperObject{
             }
         });
 
-        dialog.requestFocusInWindow();
+        dialog.setVisible(true);        //show dialog first
+        imagePanel.requestFocusInWindow(); //request focus
     }
 }
 

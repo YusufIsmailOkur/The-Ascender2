@@ -107,6 +107,8 @@ public class Inventory extends JPanel implements ActionListener {
 
         // FILTER AT BEGINNING
         applyFilters();
+
+        allObjects.add(new OBJ_Compass());
     }
 
     @Override
@@ -166,6 +168,7 @@ public class Inventory extends JPanel implements ActionListener {
         }
 
         refreshCraftButtons();
+        refreshInteractButtons();
         repaint();
     }
 
@@ -269,19 +272,6 @@ public class Inventory extends JPanel implements ActionListener {
                 int idx = row * slotCol + col;
                 if (idx < items.size()) {
                     Object obj = items.get(idx);
-
-                    //making the picture a button if it is interactable
-                    if(items.get(idx) instanceof SuperObject){
-                        if (((SuperObject)items.get(idx)).isInteractable()){
-                            JButton button = new JButton();
-                            button.setBounds(x, y, slotSize, slotSize);
-                            interactableMap.put(button, ((SuperObject)items.get(idx)));
-                            add(button);
-                            interactButtons.add(button);
-                    }
-
-                    }
-
                     if (obj instanceof SuperObject so) {
                         g2.drawImage(so.image, x, y, slotSize, slotSize, null);
                         //WRITE NAME
@@ -303,4 +293,50 @@ public class Inventory extends JPanel implements ActionListener {
             startY += slotSize + slotGap;   
         }
     }
+
+    // private void refreshInteractButtons(){
+    //      //making the picture a button if it is interactable
+    //         if(items.get(idx) instanceof SuperObject){
+    //             if (((SuperObject)items.get(idx)).isInteractable()){
+    //                 JButton button = new JButton();
+    //                 button.setBounds(x, y, slotSize, slotSize);
+    //                 interactableMap.put(button, ((SuperObject)items.get(idx)));
+    //                 add(button);
+    //                 interactButtons.add(button);
+    //         }
+
+    //         }
+    // }
+
+    private void refreshInteractButtons() {
+    //clearing old buttons
+    for (JButton btn : interactButtons) {
+        remove(btn);
+    }
+    interactButtons.clear();
+    interactableMap.clear();
+
+    int idx = 0;
+
+    for (SuperObject obj : displayObjects) {
+        if (obj.isInteractable()) {
+            int col = idx % slotCol;
+            int row = idx / slotCol;
+            int x = slotsStartX + col * (slotSize + slotGap);
+            int y = slotsStartY + row * (slotSize + slotGap) + slotSize + 5; //place button
+
+            JButton button = new JButton("View");
+            button.setFont(new Font("Arial", Font.PLAIN, 12));
+            button.setBounds(x, y, 60, 20);
+            button.addActionListener(this);
+            interactableMap.put(button, obj);
+            interactButtons.add(button);
+            add(button);
+        }
+        idx++;
+    }
+
+    revalidate();
+    repaint();
+}
 }

@@ -103,6 +103,12 @@ public class KeyHandler implements KeyListener {
                 gp.gameState = gp.deathState;
             }
         }
+        //exiting story state
+        else if (gp.gameState == gp.storyState){
+            if (code == KeyEvent.VK_ESCAPE){
+                gp.gameState = gp.playState;
+            }
+        }
         // PAUSE STATE
         else if (gp.gameState == gp.pauseState){
             if (code == KeyEvent.VK_P){
