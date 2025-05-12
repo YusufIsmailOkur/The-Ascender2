@@ -49,7 +49,7 @@ public class GamePanel extends JPanel implements Runnable{
     public Inventory inventory = new Inventory(this);
     public WeaponListPanel weaponList = new WeaponListPanel(this);
 
-    public SuperObject obj[][] = new SuperObject[10][10];
+    public SuperObject obj[][] = new SuperObject[10][20];
     public Entity npc[][] = new Entity[10][10];
     public Entity monster[][] = new Entity[10][10];
     public ArrayList <Entity> projectiles = new ArrayList<>();
