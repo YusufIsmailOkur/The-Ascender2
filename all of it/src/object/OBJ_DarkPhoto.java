@@ -9,17 +9,17 @@ import javax.imageio.ImageIO;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-public class OBJ_Compass extends SuperObject{
+public class OBJ_DarkPhoto extends SuperObject{
     
-    public OBJ_Compass(){
+    public OBJ_DarkPhoto(){
         interactable = true;
 
-        name = "compass";
-        craftable = true;
+        name = "dark photo";
+        craftable = false;
 
         try {
 
-            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/compass.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/dark_photo.png"));
         } catch(IOException e){
             e.printStackTrace();
         }
@@ -30,7 +30,7 @@ public class OBJ_Compass extends SuperObject{
         //create the dialog
     JDialog dialog = new JDialog((java.awt.Frame) null, true); //make the dialog modal so user cannot click anywhere until he close the image
         dialog.setUndecorated(true);
-        dialog.setSize(600,600);
+        dialog.setSize(400,600);
         dialog.setLocationRelativeTo(null);
         dialog.setAlwaysOnTop(true);
 

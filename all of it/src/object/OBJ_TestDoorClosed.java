@@ -1,0 +1,105 @@
+package object;
+
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
+
+public class OBJ_TestDoorClosed extends SuperObject{
+    String password;
+    boolean opened;
+    
+    public OBJ_TestDoorClosed(String password){
+
+        this.password = password;
+        name = "testdoorclosed";
+        craftable = false;
+        this.opened = false;
+
+        try {
+
+            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/testDoorClosed.png")); 
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        collision = true;
+    }
+
+    @Override
+    public void interact() {
+        if (opened) return;
+        //athena door
+        if (password.equals("athena")){
+            String input = JOptionPane.showInputDialog(null, "The door is locked. Enter the password:");
+
+            if (input != null && input.trim().equalsIgnoreCase(password)) {
+                JOptionPane.showMessageDialog(null, "Correct password! The door opens.");
+                this.collision = false;
+                this.opened = true;
+
+                try {
+                    image = ImageIO.read(getClass().getResourceAsStream("/res/objects/testDoorOpened.png")); 
+                } catch(IOException e){
+                    e.printStackTrace();
+                }
+            } else if (input != null) {
+                JOptionPane.showMessageDialog(null, "Incorrect password.");
+            }
+        }
+        //123 door
+        else if (password.equals("123")){
+            String input = JOptionPane.showInputDialog(null, "The door is locked. Enter the password:");
+
+            if (input != null && input.trim().equalsIgnoreCase(password)) {
+                JOptionPane.showMessageDialog(null, "Correct password! The door opens.");
+                this.collision = false;
+                this.opened = true;
+
+                try {
+                    image = ImageIO.read(getClass().getResourceAsStream("/res/objects/testDoorOpened.png")); 
+                } catch(IOException e){
+                    e.printStackTrace();
+                }
+            } else if (input != null) {
+                JOptionPane.showMessageDialog(null, "Incorrect password.");
+            }
+        }
+        //321 door
+        else if (password.equals("321")){
+            String input = JOptionPane.showInputDialog(null, "The door is locked. Enter the password:");
+
+            if (input != null && input.trim().equalsIgnoreCase(password)) {
+                JOptionPane.showMessageDialog(null, "Correct password! The door opens.");
+                this.collision = false;
+                this.opened = true;
+
+                try {
+                    image = ImageIO.read(getClass().getResourceAsStream("/res/objects/testDoorOpened.png")); 
+                } catch(IOException e){
+                    e.printStackTrace();
+                }
+            } else if (input != null) {
+                JOptionPane.showMessageDialog(null, "Incorrect password.");
+            }
+        }
+        //yes door
+        else if (password.equals("yes")){
+            String input = JOptionPane.showInputDialog(null, "The door is locked. Enter the password:");
+
+            if (input != null && input.trim().equalsIgnoreCase(password)) {
+                JOptionPane.showMessageDialog(null, "Correct password! The door opens.");
+                this.collision = false;
+                this.opened = true;
+
+                try {
+                    image = ImageIO.read(getClass().getResourceAsStream("/res/objects/testDoorOpened.png")); 
+                } catch(IOException e){
+                    e.printStackTrace();
+                }
+            } else if (input != null) {
+                JOptionPane.showMessageDialog(null, "Incorrect password.");
+            }
+        }
+        
+    }
+}

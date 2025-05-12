@@ -308,39 +308,46 @@ public class Player extends Entity{
                 case "chest":
                 if(keyH.fPressed == true){
                     gp.obj[currentFloor][i].interact();
+                } break;
+
+                case "testdoorclosed":
+                if(keyH.fPressed == true){
+                    gp.obj[currentFloor][i].interact();
                 }
+                keyH.fPressed = false; 
+                break;
 
                 case "table":
                 if(keyH.fPressed == true){
                     gp.obj[currentFloor][i].interact();
-                }
+                } break;
 
                 case "statue1":
                 if(keyH.fPressed == true){
                     gp.obj[currentFloor][i].interact();
-                }case "statue2":
+                }break; case "statue2":
                 if(keyH.fPressed == true){
                     gp.obj[currentFloor][i].interact();
-                }case "statue3":
+                }break; case "statue3":
                 if(keyH.fPressed == true){
                     gp.obj[currentFloor][i].interact();
-                }case "statue4":
+                }break; case "statue4":
                 if(keyH.fPressed == true){
                     gp.obj[currentFloor][i].interact();
-                }case "statue5":
+                }break; case "statue5":
                 if(keyH.fPressed == true){
                     gp.obj[currentFloor][i].interact();
-                }case "statue6":
+                }break; case "statue6":
                 if(keyH.fPressed == true){
                     gp.obj[currentFloor][i].interact();
-                }case "statue7":
+                }break; case "statue7":
                 if(keyH.fPressed == true){
                     gp.obj[currentFloor][i].interact();
-                }case "statue8":
+                }break; case "statue8":
                 if(keyH.fPressed == true){
                     gp.obj[currentFloor][i].interact();
-                }
-                break;
+                } break;
+                
 
                 case "sword": // ** YENİ: kılıcı yerden al **
                 WPN_Sword sword = new WPN_Sword();

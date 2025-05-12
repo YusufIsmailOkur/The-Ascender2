@@ -14,13 +14,12 @@ public class OBJ_Letter extends SuperObject{
     public OBJ_Letter(){
         interactable = true;
 
-
         name = "letter";
-        craftable = false;
+        craftable = true;
 
         try {
 
-            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/letter.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/letter1.png"));
         } catch(IOException e){
             e.printStackTrace();
         }
@@ -31,7 +30,7 @@ public class OBJ_Letter extends SuperObject{
         //create the dialog
     JDialog dialog = new JDialog((java.awt.Frame) null, true); //make the dialog modal so user cannot click anywhere until he close the image
         dialog.setUndecorated(true);
-        dialog.setSize(400, 300);
+        dialog.setSize(400,600);
         dialog.setLocationRelativeTo(null);
         dialog.setAlwaysOnTop(true);
 
@@ -59,5 +58,5 @@ public class OBJ_Letter extends SuperObject{
         dialog.setVisible(true);        //show dialog first
         imagePanel.requestFocusInWindow(); //request focus
     }
-
 }
+
