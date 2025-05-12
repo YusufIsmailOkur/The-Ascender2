@@ -43,6 +43,10 @@ public class Inventory extends JPanel implements ActionListener {
     private ArrayList<JButton> interactButtons = new ArrayList<>();
     private HashMap<JButton, SuperObject> interactableMap = new HashMap<>();
 
+    private SuperObject first, second;
+    private boolean firstSelected = true;
+    private boolean secondSelected = false;
+
     public Inventory(GamePanel gp) {
         this.gp = gp;
         setPreferredSize(new Dimension(gp.screenWidth, gp.screenHeight));
@@ -125,8 +129,37 @@ public class Inventory extends JPanel implements ActionListener {
             }
             applyFilters();//Apply filters after action
         } else if (craftButtons.contains(e.getSource())) {
-            String itemName = ((JButton) e.getSource()).getActionCommand();
-            JOptionPane.showMessageDialog(this, "Crafting: " + itemName);
+            if(!firstSelected)
+            {
+                first = displayObjects.get(craftButtons.indexOf(e.getSource()));
+                firstSelected = true;
+                JOptionPane.showMessageDialog(this, "First item selected: " + first.name);
+            }
+            else if(!secondSelected)
+            {
+                second = displayObjects.get(craftButtons.indexOf(e.getSource()));
+                secondSelected = true;
+                JOptionPane.showMessageDialog(this, "Second item selected: " + second.name);
+            }
+            else
+            {
+                //Crafting
+                JOptionPane.showMessageDialog(this, "Only two item");
+            }
+            
+        }
+        if(secondSelected && firstSelected) {
+            if (first.name.equals("compass") && second.name.equals("screwdriver") || first.name.equals("screwdriver") && second.name.equals("compass")) {
+                JOptionPane.showMessageDialog(this, "Crafted: Compass with screwdriver, letter crafted");
+                firstSelected = false;
+                secondSelected = false;
+                gp.player.objects.add(new OBJ_Letter());
+            } else if (first.name.equals("letter") && second.name.equals("light") || first.name.equals("light") && second.name.equals("letter")) {
+                JOptionPane.showMessageDialog(this, "Crafted: Letter with lighted letter, Lighted letter crafted");
+                firstSelected = false;
+                secondSelected = false;
+                gp.player.objects.add(new OBJ_LightedLetter());
+            }
         }
         else if (interactButtons.contains(e.getSource())){
             interactableMap.get(e.getSource()).interact();
@@ -170,7 +203,7 @@ public class Inventory extends JPanel implements ActionListener {
         repaint();
     }
 
-    private void refreshCraftButtons() {
+    public void refreshCraftButtons() {
         for (JButton b : craftButtons)
         {
             remove(b);
@@ -210,7 +243,7 @@ public class Inventory extends JPanel implements ActionListener {
         JButton btn = new JButton("Craft");
         btn.setFont(new Font("Arial", Font.PLAIN, 14));
         btn.setBounds(x, y, 60, 20);
-        btn.setActionCommand(name);
+        btn.setActionCommand(getName());
         btn.addActionListener(this);
         add(btn);
         craftButtons.add(btn);
