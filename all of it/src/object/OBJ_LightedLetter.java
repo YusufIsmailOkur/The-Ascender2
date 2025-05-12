@@ -9,17 +9,17 @@ import javax.imageio.ImageIO;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-public class OBJ_DarkPhoto extends SuperObject{
+public class OBJ_LightedLetter extends SuperObject{
     
-    public OBJ_DarkPhoto(){
+    public OBJ_LightedLetter(){
         interactable = true;
 
-        name = "dark photo";
+        name = "lighted letter";
         craftable = false;
 
         try {
 
-            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/dark_photo.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/lightedLetter.png"));
         } catch(IOException e){
             e.printStackTrace();
         }

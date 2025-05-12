@@ -43,9 +43,8 @@ public class OBJ_Chest extends SuperObject{
             if(loot.equalsIgnoreCase("diamond sword")){
                 gp.player.weapons.add(new WPN_DiamondSword());
             }
-            else if(loot.equalsIgnoreCase("a dark photo and a screwdriver")){
+            else if(loot.equalsIgnoreCase("screwdriver")){
                 gp.player.objects.add(new OBJ_ScrewDriver());
-                gp.player.objects.add(new OBJ_DarkPhoto());
             }
             else if(loot.equalsIgnoreCase("light")){
                 gp.player.objects.add(new OBJ_Light());
