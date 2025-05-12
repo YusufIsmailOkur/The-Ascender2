@@ -23,7 +23,7 @@ public class OBJ_Chest extends SuperObject{
         this.gp = gp;
         craftable = false;
         this.loot = loot;
-        collision = false;
+        collision = true;
 
         try {
 
@@ -37,11 +37,18 @@ public class OBJ_Chest extends SuperObject{
         gp.gameState = gp.dialogueState;
         if(!opened){
             StringBuilder sb = new StringBuilder();
-            sb.append("You open the chest and find a " + loot + "!");
+            sb.append("You open the chest and find a " + loot + "!\n");
 
             sb.append("You obtain the " + loot + "!");
             if(loot.equalsIgnoreCase("diamond sword")){
                 gp.player.weapons.add(new WPN_DiamondSword());
+            }
+            else if(loot.equalsIgnoreCase("a dark photo and a screwdriver")){
+                gp.player.objects.add(new OBJ_ScrewDriver());
+                gp.player.objects.add(new OBJ_DarkPhoto());
+            }
+            else if(loot.equalsIgnoreCase("light")){
+                gp.player.objects.add(new OBJ_Light());
             }
             else{
                 if(loot.equalsIgnoreCase("key")){

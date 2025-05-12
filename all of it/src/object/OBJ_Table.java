@@ -12,17 +12,15 @@ import weapon.WPN_DiamondSword;
 public class OBJ_Table extends SuperObject{
 
     GamePanel gp;
-    String loot;
     String dialouge;
     boolean opened = false;
 
     
-    public OBJ_Table(GamePanel gp, String loot){
+    public OBJ_Table(GamePanel gp){
 
         name = "table";
         this.gp = gp;
         craftable = false;
-        this.loot = loot;
         collision = true;
 
         try {
@@ -37,9 +35,12 @@ public class OBJ_Table extends SuperObject{
         gp.gameState = gp.dialogueState;
         if(!opened){
             StringBuilder sb = new StringBuilder();
-            sb.append("You took a " + loot + " from drawer");
+            sb.append("You took a photo and a compass from drawer.\n");
 
-            sb.append("You obtain the " + loot);
+            sb.append("You obtain the photo.\n");
+            sb.append("You obtain the compass.");
+
+            gp.player.objects.add(new OBJ_Photo());
             gp.player.objects.add(new OBJ_Compass());
             gp.ui.currentDialogue = sb.toString();
             opened = true;
