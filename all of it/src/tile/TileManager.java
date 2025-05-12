@@ -50,7 +50,6 @@ public class TileManager {
         setup(7, "table_ground1", true);
         setup(8, "table_ground2", true);
         setup(9, "table_ground3", true);
-        setup(10, "table_ground4", true);
         setup(11, "table_ground5", true);
         setup(12, "table_ground6", true);
         setup(13, "bottom", true);

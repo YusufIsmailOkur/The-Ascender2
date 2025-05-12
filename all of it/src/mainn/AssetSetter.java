@@ -46,14 +46,61 @@ public class AssetSetter {
 
         // gp.obj [0] [2] is set in player class
 
+        //1
         gp.obj[1][0] = new OBJ_Elevator();
         gp.obj[1][0].x = 19 * gp.tileSize;
         gp.obj[1][0].y = 7 * gp.tileSize;
 
         gp.obj[1][1] = new OBJ_Key();
         gp.obj[1][1].x = 11 * gp.tileSize;  
-        gp.obj[1][1].y = 7  * gp.tileSize;      
+        gp.obj[1][1].y = 7  * gp.tileSize;    
 
+        gp.obj[1][2] = new OBJ_Table(gp, "compass");
+        gp.obj[1][2].x = 9 * gp.tileSize;
+        gp.obj[1][2].y = 4 * gp.tileSize;
+
+        gp.obj[1][3] = new OBJ_Statue1(gp);
+        gp.obj[1][3].x = 7 * gp.tileSize;
+        gp.obj[1][3].y = 6 * gp.tileSize;
+
+
+        gp.obj[1][4] = new OBJ_Statue2(gp);
+        gp.obj[1][4].x = 6 * gp.tileSize;
+        gp.obj[1][4].y = 8 * gp.tileSize;
+
+
+        gp.obj[1][5] = new OBJ_Statue3(gp);
+        gp.obj[1][5].x = 6 * gp.tileSize;
+        gp.obj[1][5].y = 10 * gp.tileSize;
+
+
+        gp.obj[1][6] = new OBJ_Statue4(gp);
+        gp.obj[1][6].x = 7 * gp.tileSize;
+        gp.obj[1][6].y = 12 * gp.tileSize;
+
+
+        gp.obj[1][7] = new OBJ_Statue5(gp);
+        gp.obj[1][7].x = 11 * gp.tileSize;
+        gp.obj[1][7].y = 6 * gp.tileSize;
+
+
+        gp.obj[1][8] = new OBJ_Statue6(gp);
+        gp.obj[1][8].x = 12 * gp.tileSize;
+        gp.obj[1][8].y = 8 * gp.tileSize;
+
+
+        gp.obj[1][9] = new OBJ_Statue7(gp);
+        gp.obj[1][9].x = 12 * gp.tileSize;
+        gp.obj[1][9].y = 10 * gp.tileSize;
+
+
+        gp.obj[1][10] = new OBJ_Statue8(gp);
+        gp.obj[1][10].x = 11 * gp.tileSize;
+        gp.obj[1][10].y = 12 * gp.tileSize;
+
+
+
+        //2
         gp.obj[2][0] = new OBJ_Elevator();
         gp.obj[2][0].x = 19 * gp.tileSize;
         gp.obj[2][0].y = 4 * gp.tileSize;

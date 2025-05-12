@@ -107,8 +107,6 @@ public class Inventory extends JPanel implements ActionListener {
 
         // FILTER AT BEGINNING
         applyFilters();
-
-        allObjects.add(new OBJ_Compass());
     }
 
     @Override
@@ -149,8 +147,6 @@ public class Inventory extends JPanel implements ActionListener {
         for (SuperWeapon wp : allWeapons) {
             boolean matchesSearch = wp.name.toLowerCase().contains(term);
             boolean matchesCraft = !craftMode || wp.craftable;
-            if(!craftMode)
-
             if (matchesSearch && matchesCraft) {
                 displayWeapons.add(wp);
             }

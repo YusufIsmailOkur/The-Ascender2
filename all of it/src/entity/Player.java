@@ -309,6 +309,37 @@ public class Player extends Entity{
                 if(keyH.fPressed == true){
                     gp.obj[currentFloor][i].interact();
                 }
+
+                case "table":
+                if(keyH.fPressed == true){
+                    gp.obj[currentFloor][i].interact();
+                }
+
+                case "statue1":
+                if(keyH.fPressed == true){
+                    gp.obj[currentFloor][i].interact();
+                }case "statue2":
+                if(keyH.fPressed == true){
+                    gp.obj[currentFloor][i].interact();
+                }case "statue3":
+                if(keyH.fPressed == true){
+                    gp.obj[currentFloor][i].interact();
+                }case "statue4":
+                if(keyH.fPressed == true){
+                    gp.obj[currentFloor][i].interact();
+                }case "statue5":
+                if(keyH.fPressed == true){
+                    gp.obj[currentFloor][i].interact();
+                }case "statue6":
+                if(keyH.fPressed == true){
+                    gp.obj[currentFloor][i].interact();
+                }case "statue7":
+                if(keyH.fPressed == true){
+                    gp.obj[currentFloor][i].interact();
+                }case "statue8":
+                if(keyH.fPressed == true){
+                    gp.obj[currentFloor][i].interact();
+                }
                 break;
 
                 case "sword": // ** YENİ: kılıcı yerden al **
