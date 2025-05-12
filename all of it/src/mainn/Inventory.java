@@ -18,6 +18,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import object.OBJ_Compass;
+import object.OBJ_Letter;
+import object.OBJ_LightedLetter;
 import object.SuperObject;
 import weapon.SuperWeapon;
 
