@@ -209,7 +209,7 @@ public class AssetSetter {
 
        gp.obj[10][15] = new OBJ_Chest(gp, "light");
        gp.obj[10][15].x = 17 * gp.tileSize;
-       gp.obj[10][15].y = 10 * gp.tileSize;
+       gp.obj[10][15].y = 11 * gp.tileSize;
 
        gp.obj[10][16] = new OBJ_Chest(gp, "screwdriver");
        gp.obj[10][16].x = 17 * gp.tileSize;

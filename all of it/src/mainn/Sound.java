@@ -20,6 +20,8 @@ public class Sound {
         soundURL[1] = getClass().getResource("/res/sound/inGameMusic.wav");
         soundURL[2] = getClass().getResource("/res/sound/bossMusic.wav");
         soundURL[3] = getClass().getResource("/res/sound/genocide.wav");
+        soundURL[4] = getClass().getResource("/res/sound/pillarMen.wav");
+
     }
 
     public void setFile(int i) {
