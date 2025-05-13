@@ -268,7 +268,7 @@ public class GamePanel extends JPanel implements Runnable{
         player.draw(g2);
 
         //Environment
-        if (player.currentFloor == 2){
+        if (player.currentFloor == 2 || player.currentFloor == 5){
             eManager.draw(g2);
         }
 

@@ -78,10 +78,9 @@ public class UI {
             drawHealthBar();
             drawManaBar();
             drawWeaponSlots();
-            if(isSetup && gp.player.currentFloor != 2){
+            if(isSetup && gp.player.currentFloor != 2 && gp.player.currentFloor != 5){
                 drawMonsterHealthBar();
             }
-            
         }
         // PAUSE STATE
         if (gp.gameState == gp.pauseState) {
@@ -405,10 +404,15 @@ public class UI {
 
         drawSubWindow(x, y, width, height);
 
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30F));
 
         x += gp.tileSize;
         y += gp.tileSize * 5 / 3;
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
+        g2.drawString("You Died", x, y);
+        y += 60;
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30F));
 
         g2.drawString("Keep Going", x, y);
         if (deathScreenNum == 0) {

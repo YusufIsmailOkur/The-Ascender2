@@ -6,7 +6,6 @@ import monster.MON_SkeletonArcher;
 import monster.MON_SlimeBoss;
 import monster.MON_Zombie;
 import object.*;
-
 import weapon.*;
 
 public class AssetSetter {
@@ -47,6 +46,10 @@ public class AssetSetter {
         gp.obj[0][4] = new OBJ_Chest(gp, "health potion");
         gp.obj[0][4].x = 6 * gp.tileSize;
         gp.obj[0][4].y = 9 * gp.tileSize;
+
+        gp.obj[0][5] = new OBJ_Key();
+        gp.obj[0][5].x = 6 * gp.tileSize;
+        gp.obj[0][5].y = 6* gp.tileSize;
 
         // gp.obj [0] [2] is set in player class
 
@@ -139,6 +142,7 @@ public class AssetSetter {
         gp.obj[2][2].x = 18 * gp.tileSize;  
         gp.obj[2][2].y = 2  * gp.tileSize;      
 
+        //3
         gp.obj[3][0] = new OBJ_ClosedElevator();
         gp.obj[3][0].x = 0 * gp.tileSize;
         gp.obj[3][0].y = 7 * gp.tileSize;
@@ -147,6 +151,7 @@ public class AssetSetter {
         gp.obj[3][1].x = 19 * gp.tileSize;
         gp.obj[3][1].y = 7 * gp.tileSize;
 
+        //4
         gp.obj[4][0] = new OBJ_ClosedElevator();
         gp.obj[4][0].x = 0 * gp.tileSize;
         gp.obj[4][0].y = 7 * gp.tileSize;
@@ -155,9 +160,22 @@ public class AssetSetter {
         gp.obj[4][1].x = 19 * gp.tileSize;
         gp.obj[4][1].y = 7 * gp.tileSize;
 
-        gp.monster[4][2] = new MON_SkeletonArcher(gp);
-        gp.monster[4][2].x = 5*gp.tileSize;
-        gp.monster[4][2].y = 7*gp.tileSize;
+        gp.obj[4][2] = new OBJ_Key();
+        gp.obj[4][2].x = 5 * gp.tileSize;
+        gp.obj[4][2].y = 5* gp.tileSize;
+
+        //5
+        gp.obj[5][0] = new OBJ_ClosedElevator();
+        gp.obj[5][0].x = 0 * gp.tileSize;
+        gp.obj[5][0].y = 7 * gp.tileSize;
+
+        gp.obj[5][1] = new OBJ_Elevator();
+        gp.obj[5][1].x = 19 * gp.tileSize;
+        gp.obj[5][1].y = 4* gp.tileSize;
+
+        gp.obj[5][2] = new OBJ_Key();
+        gp.obj[5][2].x = 18 * gp.tileSize;
+        gp.obj[5][2].y = 7 * gp.tileSize;
     }
     public void setNPC(){
         int currentFloor = gp.player.currentFloor;
@@ -214,6 +232,63 @@ public class AssetSetter {
         gp.monster[3][0] = new MON_SlimeBoss(gp);
         gp.monster[3][0].x = gp.tileSize * 10;
         gp.monster[3][0].y = gp.tileSize * 7;
+
+        gp.monster[4][0] = new MON_SkeletonArcher(gp);
+        gp.monster[4][0].x = 13*gp.tileSize;
+        gp.monster[4][0].y = 1*gp.tileSize;
+
+        gp.monster[4][1] = new MON_SkeletonArcher(gp);
+        gp.monster[4][1].x = 1*gp.tileSize;
+        gp.monster[4][1].y = 1*gp.tileSize;
+
+        gp.monster[4][2] = new MON_SkeletonArcher(gp);
+        gp.monster[4][2].x = 13*gp.tileSize;
+        gp.monster[4][2].y = 13*gp.tileSize;
+
+        gp.monster[4][3] = new MON_SkeletonArcher(gp);
+        gp.monster[4][3].x = 1*gp.tileSize;
+        gp.monster[4][3].y = 13*gp.tileSize;
+
+        //5
+        gp.monster[5][0] = new MON_Zombie(gp);
+        gp.monster[5][0].x = 8 * gp.tileSize;
+        gp.monster[5][0].y = 1 * gp.tileSize;
+
+        gp.monster[5][1] = new MON_Zombie(gp);
+        gp.monster[5][1].x = 15 * gp.tileSize;
+        gp.monster[5][1].y = 5 * gp.tileSize;
+
+        gp.monster[5][2] = new MON_Zombie(gp);
+        gp.monster[5][2].x = 11 * gp.tileSize;
+        gp.monster[5][2].y = 5 * gp.tileSize;
+
+        gp.monster[5][3] = new MON_Zombie(gp);
+        gp.monster[5][3].x = 8 * gp.tileSize;
+        gp.monster[5][3].y = 7 * gp.tileSize;
+
+        gp.monster[5][4] = new MON_Zombie(gp);
+        gp.monster[5][4].x = 6 * gp.tileSize;
+        gp.monster[5][4].y = 11 * gp.tileSize;
+
+        gp.monster[5][5] = new MON_SkeletonArcher(gp);
+        gp.monster[5][5].x = 2 * gp.tileSize;
+        gp.monster[5][5].y = 13 * gp.tileSize;
+
+        gp.monster[5][6] = new MON_Zombie(gp);
+        gp.monster[5][6].x = 6 * gp.tileSize;
+        gp.monster[5][6].y = 11 * gp.tileSize;
+
+        gp.monster[5][7] = new MON_Zombie(gp);
+        gp.monster[5][7].x = 14 * gp.tileSize;
+        gp.monster[5][7].y = 10 * gp.tileSize;
+
+        gp.monster[5][8] = new MON_SkeletonArcher(gp);
+        gp.monster[5][8].x = 16 * gp.tileSize;
+        gp.monster[5][8].y = 10 * gp.tileSize;
+
+        gp.monster[5][9] = new MON_SkeletonArcher(gp);
+        gp.monster[5][9].x = 14 * gp.tileSize;
+        gp.monster[5][9].y = 8 * gp.tileSize;
     }
     public void setWeapon(){
         // gp.weapon[0] = new WPN_Sword();
