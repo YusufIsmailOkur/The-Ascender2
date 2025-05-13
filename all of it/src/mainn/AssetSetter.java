@@ -6,6 +6,7 @@ import monster.MON_SkeletonArcher;
 import monster.MON_SkeletonBoss;
 import monster.*;
 import monster.MON_SlimeBoss;
+import monster.MON_WallSummoner;
 import monster.MON_Zombie;
 import object.*;
 import weapon.*;
@@ -19,10 +20,11 @@ public class AssetSetter {
     }
 
     public void setObject(){
+      
         gp.monster[0][0] = new MON_Summoner(gp, 0);
         gp.monster[0][0].x = gp.tileSize * 10;
         gp.monster[0][0].y = gp.tileSize * 7;
-
+      
         // gp.obj[0][1] = new OBJ_Key();
         // gp.obj[0][1].x = 5 * gp.tileSize;
         // gp.obj[0][1].y = 5 * gp.tileSize;
@@ -193,6 +195,11 @@ public class AssetSetter {
         gp.obj[4][2].x = 5 * gp.tileSize;
         gp.obj[4][2].y = 5* gp.tileSize;
 
+        // gp.monster[4][3] = new MON_SkeletonBoss(gp);
+        // gp.monster[4][3].x = gp.tileSize * 10;
+        // gp.monster[4][3].y = gp.tileSize * 7;
+
+
         //5
         gp.obj[5][0] = new OBJ_ClosedElevator();
         gp.obj[5][0].x = 0 * gp.tileSize;
@@ -206,6 +213,14 @@ public class AssetSetter {
         gp.obj[5][2].x = 18 * gp.tileSize;
         gp.obj[5][2].y = 7 * gp.tileSize;
 
+        //7
+        gp.obj[7][0] = new OBJ_ClosedElevator();
+        gp.obj[7][0].x = 0 * gp.tileSize;
+        gp.obj[7][0].y = 7 * gp.tileSize;
+
+        gp.obj[7][1] =new OBJ_Elevator();
+        gp.obj[7][1].x = 19 * gp.tileSize;
+        gp.obj[7][1].y = 7 * gp.tileSize;
     }
     public void setNPC(){
         String[] dialogue;
@@ -310,8 +325,6 @@ public class AssetSetter {
         gp.monster[4][0].x = gp.tileSize * 10;
         gp.monster[4][0].y = gp.tileSize * 7;
 
-
-
         gp.monster[6][0] = new MON_GreenSlime(gp);
         gp.monster[6][0].x = 5 * gp.tileSize;
         gp.monster[6][0].y = 5 * gp.tileSize;
@@ -359,7 +372,11 @@ public class AssetSetter {
         gp.monster[6][11] = new MON_SkeletonArcher(gp);
         gp.monster[6][11].x = 10 * gp.tileSize;
         gp.monster[6][11].y = 11 * gp.tileSize;
-        
+      
+        //7
+        gp.monster[7][3] = new MON_WallSummoner(gp);
+        gp.monster[7][3].x = gp.tileSize * 8;
+        gp.monster[7][3].y = gp.tileSize * 5;
     }
     public void setWeapon(){
         // gp.weapon[0] = new WPN_Sword();
