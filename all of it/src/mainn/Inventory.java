@@ -364,6 +364,20 @@ public class Inventory extends JPanel implements ActionListener {
             interactButtons.add(button);
             add(button);
         }
+        if(obj.usable == true){
+            int col = idx % slotCol;
+            int row = idx / slotCol;
+            int x = slotsStartX + col * (slotSize + slotGap);
+            int y = slotsStartY + row * (slotSize + slotGap) + slotSize + 5; //place button
+
+            JButton button = new JButton("Use");
+            button.setFont(new Font("Arial", Font.PLAIN, 12));
+            button.setBounds(x, y, 60, 20);
+            button.addActionListener(this);
+            interactableMap.put(button, obj);
+            interactButtons.add(button);
+            add(button);
+        }
         idx++;
     }
 

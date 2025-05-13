@@ -44,6 +44,10 @@ public class AssetSetter {
         gp.obj[0][3].x = 6 * gp.tileSize;
         gp.obj[0][3].y = 7 * gp.tileSize;
 
+        gp.obj[0][4] = new OBJ_Chest(gp, "health potion");
+        gp.obj[0][4].x = 6 * gp.tileSize;
+        gp.obj[0][4].y = 9 * gp.tileSize;
+
         // gp.obj [0] [2] is set in player class
 
         //1

@@ -49,6 +49,9 @@ public class OBJ_Chest extends SuperObject{
             else if(loot.equalsIgnoreCase("light")){
                 gp.player.objects.add(new OBJ_Light());
             }
+            else if(loot.equalsIgnoreCase("health potion")){
+                gp.player.objects.add(new OBJ_HealthPotion(gp));
+            }
             else{
                 if(loot.equalsIgnoreCase("key")){
                     gp.player.objects.add(new OBJ_Key());

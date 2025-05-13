@@ -8,6 +8,7 @@ import mainn.*;
 public class SuperObject {
     
     public boolean interactable = false;
+    public boolean usable = false;
     public BufferedImage image;
     public String name;
     public boolean collision;
