@@ -21,7 +21,10 @@ public class Entity {
     public Rectangle attackArea = new Rectangle(0,0,0,0);
     public boolean isBoss;
     public int damage;
+    public boolean attacking = false;
     public Projectile projectile;
+    public int motion1_duration, motion2_duration;
+    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
 
     public int solidAreaDefaultX, solidAreaDefaultY;
 

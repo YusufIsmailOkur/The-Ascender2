@@ -3,6 +3,7 @@ package mainn;
 import entity.NPC_OldMan;
 import monster.MON_GreenSlime;
 import monster.MON_SkeletonArcher;
+import monster.MON_SkeletonBoss;
 import monster.MON_SlimeBoss;
 import monster.MON_Zombie;
 import object.*;
@@ -18,7 +19,9 @@ public class AssetSetter {
     }
 
     public void setObject(){
-    int currentFloor = gp.player.currentFloor;
+        gp.monster[0][0] = new MON_SkeletonBoss(gp);
+        gp.monster[0][0].x = gp.tileSize * 10;
+        gp.monster[0][0].y = gp.tileSize * 7;
 
         // gp.obj[0][1] = new OBJ_Key();
         // gp.obj[0][1].x = 5 * gp.tileSize;

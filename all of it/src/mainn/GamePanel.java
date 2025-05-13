@@ -418,7 +418,7 @@ public class GamePanel extends JPanel implements Runnable{
                         } else if (s.equals("elevator")) {
                             player.objects.add(new OBJ_Elevator());
                         }
-                        s= fileScanner.nextLine();
+                        s = fileScanner.nextLine();
                     }
                     player.weapons.clear();
                     String st = fileScanner.nextLine();
