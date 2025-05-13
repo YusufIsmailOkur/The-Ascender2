@@ -4,18 +4,19 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
+import java.util.Collections;
+import java.util.ArrayList;
 import weapon.SuperWeapon;
 
 public class WeaponListPanel extends JPanel implements ActionListener {
-    public static ArrayList<SuperWeapon> weapons = new ArrayList<>();
-    private ArrayList<JButton> weaponButtons = new ArrayList<>();
+    public static ArrayList<SuperWeapon> weapons;
+    public ArrayList<JButton> weaponButtons = new ArrayList<>();
 
-    private int firstIndx = -1, secondIndx = -1;
-    private boolean firstSelected = true;
+    public int firstIndx = -1, secondIndx = -1;
+    public boolean firstSelected = true;
 
-    private GamePanel gp;
-    private int frameX, frameY, frameWidth, frameHeight;
+    public GamePanel gp;
+    public int frameX, frameY, frameWidth, frameHeight;
 
     public WeaponListPanel(GamePanel gp) {
         this.gp = gp;
@@ -28,34 +29,9 @@ public class WeaponListPanel extends JPanel implements ActionListener {
         frameY = margin;
         frameWidth = gp.screenWidth - 2 * margin;
         frameHeight = gp.screenHeight - 2 * margin;
+        weapons = new ArrayList<>();
 
-        int weaponCount = gp.player.weapons.size();
-        for (int i = 0; i < weaponCount; i++) {
-            weapons.add(gp.player.weapons.get(i));
-        }
-
-        int cols = 3;
-        int padding = 10;
-        int btnW = (frameWidth - (cols + 1) * padding) / cols;
-        int btnH = 80;
-
-        for (int i = 0; i < weapons.size(); i++) {
-            SuperWeapon w = weapons.get(i);
-            JButton btn = new JButton(w.name);
-            btn.setIcon(new ImageIcon(w.imageRight));
-            btn.setHorizontalTextPosition(SwingConstants.CENTER);
-            btn.setVerticalTextPosition(SwingConstants.BOTTOM);
-            btn.addActionListener(this);
-
-            int row = i / cols;
-            int col = i % cols;
-            int x = frameX + padding + col * (btnW + padding);
-            int y = frameY + padding + row * (btnH + padding);
-
-            btn.setBounds(x, y, btnW, btnH);
-            add(btn);
-            weaponButtons.add(btn);
-        }
+        refreshWeaponList();
     }
 
     @Override
@@ -70,39 +46,10 @@ public class WeaponListPanel extends JPanel implements ActionListener {
     }
 
     private void swapIndexes(int idx1, int idx2) {
-        Collections.swap(weapons, idx1, idx2);
-        Collections.swap(weaponButtons, idx1, idx2);
-
-        removeAll();
-        int cols = 3;
-        int padding = 10;
-        int btnW = (frameWidth - (cols + 1) * padding) / cols;
-        int btnH = 80;
-
-        for (int i = 0; i < weaponButtons.size(); i++) {
-            JButton btn = weaponButtons.get(i);
-            SuperWeapon w = weapons.get(i);
-            btn.setText(w.name);
-            if (w.imageRight instanceof Icon) {
-                btn.setIcon((Icon) w.imageRight);
-            } else {
-                btn.setIcon(new ImageIcon(w.imageRight));
-            }
-
-            int row = i / cols;
-            int col = i % cols;
-            int x = frameX + padding + col * (btnW + padding);
-            int y = frameY + padding + row * (btnH + padding);
-            btn.setBounds(x, y, btnW, btnH);
-            btn.setBorder(null);
-            add(btn);
-        }
-
-        revalidate();
-        repaint();
-
+        Collections.swap(gp.player.weapons, idx1, idx2);
         firstIndx = secondIndx = -1;
         firstSelected = true;
+        refreshWeaponList();
     }
 
     @Override
@@ -120,5 +67,35 @@ public class WeaponListPanel extends JPanel implements ActionListener {
             src.setBorder(new LineBorder(Color.WHITE, 3));
             swapIndexes(firstIndx, secondIndx);
         }
+    }
+
+    public void refreshWeaponList() {
+        removeAll();
+        weaponButtons.clear();
+
+        weapons = new ArrayList<>(gp.player.weapons);
+
+        int cols = 3, padding = 10;
+        int btnW = (frameWidth - (cols + 1) * padding) / cols;
+        int btnH = 80;
+
+        for (int i = 0; i < weapons.size(); i++) {
+            SuperWeapon w = weapons.get(i);
+            JButton btn = new JButton(w.name, new ImageIcon(w.imageRight));
+            btn.setHorizontalTextPosition(SwingConstants.CENTER);
+            btn.setVerticalTextPosition(SwingConstants.BOTTOM);
+            btn.addActionListener(this);
+
+            int row = i / cols, col = i % cols;
+            int x = frameX + padding + col * (btnW + padding);
+            int y = frameY + padding + row * (btnH + padding);
+            btn.setBounds(x, y, btnW, btnH);
+
+            add(btn);
+            weaponButtons.add(btn);
+        }
+
+        revalidate();
+        repaint();
     }
 }

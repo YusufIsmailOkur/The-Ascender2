@@ -41,7 +41,7 @@ public class Inventory extends JPanel implements ActionListener {
     private HashMap<JButton, SuperObject> interactableMap = new HashMap<>();
 
     private SuperObject first, second;
-    private boolean firstSelected = true;
+    private boolean firstSelected = false;
     private boolean secondSelected = false;
     private JButton useButton;
 
@@ -155,11 +155,39 @@ public class Inventory extends JPanel implements ActionListener {
                 firstSelected = false;
                 secondSelected = false;
                 gp.player.objects.add(new OBJ_Letter());
+                for(SuperObject obj : gp.player.objects)
+                {
+                    if (obj.name.equals("compass")){
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
+                for(SuperObject obj : gp.player.objects)
+                {
+                    if (obj.name.equals("screwdriver")){
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
             } else if (first.name.equals("letter") && second.name.equals("light") || first.name.equals("light") && second.name.equals("letter")) {
                 JOptionPane.showMessageDialog(this, "Crafted: Letter with lighted letter, Lighted letter crafted");
                 firstSelected = false;
                 secondSelected = false;
                 gp.player.objects.add(new OBJ_LightedLetter());
+                for(SuperObject obj : gp.player.objects)
+                {
+                    if (obj.name.equals("letter")){
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
+                for(SuperObject obj : gp.player.objects)
+                {
+                    if (obj.name.equals("light")){
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
             }
         } else if (e.getSource() == useButton) {
             if (gp.player.health <= 10) {

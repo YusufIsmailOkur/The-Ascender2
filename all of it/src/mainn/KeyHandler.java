@@ -96,6 +96,7 @@ public class KeyHandler implements KeyListener {
                 threePressed = true;
             }
             if(code == KeyEvent.VK_5){
+                WeaponListPanel.weapons = gp.player.weapons;
                 gp.gameState = gp.weaponListState;
                 gp.weaponList.setVisible(true);
             }  
