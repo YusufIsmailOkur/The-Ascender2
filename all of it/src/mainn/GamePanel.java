@@ -373,6 +373,9 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
             lines.add(++startIndex, String.valueOf(count));
+            for(int i=0;i<10;i++){
+                lines.add(++startIndex, String.valueOf(player.discoveredFloors[i]));
+            }
             lines.add(++startIndex, "Obj");
             for (SuperObject obj : player.objects) {
                 lines.add(++startIndex, obj.name);
@@ -406,6 +409,15 @@ public class GamePanel extends JPanel implements Runnable{
                     player.health=health;
                     player.totalTime =Long.parseLong(fileScanner.nextLine());
                     int arrowCount = (Integer.parseInt(fileScanner.nextLine()));
+                    for(int i =0; i<10;i++){
+                        String s = fileScanner.nextLine();
+                        if (s.equals("true")){
+                            player.discoveredFloors[i]=true;
+                        }
+                        else {
+                            player.discoveredFloors[i]=false;
+                        }
+                    }
                     String s = fileScanner.nextLine();
                     player.objects.clear();
                     while (!s.equals("Weapons")) {
@@ -441,7 +453,7 @@ public class GamePanel extends JPanel implements Runnable{
                                 System.out.println("Unknown object: " + s);
                                 break;
                         }
-                        s = fileScanner.nextLine();
+                        s= fileScanner.nextLine();
                     }
                     player.weapons.clear();
                     String st = fileScanner.nextLine();
