@@ -9,7 +9,6 @@ import mainn.KeyHandler;
 
 public class OBJ_TestDoorClosed extends SuperObject{
     String password;
-    boolean opened;
     private static boolean changed = false;
 
 
@@ -18,6 +17,7 @@ public class OBJ_TestDoorClosed extends SuperObject{
         this.password = password;
         name = "testdoorclosed";
         craftable = false;
+        opened = false;
         this.opened = false;
 
         try {
@@ -40,6 +40,7 @@ public class OBJ_TestDoorClosed extends SuperObject{
                 JOptionPane.showMessageDialog(null, "Correct password! The door opens.");
                 this.collision = false;
                 this.opened = true;
+                
 
                 try {
                     image = ImageIO.read(getClass().getResourceAsStream("/res/objects/testDoorOpened.png")); 

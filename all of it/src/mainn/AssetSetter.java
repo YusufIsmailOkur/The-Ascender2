@@ -231,12 +231,15 @@ public class AssetSetter {
     }
     public void setMonster(){
 
+        //1
         gp.monster[1][0] = new MON_GreenSlime(gp);
         gp.monster[1][0].x = gp.tileSize * 1;
         gp.monster[1][0].y = gp.tileSize * 1;
         gp.monster[1][1] = new MON_GreenSlime(gp);
         gp.monster[1][1].x = gp.tileSize * 3;
         gp.monster[1][1].y = gp.tileSize * 1;
+
+        //2
         gp.monster[2][2] = new MON_Zombie(gp);
         gp.monster[2][2].x = gp.tileSize * 13;
         gp.monster[2][2].y = gp.tileSize * 2;
@@ -246,19 +249,17 @@ public class AssetSetter {
         gp.monster[2][4] = new MON_SkeletonArcher(gp);
         gp.monster[2][4].x = gp.tileSize * 8;
         gp.monster[2][4].y = gp.tileSize * 9;
-        gp.monster[2][5] = new MON_GreenSlime(gp);
-        gp.monster[2][5].x = gp.tileSize * 10;
-        gp.monster[2][5].y = gp.tileSize * 10;
-        gp.monster[2][6] = new MON_GreenSlime(gp);
-        gp.monster[2][6].x = gp.tileSize * 10;
-        gp.monster[2][6].y = gp.tileSize * 10;
-        gp.monster[2][7] = new MON_GreenSlime(gp);
-        gp.monster[2][7].x = gp.tileSize * 13;
-        gp.monster[2][7].y = gp.tileSize * 10;
-        gp.monster[2][8] = new MON_GreenSlime(gp);
-        gp.monster[2][8].x = gp.tileSize * 10;
-        gp.monster[2][8].y = gp.tileSize * 5;
 
+        //4
+        gp.monster[4][0] = new MON_ZombieBoss(gp);
+        gp.monster[4][0].x = gp.tileSize * 13;
+        gp.monster[4][0].y = gp.tileSize * 2;
+        gp.monster[4][1] = new MON_Zombie(gp);
+        gp.monster[4][1].x = gp.tileSize * 8;
+        gp.monster[4][1].y = gp.tileSize * 13;
+        gp.monster[4][2] = new MON_Zombie(gp);
+        gp.monster[4][2].x = gp.tileSize * 8;
+        gp.monster[4][2].y = gp.tileSize * 13;
 
         //5
         gp.monster[5][0] = new MON_GreenSlime(gp);
@@ -288,6 +289,18 @@ public class AssetSetter {
         gp.monster[5][8] = new MON_GreenSlime(gp);
         gp.monster[5][8].x = gp.tileSize * 11;
         gp.monster[5][8].y = gp.tileSize * 5;
+
+        //6
+        gp.monster[5][0] = new MON_Zombie(gp);
+        gp.monster[5][0].x = gp.tileSize * 13;
+        gp.monster[5][0].y = gp.tileSize * 2;
+        gp.monster[5][1] = new MON_GreenSlime(gp);
+        gp.monster[5][1].x = gp.tileSize * 8;
+        gp.monster[5][1].y = gp.tileSize * 13;
+        gp.monster[5][2] = new MON_SkeletonArcher(gp);
+        gp.monster[5][2].x = gp.tileSize * 8;
+        gp.monster[5][2].y = gp.tileSize * 9;
+
         //9
         gp.monster[9][0] = new MON_Zombie(gp);
         gp.monster[9][0].x = 8 * gp.tileSize;

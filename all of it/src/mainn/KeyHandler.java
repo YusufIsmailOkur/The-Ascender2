@@ -32,12 +32,12 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_W) {
                 gp.ui.commandNum--;
                 if (gp.ui.commandNum < 0) {
-                    gp.ui.commandNum = 2;
+                    gp.ui.commandNum = 3;
                 }
             }
             if (code == KeyEvent.VK_S) {
                 gp.ui.commandNum++;
-                if (gp.ui.commandNum > 2) {
+                if (gp.ui.commandNum > 3) {
                     gp.ui.commandNum = 0;
                 }
             }
@@ -50,7 +50,13 @@ public class KeyHandler implements KeyListener {
                     gp.askNameAndSetPlayerValues();
                     gp.gameState = gp.playState;
                     timeStart = System.currentTimeMillis();
-                } else if (gp.ui.commandNum == 2) {
+                } 
+                else if(gp.ui.commandNum == 2){
+                    gp.gameState = gp.leaderBoardState;
+                    
+                }
+                
+                else if (gp.ui.commandNum == 3) {
                     System.exit(0);
                 }
             }
@@ -133,30 +139,32 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_W) {
                 gp.ui.menuNum--;
                 if (gp.ui.menuNum < 0) {
-                    gp.ui.menuNum = 5;
+                    gp.ui.menuNum = 4;
                 }
             }
             if (code == KeyEvent.VK_S) {
                 gp.ui.menuNum++;
-                if (gp.ui.menuNum > 5) {
+                if (gp.ui.menuNum > 4) {
                     gp.ui.menuNum = 0;
                 }
             }
             if (code == KeyEvent.VK_ENTER){
                 if (gp.ui.menuNum == 0){
                     gp.gameState = gp.playState;
-                } else if (gp.ui.menuNum == 1) {
-                    // Fast TRAVEL
-                } else if (gp.ui.menuNum == 2) {
+                }
+                //  else if (gp.ui.menuNum == 1) {
+                //     // Fast TRAVEL
+                // } 
+                else if (gp.ui.menuNum ==1) {
                     // LeaderBoard
                     gp.gameState = gp.leaderBoardState;
-                } else if (gp.ui.menuNum == 3) {
+                } else if (gp.ui.menuNum == 2) {
                     // SETTINGS
                     gp.gameState = gp.settingsState;
-                } else if (gp.ui.menuNum == 4) {
+                } else if (gp.ui.menuNum == 3) {
                     // HELP
                     gp.gameState = gp.helpState;
-                } else if (gp.ui.menuNum == 5) {
+                } else if (gp.ui.menuNum == 4) {
                     // EXIT
                     // Save Values
                     timeEnd = System.currentTimeMillis();

@@ -145,6 +145,7 @@ public class UI {
         if (commandNum == 0) {
             g2.drawString(">", x - gp.tileSize, y);
         }
+        
 
         text = "Load Game";
         x = getXForCenteredText(text);
@@ -157,7 +158,7 @@ public class UI {
             g2.drawString(">", x - gp.tileSize, y);
         }
 
-        text = "Exit Game";
+        text = "Leaderboard";
         x = getXForCenteredText(text);
         y += gp.tileSize * 1.3;
         g2.setColor(Color.black);
@@ -168,14 +169,27 @@ public class UI {
             g2.drawString(">", x - gp.tileSize, y);
         }
 
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 38F));
-        text = "Settings";
-        x = gp.tileSize * 4 / 5;
-        y = gp.tileSize * 14;
+        text = "Exit Game";
+        x = getXForCenteredText(text);
+        y += gp.tileSize * 1.3;
         g2.setColor(Color.black);
         g2.drawString(text, x + 5, y + 5);
         g2.setColor(Color.white);
         g2.drawString(text, x, y);
+        if (commandNum == 3) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
+        
+
+        // g2.setFont(g2.getFont().deriveFont(Font.BOLD, 38F));
+        // text = "Settings";
+        // x = gp.tileSize * 4 / 5;
+        // y = gp.tileSize * 14;
+        // g2.setColor(Color.black);
+        // g2.drawString(text, x + 5, y + 5);
+        // g2.setColor(Color.white);
+        // g2.drawString(text, x, y);
     }
 
     public void drawStoryScreen(Graphics2D g2) {
@@ -256,28 +270,28 @@ public class UI {
         }
         y += 60;
 
-        g2.drawString("Fast travel", x, y);
+        // g2.drawString("Fast travel", x, y);
+        // if (menuNum == 1) {
+        //     g2.drawString(">", x - gp.tileSize / 2, y);
+        // }
+        // y += 60;
+        g2.drawString("Leaderboard", x, y);
         if (menuNum == 1) {
             g2.drawString(">", x - gp.tileSize / 2, y);
         }
         y += 60;
-        g2.drawString("Leaderboard", x, y);
+        g2.drawString("Settings", x, y);
         if (menuNum == 2) {
             g2.drawString(">", x - gp.tileSize / 2, y);
         }
         y += 60;
-        g2.drawString("Settings", x, y);
+        g2.drawString("Help", x, y);
         if (menuNum == 3) {
             g2.drawString(">", x - gp.tileSize / 2, y);
         }
         y += 60;
-        g2.drawString("Help", x, y);
-        if (menuNum == 4) {
-            g2.drawString(">", x - gp.tileSize / 2, y);
-        }
-        y += 60;
         g2.drawString("Exit Game", x, y);
-        if (menuNum == 5) {
+        if (menuNum == 4) {
             g2.drawString(">", x - gp.tileSize / 2, y);
         }
     }

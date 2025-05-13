@@ -46,7 +46,7 @@ public class Player extends Entity{
 
 
     public String name;
-    public boolean finishedGame;
+    public boolean finishedGame = true;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -328,6 +328,9 @@ public class Player extends Entity{
                 case "testdoorclosed":
                 if(keyH.fPressed == true){
                     gp.obj[currentFloor][i].interact();
+                    if(gp.obj[currentFloor][i].opened){
+                        gp.obj[currentFloor][i] = null;
+                    }
                 }
                 keyH.fPressed = false; 
                 break;
