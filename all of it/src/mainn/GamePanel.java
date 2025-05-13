@@ -396,6 +396,7 @@ public class GamePanel extends JPanel implements Runnable{
                 String line = fileScanner.nextLine().trim();
                 if (line.equals(name)) {
                     player.currentFloor = Integer.parseInt(fileScanner.nextLine());
+                    tileM.loadMap("/res/maps/map" + (player.currentFloor + 1) + ".txt");
                     int health = Integer.parseInt(fileScanner.nextLine());
                     if(health<=0){
                         health= health+2;
