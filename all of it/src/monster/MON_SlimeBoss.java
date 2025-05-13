@@ -121,15 +121,15 @@ public class MON_SlimeBoss extends Entity{
 
         if(!isSpawned && health <= maxHealth / 2){
             Random rand = new Random();
-            gp.monster[3][1] = new MON_GreenSlime(gp);
-            gp.monster[3][1].x = gp.tileSize * rand.nextInt(18);
-            gp.monster[3][1].y = gp.tileSize * rand.nextInt(12);
-            gp.monster[3][2] = new MON_GreenSlime(gp);
-            gp.monster[3][2].x = gp.tileSize * rand.nextInt(18);
-            gp.monster[3][2].y = gp.tileSize * rand.nextInt(12);
-            gp.monster[3][3] = new MON_GreenSlime(gp);
-            gp.monster[3][3].x = gp.tileSize * rand.nextInt(18);
-            gp.monster[3][3].y = gp.tileSize * rand.nextInt(12);
+            gp.monster[8][1] = new MON_GreenSlime(gp);
+            gp.monster[8][1].x = gp.tileSize * rand.nextInt(18);
+            gp.monster[8][1].y = gp.tileSize * rand.nextInt(12);
+            gp.monster[8][2] = new MON_GreenSlime(gp);
+            gp.monster[8][2].x = gp.tileSize * rand.nextInt(18);
+            gp.monster[8][2].y = gp.tileSize * rand.nextInt(12);
+            gp.monster[8][3] = new MON_GreenSlime(gp);
+            gp.monster[8][3].x = gp.tileSize * rand.nextInt(18);
+            gp.monster[8][3].y = gp.tileSize * rand.nextInt(12);
 
             isSpawned = true;
         }
