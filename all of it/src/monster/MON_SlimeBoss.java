@@ -131,18 +131,18 @@ public class MON_SlimeBoss extends Entity{
             projectile = new OBJ_Rock(gp);
             if(Math.abs(x - gp.player.x) < 100){
                 if(gp.player.y > y){
-                    direction = "down";
+                    projectile.direction = "down";
                 }
                 else{
-                    direction = "up";
+                    projectile.direction = "up";
                 }
             }
             else if(Math.abs(y - gp.player.y) < 100){
                 if(gp.player.x > x){
-                    direction = "right";
+                    projectile.direction = "right";
                 }
                 else{
-                    direction = "left";
+                    projectile.direction = "left";
                 }
             }
             projectile.set(x + gp.tileSize * 2,y + gp.tileSize * 2, direction, true, this);

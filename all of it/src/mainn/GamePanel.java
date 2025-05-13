@@ -94,6 +94,8 @@ public class GamePanel extends JPanel implements Runnable{
         //Map Panel
         mapPanel.setBounds(0, 0, screenWidth, screenHeight);
         mapPanel.setVisible(false);
+        mapPanel.setFocusable(false);
+        setLayout(null);
         this.add(mapPanel);
 
     }
