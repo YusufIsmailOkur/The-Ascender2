@@ -380,6 +380,8 @@ public class Player extends Entity{
 
                     discoveredFloors[currentFloor+1] = true;
                     currentFloor++;
+                    gp.keyH.avoidMusicRepeat();
+
                     gp.tileM.loadMap("/res/maps/map" + (currentFloor+1) + ".txt");
                     x = 1*gp.tileSize;
                     y = 7*gp.tileSize;
@@ -390,6 +392,7 @@ public class Player extends Entity{
                 case "openedelevator":
                 discoveredFloors[currentFloor+1] = true;
                 currentFloor++;
+                gp.keyH.avoidMusicRepeat();
                 gp.tileM.loadMap("/res/maps/map" + (currentFloor+1) + ".txt");
                 x = 1*gp.tileSize;
                 y = 7*gp.tileSize;
