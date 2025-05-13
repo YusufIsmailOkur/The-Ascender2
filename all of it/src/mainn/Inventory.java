@@ -1,471 +1,455 @@
 package mainn;
 
-import javax.swing.*;
-import java.io.*;
-import java.util.ArrayList;
-
-import entity.Entity;
-import entity.Player;
-import environment.EnvironmentManager;
-import object.*;
-import tile.TileManager;
-import weapon.*;
-
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.util.Scanner;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-import static javax.swing.JOptionPane.*;
+import object.*;
+import weapon.SuperWeapon;
 
-public class GamePanel extends JPanel implements Runnable{
-    
-    final int originalTileSize = 16; // 16x16 charachter
-    final int scale = 3; // it will print it larger on the screen
+public class Inventory extends JPanel implements ActionListener {
+    private GamePanel gp;
+    private Font titleFont, sectionFont;
 
-    final public int tileSize = originalTileSize * scale; //48*48 tile
+    private int slotCol = 4, slotSize = 48, slotGap = 48;
+    private int frameX, frameY, frameWidth, frameHeight;
+    private int slotsStartX, slotsStartY;
 
-    public final int maxScreenCol = 20;    // creating the screen col
-    public final int maxScreenRow = 15;
-    public final int screenWidth = tileSize* maxScreenCol; // 768 pixels
-    public final int screenHeight = tileSize* maxScreenRow; // 576 pixels
+    private ArrayList<SuperObject> allObjects;
+    private ArrayList<SuperWeapon> allWeapons;
+    private ArrayList<SuperObject> displayObjects;
+    private ArrayList<SuperWeapon> displayWeapons;
 
-    //sound
-    Sound sound = new Sound();
+    private JTextField searchField;
+    private JButton craftToggle;
+    private boolean craftMode = false;
+    private ArrayList<JButton> craftButtons = new ArrayList<>();//ALL craftable objects will have one craft button(Might change)
+    private ArrayList<JButton> interactButtons = new ArrayList<>();
+    private HashMap<JButton, SuperObject> interactableMap = new HashMap<>();
 
-    // FPS
-    int FPS = 60;
+    private SuperObject first, second;
+    private boolean firstSelected = false;
+    private boolean secondSelected = false;
+    private JButton useButton;
 
-    public TileManager tileM = new TileManager(this);
-    public KeyHandler keyH = new KeyHandler(this);
-    EnvironmentManager eManager = new EnvironmentManager(this);
-
-    Thread gameThread;
-    public CollisionChecker cChecker = new CollisionChecker(this);
-    public AssetSetter aSetter = new AssetSetter(this);
-    public UI ui = new UI(this);
-    public Player player = new Player(this, keyH);
-    public Inventory inventory = new Inventory(this);
-    public WeaponListPanel weaponList = new WeaponListPanel(this);
-
-    public SuperObject obj[][] = new SuperObject[10][20];
-    public Entity npc[][] = new Entity[10][10];
-    public Entity monster[][] = new Entity[10][10];
-    public ArrayList <Entity> projectiles = new ArrayList<>();
-    public SuperWeapon[] weapon = new SuperWeapon[10];
-    public String[] allObjects = {"Arrow","boots","chest","key","door","elevator","Fireball", "compass", "letter", "screwdriver"};//Should updated for every new object
-    public String[] allWeapons = {"Bow","Sword"}; //Should updated for every new weapon
-    public UtilityTool uTool = new UtilityTool();
-
-    public int gameState;
-    public final int titleState = 0;
-    public final int playState = 1;
-    public final int pauseState = 2;
-    public final int dialogueState = 3;
-    public final int menuState = 4;
-    public final int settingsState = 5;
-    public final int helpState = 6;
-    public final int deathState = 7;
-    public final int inventoryState = 8;    
-    public final int leaderBoardState=9;
-    public final int storyState = 10;
-    public final int weaponListState = 11;
-    public final int mapState = 12;
-    public MapPanel mapPanel = new MapPanel(this);
-
-    static boolean haskilledSlimeBoss = false;
-
-    public GamePanel(){
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.BLACK);
-        this.setDoubleBuffered(true); // rendering performance
-        this.addKeyListener(keyH);
-        this.setFocusable(true);
-
-        //INventory
-        inventory.setBounds(0, 0, screenWidth, screenHeight);
-        inventory.setVisible(false);
-        this.add(inventory);
-        //Weapon List
-        weaponList.setBounds(0, 0, screenWidth, screenHeight);
-        weaponList.setVisible(false);
-        this.add(weaponList);
-        //Map Panel
-        mapPanel.setBounds(0, 0, screenWidth, screenHeight);
-        mapPanel.setVisible(false);
-        mapPanel.setFocusable(false);
+    public Inventory(GamePanel gp) {
+        this.gp = gp;
+        setPreferredSize(new Dimension(gp.screenWidth, gp.screenHeight));
         setLayout(null);
-        this.add(mapPanel);
+        setBackground(Color.BLACK);
 
-    }
+        titleFont = new Font("Arial", Font.BOLD, 60);
+        sectionFont = new Font("Arial", Font.PLAIN, 30);
 
-    public void setupGame(){
+        int margin = 50;
+        frameX = margin;
+        frameY = margin;
+        frameWidth = gp.screenWidth - 2 * margin;
+        frameHeight = gp.screenHeight - 2 * margin;
 
-        aSetter.setObject();
-        aSetter.setNPC();
-        aSetter.setMonster();
-        aSetter.setWeapon();
-        ui.isSetup = true;
-        gameState = titleState;
-        playMusic(0);
-        eManager.setup(); 
-    }
+        slotsStartX = frameX + 20;
+        slotsStartY = frameY + 120;
 
-    public void startGameThread(){
-        gameThread = new Thread(this);
-        gameThread.start();
+        allObjects = gp.player.objects;
+        allWeapons = gp.player.weapons;
+        displayObjects = new ArrayList<>(allObjects);
+        displayWeapons = new ArrayList<>(allWeapons);
+
+        //DYNAMIC Search Bar
+        searchField = new JTextField();
+        searchField.setFont(sectionFont);
+        int sfW = 200, sfH = 40;
+        int sfX = frameX + frameWidth - sfW - 20;
+        int sfY = frameY + 20;
+        searchField.setBounds(sfX, sfY, sfW, sfH);
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                applyFilters();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                applyFilters();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                applyFilters();
+            }
+        });
+        add(searchField);
+
+        // Craft Mode BUTTON
+        craftToggle = new JButton("Craft Mode");
+        craftToggle.setFont(new Font("Arial", Font.PLAIN, 20));
+        int ctW = 200, ctH = 40;
+        int ctX = sfX + sfW + 10 - 200;
+        int ctY = sfY * 2;
+        craftToggle.setBounds(ctX, ctY, ctW, ctH);
+        craftToggle.addActionListener(this);
+        add(craftToggle);
+
+        //EXIT BUTTON
+        JButton exitButton = new JButton("Exit");
+        exitButton.setFont(new Font("Arial", Font.PLAIN, 20));
+        int ebW = 100, ebH = 40;
+        int ebX = frameX + frameWidth - ebW - 20;
+        int ebY = frameY + frameHeight - ebH - 20;
+        exitButton.setBounds(ebX, ebY, ebW, ebH);
+        exitButton.addActionListener(e -> {
+            // 1) switch back to play state
+            gp.gameState = gp.playState;
+
+            // 2) hide the inventory overlay
+            this.setVisible(false);
+
+        });
+        add(exitButton);
+
+        // FILTER AT BEGINNING
+        applyFilters();
     }
 
     @Override
-    public void run() {
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == craftToggle) {
+            craftMode = !craftMode;
+            if (craftMode) {
+                craftToggle.setText("Exit Craft");
+            } else {
+                craftToggle.setText("Craft Mode");
+            }
+            applyFilters();//Apply filters after action
+        } else if (craftButtons.contains(e.getSource())) {
+            if (!firstSelected) {
+                first = displayObjects.get(craftButtons.indexOf(e.getSource()));
+                firstSelected = true;
+                JOptionPane.showMessageDialog(this, "First item selected: " + first.name);
+            } else if (!secondSelected) {
+                second = displayObjects.get(craftButtons.indexOf(e.getSource()));
+                secondSelected = true;
+                JOptionPane.showMessageDialog(this, "Second item selected: " + second.name);
+            } else {
+                //Crafting
+                JOptionPane.showMessageDialog(this, "Only two item");
+            }
 
-        while (gameThread != null){
-
-            double drawInterval = 1000000000 / FPS;
-            double nextDrawTime = System.nanoTime() + drawInterval;
-            // update information such as character position
-            update();
-
-            // draw the screen with the updated information
+        }
+        if (secondSelected && firstSelected) {
+            if (first.name.equals("compass") && second.name.equals("screwdriver") || first.name.equals("screwdriver") && second.name.equals("compass")) {
+                JOptionPane.showMessageDialog(this, "Crafted: Compass with screwdriver, letter crafted");
+                firstSelected = false;
+                secondSelected = false;
+                gp.player.objects.add(new OBJ_Letter());
+                for(SuperObject obj : gp.player.objects)
+                {
+                    if (obj.name.equals("compass")){
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
+                for(SuperObject obj : gp.player.objects)
+                {
+                    if (obj.name.equals("screwdriver")){
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
+            } else if (first.name.equals("letter") && second.name.equals("light") || first.name.equals("light") && second.name.equals("letter")) {
+                JOptionPane.showMessageDialog(this, "Crafted: Letter with lighted letter, Lighted letter crafted");
+                firstSelected = false;
+                secondSelected = false;
+                gp.player.objects.add(new OBJ_LightedLetter());
+                for(SuperObject obj : gp.player.objects)
+                {
+                    if (obj.name.equals("letter")){
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
+                for(SuperObject obj : gp.player.objects)
+                {
+                    if (obj.name.equals("light")){
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this,"This items can not merged");
+                firstSelected = false;
+                secondSelected = false;
+                first = null;
+                second = null;
+            }
+        } else if (e.getSource() == useButton) {
+            if (gp.player.health <= 10) {
+                gp.player.health += 10;
+                JOptionPane.showMessageDialog(this,
+                        "You used a health potion.\nYou restored 10 health!",
+                        "Item Used",
+                        JOptionPane.INFORMATION_MESSAGE);
+                for (SuperObject obj : gp.player.objects) {
+                    if (obj.name.equals("Health Potion")) {
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
+            } else if (gp.player.health == 20) {
+                gp.player.health = 20;
+                JOptionPane.showMessageDialog(this,
+                        "You can not use health potion.\nYour health is maxed out!",
+                        "Item Used",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                gp.player.health = 20;
+                JOptionPane.showMessageDialog(this,
+                        "You used a health potion.\nYou restored 10 health!",
+                        "Item Used",
+                        JOptionPane.INFORMATION_MESSAGE);
+                for (SuperObject obj : gp.player.objects) {
+                    if (obj.name.equals("Health Potion")) {
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
+            }
             repaint();
-
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                remainingTime = remainingTime / 1000000;
-
-                if(remainingTime < 0){
-                    remainingTime = 0;
-                }
-
-                Thread.sleep((long) remainingTime);   
-
-                nextDrawTime += drawInterval;
-                
-            } catch (InterruptedException e) {}
+        } else if (interactButtons.contains(e.getSource())) {
+            interactableMap.get(e.getSource()).interact();
         }
     }
 
-    public void update(){
+    private void applyFilters() {
+        String term = searchField.getText().trim().toLowerCase();
 
-
-        if (gameState == playState){
-            //player
-            player.update();
-            int currentFloor = player.currentFloor;
-            tileM.loadMap("\"/res/maps/map02.txt\"");
-            //npc
-            for (int i = 0; i <npc.length; i++){
-                if (npc[currentFloor][i] != null){
-                    npc[currentFloor][i].update();
-                }
-            }
-            for (int i = 0; i < monster[0].length; i++) {
-                if (monster[currentFloor][i] != null) {
-                    monster[currentFloor][i].update();
-                }
-            }
-            for (int i = 0; i < projectiles.size(); i++) {
-                if (projectiles.get(i) != null) {
-                    projectiles.get(i).update();
-                }
-                if(projectiles.get(i).alive == false){
-                    projectiles.remove(i);
-                }
+        displayObjects.clear();
+        for (SuperObject obj : allObjects) {
+            boolean matchesSearch = obj.name.toLowerCase().contains(term);
+            boolean matchesCraft = !craftMode || obj.craftable;
+            if (matchesSearch && matchesCraft) {
+                displayObjects.add(obj);
             }
         }
-        if (gameState == pauseState){
 
+        displayWeapons.clear();
+        for (SuperWeapon wp : allWeapons) {
+            boolean matchesSearch = wp.name.toLowerCase().contains(term);
+            boolean matchesCraft = !craftMode || wp.craftable;
+            if (matchesSearch && matchesCraft) {
+                displayWeapons.add(wp);
+            }
         }
-        if (gameState == mapState) {
-            mapPanel.update();
+
+        if (displayObjects.isEmpty() && displayWeapons.isEmpty()) {
+            if (!term.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Could not find \"" + term + "\" item.");
+            }
+            // ShOW ALL if EMPtY
+            if (!craftMode) {
+                displayObjects.addAll(allObjects);
+                displayWeapons.addAll(allWeapons);
+            }
         }
 
-        if(monster[4][0] == null && haskilledSlimeBoss == false){
-
-            haskilledSlimeBoss = true;
-            obj[4][2] = new OBJ_Key();
-            obj[4][2].x = 11 * tileSize;
-            obj[4][2].y = 7 * tileSize;
-
-        }
+        refreshCraftButtons();
+        refreshInteractButtons();
+        repaint();
     }
-    public void paintComponent(Graphics g){
 
+    public void refreshCraftButtons() {
+        for (JButton b : craftButtons) {
+            remove(b);
+        }
+        craftButtons.clear();
+
+        if (!craftMode) {
+            return;
+        }
+
+        for (int oindx = 0; oindx < displayObjects.size(); oindx++) {
+            SuperObject obj = displayObjects.get(oindx);
+            if (obj.craftable) {
+                addCraftButton(obj.name, oindx);
+            }
+        }
+        int base = slotCol * 2;
+        for (int windx = 0; windx < displayWeapons.size(); windx++) {
+            SuperWeapon wp = displayWeapons.get(windx);
+            if (wp.craftable) {
+                addCraftButton(wp.name, base + windx);
+            }
+        }
+        revalidate();
+    }
+
+    private void addCraftButton(String name, int idx) {
+        int col = idx % slotCol;
+        int row = idx / slotCol;
+        int x = slotsStartX + col * (slotSize + slotGap) + 10;
+        int y = slotsStartY + row * (slotSize + slotGap) - 30;
+        JButton btn = new JButton("Craft");
+        btn.setFont(new Font("Arial", Font.PLAIN, 14));
+        btn.setBounds(x, y, 100, 20);
+        btn.setActionCommand(getName());
+        btn.addActionListener(this);
+        add(btn);
+        craftButtons.add(btn);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        int currentFloor = player.currentFloor;
+        Graphics2D g2 = (Graphics2D) g;
 
-        Graphics2D g2 = (Graphics2D)g;
+        g2.setColor(Color.DARK_GRAY);
+        g2.fillRect(frameX, frameY, frameWidth, frameHeight);
 
-        // TİTLE SCREEN
-        if (gameState == titleState){
-            ui.draw(g2);
-        }
-        //INVENTORY SCREEN
-        else if (gameState == inventoryState)
-        {
-            inventory.paintComponent(g);
-        }
-        //LEADERBOARD SCREEN
-        else if (gameState == leaderBoardState)
-        {
-            LeaderBoard lb = new LeaderBoard(this);
-            lb.paintComponent(g);
-        }
-        //WEAPON LIST
-        else if(gameState == weaponListState) {
-            weaponList.paintComponent(g);
-        }
-        //MAP
-        else if (gameState == mapState) {
-            mapPanel.paintComponent(g);
-        }
+        g2.setColor(Color.WHITE);
+        g2.setStroke(new BasicStroke(4));
+        g2.drawRect(frameX, frameY, frameWidth, frameHeight);
 
-        // OTHERS
-        else {
-            // TİLE
-        tileM.draw(g2);
+        g2.setFont(titleFont);
+        g2.drawString("INVENTORY", frameX + 20, frameY + 60);
 
-        // OBJECT
-        for (int i = 0; i < obj[0].length; i++){
-            if (obj[currentFloor][i] != null){
-                obj[currentFloor][i].draw(g2, this);
-            }
-        }
-
-        //WEAPON
-        for (SuperWeapon wp : weapon) {
-            if (wp != null) {
-                g2.drawImage(wp.image, wp.x, wp.y, tileSize, tileSize, null);
-            }
-        }
+        g2.setFont(sectionFont);
+        g2.drawString("OBJECTS", frameX + 20, frameY + 100);
+        drawSlots(g2, displayObjects, slotsStartY);
 
 
-        //NPC
-        for(int i = 0; i < npc[0].length; i++){
-            if (npc[currentFloor][i] != null){
-                npc[currentFloor][i].draw(g2);
-            }
-        }
+        g2.setFont(sectionFont);
+        g2.setColor(Color.WHITE);
+        int weaponsY = slotsStartY + 4 * (slotSize + 5) + 40;
+        g2.drawString("WEAPONS", frameX + 20, weaponsY - 10);
+        drawSlots(g2, displayWeapons, weaponsY);
 
-        //MONSTER
-        for(int i = 0; i < monster[0].length; i++){
-            if (monster[currentFloor][i] != null){
-                monster[currentFloor][i].draw(g2);
-            }
-        }
 
-        //PROJECTILE
-        for(int i = 0; i < projectiles.size(); i++){
-            if(projectiles.get(i) != null && projectiles.get(i).alive == true){
-                projectiles.get(i).draw(g2);
-            }
-        }
-
-        //PLAYER
-        player.draw(g2);
-
-        //Environment
-        if (player.currentFloor == 2 || player.currentFloor == 5){
-            eManager.draw(g2);
-        }
-
-        //UI
-        ui.draw(g2);
-        
-        g2.dispose();
+        //Highlight craftable objects!!!!!!!!!!!Might NOT work properly
+        if (craftMode) {
+            g2.setColor(Color.YELLOW);
+            g2.setStroke(new BasicStroke(3));
         }
     }
 
-    public Sound getSound() {
-        return sound;
-    }
+    //DRAW SLOTS even EMPTY
+    private void drawSlots(Graphics2D g2, ArrayList<?> items, int startY) {
+        g2.setStroke(new BasicStroke(2));
+        for (int row = 0; row < 2; row++) {
+            for (int col = 0; col < slotCol; col++) {
+                int x = slotsStartX + col * (slotSize + slotGap);
+                int y = startY + row * (slotSize + 20);
 
-    public void playMusic(int i){
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
-    }
-    public void stopMusic(){
-        sound.stop();
+                g2.setColor(Color.BLACK);
+                g2.fillRect(x, y, slotSize, slotSize);
 
-    }
-    public void askName(){
-        String name = showInputDialog("What is your name?");
-        while(true) {
-            if (checkNameValidity(name)) {
-                player.name = name;
-                writeNameToFile();
-                break;
-            } else {
-                showMessageDialog("Your name already exists. Please enter another");
-                name = showInputDialog("What is your name?");
-            }
-        }
-    }
-    public void askNameAndSetPlayerValues(){
-        String name = showInputDialog("Enter name for Load game");
-        while(true) {
-            if (!checkNameValidity(name)) {
-                player.name = name;
-                readAndSetPlayerValuesFromFile(name);
-                break;
-            } else {
-                showMessageDialog("Couldnt find your name. Please enter another");
-                name = showInputDialog("Enter name for Load game");
-            }
-        }
-    }
-    public void writeNameToFile() {
-        try (PrintWriter writer = new PrintWriter(new FileWriter("names.txt", true))) {
-            writer.println("Start");
-            writer.println(player.name);
-            writer.println("End");
-        } catch (IOException e) {
-            showMessageDialog("Error");
-        }
-    }
+                g2.setColor(Color.GRAY);
+                g2.drawRect(x, y, slotSize, slotSize);
 
-    private void showMessageDialog(String s) {
-        JOptionPane.showMessageDialog(this, s);
-    }
-    //Looks all names and if its same returns false if its first time returns true
-    private boolean checkNameValidity(String name) {
-        try (Scanner fileScanner = new Scanner(new File("names.txt"))) {
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine().trim();
-                if (!line.isEmpty() && name.equals(line)) {
-                    return false;
+                int idx = row * slotCol + col;
+                if (idx < items.size()) {
+                    Object obj = items.get(idx);
+                    if (obj instanceof SuperObject so) {
+                        g2.drawImage(so.image, x, y, slotSize, slotSize, null);
+                        //WRITE NAME
+                        g2.setColor(Color.WHITE);
+                        g2.setFont(new Font("Arial", Font.PLAIN, 15));
+                        g2.drawString(so.name, x, y + slotGap + 60);
+                    } else if (obj instanceof SuperWeapon sw) {
+                        g2.drawImage(sw.imageRight, x, y, slotSize, slotSize, null);
+                        //WRITE NAME
+                        g2.setColor(Color.WHITE);
+                        g2.setFont(new Font("Arial", Font.PLAIN, 15));
+                        g2.drawString(sw.name, x, y + slotGap + 60);
+
+                    }
                 }
             }
-            return true;
-        } catch (FileNotFoundException e) {
-            System.err.println("names.txt not found; assuming first run.");
-            return true;
-        }
-    }
-    
-    public void writePlayersValuesToFile(String name) {
-        ArrayList<String> lines = new ArrayList<>();
-        try (Scanner fileScanner = new Scanner(new File("names.txt"))) {
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine().trim();
-                lines.add(line);
-            }
-            int startIndex = lines.indexOf(name);
-            int endIndex=0;
-            for(int i=startIndex;i<lines.size();i++){
-                if(lines.get(i).equals("End")){
-                    endIndex=i;
-                }
-            }
-            for (int i = startIndex; i <= endIndex; i++) {
-                lines.remove(startIndex);
-            }
-            lines.add(startIndex, name);
-            lines.add(++startIndex, String.valueOf(player.currentFloor));
-            lines.add(++startIndex, String.valueOf(player.health));
-            lines.add(++startIndex, String.valueOf(player.totalTime));
-            int count =0;
-            for(int i=0; i<player.weapons.size();i++){
-                if(player.weapons.get(i).name.equals("Bow")){
-                    count=player.weapons.get(i).life;
-                }
-            }
-            lines.add(++startIndex, String.valueOf(count));
-            lines.add(++startIndex, "Obj");
-            for (SuperObject obj : player.objects) {
-                lines.add(++startIndex, obj.name);
-            }
-            lines.add(++startIndex, "Weapons");
-            for (SuperWeapon wpn : player.weapons) {
-                lines.add(++startIndex, wpn.name);
-            }
-            lines.add(++startIndex, "End");
-            try (PrintWriter writer = new PrintWriter(new File("names.txt"))) {
-                for (String line : lines) {
-                    writer.println(line);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            showMessageDialog("Error");
+            //ADDING SPACE BETWEEN ROWS
+            startY += slotSize + slotGap;
         }
     }
 
-    public void readAndSetPlayerValuesFromFile(String name) {
-        try (Scanner fileScanner = new Scanner(new File("names.txt"))) {
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine().trim();
-                if (line.equals(name)) {
-                    player.currentFloor = Integer.parseInt(fileScanner.nextLine());
-                    tileM.loadMap("/res/maps/map" + (player.currentFloor + 1) + ".txt");
-                    int health = Integer.parseInt(fileScanner.nextLine());
-                    if(health<=0){
-                        health= health+2;
-                    }
-                    player.health=health;
-                    player.totalTime =Long.parseLong(fileScanner.nextLine());
-                    int arrowCount = (Integer.parseInt(fileScanner.nextLine()));
-                    String s = fileScanner.nextLine();
-                    player.objects.clear();
-                    while (!s.equals("Weapons")) {
-                        switch (s.toLowerCase()) {
-                            case "boots":
-                                player.objects.add(new OBJ_Boots());
-                                break;
-                            case "key":
-                                player.objects.add(new OBJ_Key());
-                                break;
-                            case "compass":
-                                player.objects.add(new OBJ_Compass());
-                                break;
-                            case "light":
-                                player.objects.add(new OBJ_Light());
-                                break;
-                            case "health potion":
-                                player.objects.add(new OBJ_HealthPotion(this));
-                                break;
-                            case "photo":
-                                player.objects.add(new OBJ_Photo());
-                                break;
-                            case "letter":
-                                player.objects.add(new OBJ_Letter());
-                                break;
-                            case "lighted letter":
-                                player.objects.add(new OBJ_LightedLetter());
-                                break;
-                            case "screwdriver":
-                                player.objects.add(new OBJ_ScrewDriver());
-                                break;
-                            default:
-                                System.out.println("Unknown object: " + s);
-                                break;
-                        }
-                        s= fileScanner.nextLine();
-                    }
-                    player.weapons.clear();
-                    String st = fileScanner.nextLine();
-                    while (!st.equals("End")) {
-                        if (st.equals("Bow")) {
-                            player.weapons.add(new WPN_Bow());
-                        } else if (st.equals("Sword")) {
-                            player.weapons.add(new WPN_Sword());
-                        }
-                        else if (st.equals("Diamond Sword")){
-                            player.weapons.add(new WPN_DiamondSword());
-                        }
-                        st= fileScanner.nextLine();
-                    }
-                    for(int i=0; i<player.weapons.size();i++){
-                        if(player.weapons.get(i).name.equals("Bow")){
-                            player.weapons.get(i).life=arrowCount;
-                        }
-                    }
-                    break;
-                }         
-            }
-        } catch (FileNotFoundException e) {
-            showMessageDialog("Error");
+    // private void refreshInteractButtons(){
+    //      //making the picture a button if it is interactable
+    //         if(items.get(idx) instanceof SuperObject){
+    //             if (((SuperObject)items.get(idx)).isInteractable()){
+    //                 JButton button = new JButton();
+    //                 button.setBounds(x, y, slotSize, slotSize);
+    //                 interactableMap.put(button, ((SuperObject)items.get(idx)));
+    //                 add(button);
+    //                 interactButtons.add(button);
+    //         }
+
+    //         }
+    // }
+
+    private void refreshInteractButtons() {
+        //clearing old buttons
+        for (JButton btn : interactButtons) {
+            remove(btn);
         }
+        interactButtons.clear();
+        interactableMap.clear();
+
+        int idx = 0;
+
+        for (SuperObject obj : displayObjects) {
+            if (obj.isInteractable()) {
+                int col = idx % slotCol;
+                int row = idx / slotCol;
+                int x = slotsStartX + col * (slotSize + slotGap);
+                int y = slotsStartY + row * (slotSize + slotGap) + slotSize + 5; //place button
+
+                JButton button = new JButton("View");
+                button.setFont(new Font("Arial", Font.PLAIN, 12));
+                button.setBounds(x, y, 60, 20);
+                button.addActionListener(this);
+                interactableMap.put(button, obj);
+                interactButtons.add(button);
+                add(button);
+            }
+            if (obj.usable == true) {
+                int col = idx % slotCol;
+                int row = idx / slotCol;
+                int x = slotsStartX + col * (slotSize + slotGap);
+                int y = slotsStartY + row * (slotSize + slotGap) + slotSize + 5; //place button
+
+                useButton = new JButton("Use");
+                useButton.setFont(new Font("Arial", Font.PLAIN, 12));
+                useButton.setBounds(x, y, 60, 20);
+                useButton.addActionListener(this);
+                interactableMap.put(useButton, obj);
+                interactButtons.add(useButton);
+                add(useButton);
+            }
+            idx++;
+        }
+
+        revalidate();
+        repaint();
+    }
+    public void refreshObjectsAndWeapons() {
+        allObjects = gp.player.objects;
+        allWeapons = gp.player.weapons;
+        displayObjects.clear();
+        displayWeapons.clear();
+        displayObjects.addAll(allObjects);
+        displayWeapons.addAll(allWeapons);
     }
 }
+
