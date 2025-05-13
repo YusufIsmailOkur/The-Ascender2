@@ -46,6 +46,7 @@ public class Player extends Entity{
 
 
     public String name;
+    public char[] finishedGame;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
