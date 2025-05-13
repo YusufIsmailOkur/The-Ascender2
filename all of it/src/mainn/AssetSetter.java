@@ -134,6 +134,10 @@ public class AssetSetter {
         gp.obj[1][17] = new OBJ_Key();
         gp.obj[1][17].x = 16 * gp.tileSize;  
         gp.obj[1][17].y = 13  * gp.tileSize;   
+        
+        gp.obj[1][18] = new OBJ_ClosedElevator();
+        gp.obj[1][18].x = 0 * gp.tileSize;
+        gp.obj[1][18].y = 7 * gp.tileSize;
 
         //2
         gp.obj[2][0] = new OBJ_Elevator();
@@ -155,7 +159,7 @@ public class AssetSetter {
         gp.obj[3][0].x = 0 * gp.tileSize;
         gp.obj[3][0].y = 7 * gp.tileSize;
 
-        gp.obj[3][1] = new OBJ_Elevator();
+        gp.obj[3][1] = new OBJ_OpenedElevator();
         gp.obj[3][1].x = 19 * gp.tileSize;
         gp.obj[3][1].y = 7 * gp.tileSize;
 
