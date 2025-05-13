@@ -106,7 +106,7 @@ public class AssetSetter {
         gp.obj[1][11].x = 18 * gp.tileSize;
         gp.obj[1][11].y = 12 * gp.tileSize;
 
-        gp.obj[1][12] = new OBJ_TestDoorClosed("321");
+        gp.obj[1][12] = new OBJ_TestDoorClosed("athena");
         gp.obj[1][12].x = 18 * gp.tileSize;
         gp.obj[1][12].y = 10 * gp.tileSize;
 
@@ -118,11 +118,11 @@ public class AssetSetter {
         gp.obj[1][14].x = 18 * gp.tileSize;
         gp.obj[1][14].y = 6 * gp.tileSize;
 
-        gp.obj[1][15] = new OBJ_Chest(gp, "screwdriver");
+        gp.obj[1][15] = new OBJ_Chest(gp, "light");
         gp.obj[1][15].x = 17 * gp.tileSize;
         gp.obj[1][15].y = 11 * gp.tileSize;
 
-        gp.obj[1][16] = new OBJ_Chest(gp, "light");
+        gp.obj[1][16] = new OBJ_Chest(gp, "screwdriver");
         gp.obj[1][16].x = 17 * gp.tileSize;
         gp.obj[1][16].y = 9 * gp.tileSize;
 
