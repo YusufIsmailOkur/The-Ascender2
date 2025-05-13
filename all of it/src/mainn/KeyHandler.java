@@ -1,349 +1,448 @@
 package mainn;
-import weapon.SuperWeapon;
 
-import java.awt.RenderingHints.Key;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import javax.swing.*;
+import java.io.*;
 import java.util.ArrayList;
-import javax.swing.plaf.multi.MultiScrollBarUI;
 
-public class KeyHandler implements KeyListener {
-    int previousState = 0; //title state
-    long timeStart;
-    long timeEnd;
+import entity.Entity;
+import entity.Player;
+import environment.EnvironmentManager;
+import object.*;
+import tile.TileManager;
+import weapon.*;
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, fPressed, enterPressed, spacePressed, onePressed, twoPressed, threePressed;
-    GamePanel gp;
-    public KeyHandler (GamePanel gp){
-        this.gp = gp;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Graphics;
+import java.util.Scanner;
+
+import static javax.swing.JOptionPane.*;
+
+public class GamePanel extends JPanel implements Runnable{
+    
+    final int originalTileSize = 16; // 16x16 charachter
+    final int scale = 3; // it will print it larger on the screen
+
+    final public int tileSize = originalTileSize * scale; //48*48 tile
+
+    public final int maxScreenCol = 20;    // creating the screen col
+    public final int maxScreenRow = 15;
+    public final int screenWidth = tileSize* maxScreenCol; // 768 pixels
+    public final int screenHeight = tileSize* maxScreenRow; // 576 pixels
+
+    //sound
+    Sound sound = new Sound();
+
+    // FPS
+    int FPS = 60;
+
+    public TileManager tileM = new TileManager(this);
+    public KeyHandler keyH = new KeyHandler(this);
+    EnvironmentManager eManager = new EnvironmentManager(this);
+
+    Thread gameThread;
+    public CollisionChecker cChecker = new CollisionChecker(this);
+    public AssetSetter aSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
+    public Player player = new Player(this, keyH);
+    public Inventory inventory = new Inventory(this);
+    public WeaponListPanel weaponList = new WeaponListPanel(this);
+
+    public SuperObject obj[][] = new SuperObject[10][20];
+    public Entity npc[][] = new Entity[10][10];
+    public Entity monster[][] = new Entity[10][10];
+    public ArrayList <Entity> projectiles = new ArrayList<>();
+    public SuperWeapon[] weapon = new SuperWeapon[10];
+    public String[] allObjects = {"Arrow","boots","chest","key","door","elevator","Fireball", "compass", "letter", "screwdriver"};//Should updated for every new object
+    public String[] allWeapons = {"Bow","Sword"}; //Should updated for every new weapon
+    public UtilityTool uTool = new UtilityTool();
+
+    public int gameState;
+    public final int titleState = 0;
+    public final int playState = 1;
+    public final int pauseState = 2;
+    public final int dialogueState = 3;
+    public final int menuState = 4;
+    public final int settingsState = 5;
+    public final int helpState = 6;
+    public final int deathState = 7;
+    public final int inventoryState = 8;    
+    public final int leaderBoardState=9;
+    public final int storyState = 10;
+    public final int weaponListState = 11;
+    public final int mapState = 12;
+    public MapPanel mapPanel = new MapPanel(this);
+
+    static boolean haskilledSlimeBoss = false;
+
+    public GamePanel(){
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setBackground(Color.BLACK);
+        this.setDoubleBuffered(true); // rendering performance
+        this.addKeyListener(keyH);
+        this.setFocusable(true);
+
+        //INventory
+        inventory.setBounds(0, 0, screenWidth, screenHeight);
+        inventory.setVisible(false);
+        this.add(inventory);
+        //Weapon List
+        weaponList.setBounds(0, 0, screenWidth, screenHeight);
+        weaponList.setVisible(false);
+        this.add(weaponList);
+        //Map Panel
+        mapPanel.setBounds(0, 0, screenWidth, screenHeight);
+        mapPanel.setVisible(false);
+        this.add(mapPanel);
+
+    }
+
+    public void setupGame(){
+
+        aSetter.setObject();
+        aSetter.setNPC();
+        aSetter.setMonster();
+        aSetter.setWeapon();
+        ui.isSetup = true;
+        gameState = titleState;
+        playMusic(0);
+        eManager.setup(); 
+    }
+
+    public void startGameThread(){
+        gameThread = new Thread(this);
+        gameThread.start();
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        int code = e.getKeyCode();
+    public void run() {
 
-        // Title STATE
-        if (gp.gameState == gp.titleState){
-            if (code == KeyEvent.VK_W){
-                gp.ui.commandNum--;
-                if (gp.ui.commandNum < 0){
-                    gp.ui.commandNum = 2;
-                }
-            }
-            if (code == KeyEvent.VK_S){
-                gp.ui.commandNum++;
-                if (gp.ui.commandNum > 2){
-                    gp.ui.commandNum = 0;
-                }
-            }
-            if (code == KeyEvent.VK_ENTER){
-                if (gp.ui.commandNum == 0){
-                    gp.askName();
-                    gp.gameState = gp.storyState;
-                    timeStart=System.currentTimeMillis();
-                }
-                else if (gp.ui.commandNum == 1){
-                    gp.askNameAndSetPlayerValues();
-                    gp.gameState = gp.playState;
-                    timeStart=System.currentTimeMillis();
-                }
-                else if (gp.ui.commandNum == 2){
-                    System.exit(0);
-                }
-            }
-        }
+        while (gameThread != null){
 
-        // PLAY STATE
-        if (gp.gameState == gp.playState ){
-            if (code == KeyEvent.VK_W){
-                upPressed = true;
-            }
-            if (code == KeyEvent.VK_S){
-                downPressed = true;
-            }
-            if (code == KeyEvent.VK_A){
-                leftPressed = true;
-            }
-            if (code == KeyEvent.VK_D){
-                rightPressed = true;
-            }
-            if (code == KeyEvent.VK_P){
-                gp.gameState = gp.pauseState;
-            }
-            if (code == KeyEvent.VK_I) {
-                gp.gameState = gp.inventoryState;
-                gp.inventory.setVisible(true);
-            }
-            if (code == KeyEvent.VK_F){
-                fPressed = true;
-            }
-            if (code == KeyEvent.VK_M){
-                gp.gameState = gp.menuState;
-            }
-            if(code == KeyEvent.VK_ENTER){
-                enterPressed = true;
-            }
-            if(code == KeyEvent.VK_SPACE){
-                spacePressed = true;
-            }
-            if(code == KeyEvent.VK_1){
-                onePressed = true;
-            }
-            if(code == KeyEvent.VK_2){
-                twoPressed = true;
-            }
-            if(code == KeyEvent.VK_3){
-                threePressed = true;
-            }
-            if(code == KeyEvent.VK_5){
-                WeaponListPanel.weapons = gp.player.weapons;
-                gp.gameState = gp.weaponListState;
-                gp.weaponList.setVisible(true);
-            }  
-            if (gp.player.health <= 0){
-                gp.gameState = gp.deathState;
-            }
-        }
-        //exiting story state
-        else if (gp.gameState == gp.storyState){
-            if (code == KeyEvent.VK_ESCAPE){
-                gp.gameState = gp.playState;
-            }
-        }
-        // PAUSE STATE
-        else if (gp.gameState == gp.pauseState){
-            if (code == KeyEvent.VK_P){
-                gp.gameState = gp.playState;
-            }
-        }
-        // DIALOGUE STATE
-        else if (gp.gameState == gp.dialogueState){
-            if (code == KeyEvent.VK_F){
-                gp.gameState = gp.playState;
-            }
-        }
-        // MENU STATE
-        else if (gp.gameState == gp.menuState){
-            if (code == KeyEvent.VK_W){
-                gp.ui.menuNum--;
-                if (gp.ui.menuNum < 0){
-                    gp.ui.menuNum = 5;
+            double drawInterval = 1000000000 / FPS;
+            double nextDrawTime = System.nanoTime() + drawInterval;
+            // update information such as character position
+            update();
+
+            // draw the screen with the updated information
+            repaint();
+
+            try {
+                double remainingTime = nextDrawTime - System.nanoTime();
+                remainingTime = remainingTime / 1000000;
+
+                if(remainingTime < 0){
+                    remainingTime = 0;
                 }
-            }
-            if (code == KeyEvent.VK_S){
-                gp.ui.menuNum++;
-                if (gp.ui.menuNum > 5){
-                    gp.ui.menuNum = 0;
-                }
-            }
-            if (code == KeyEvent.VK_ENTER){
-                if (gp.ui.menuNum == 0){
-                    gp.askName();
-                    gp.gameState = gp.playState;
-                }
-                else if (gp.ui.menuNum == 1){
-                    // Fast TRAVEL
-                }
-                else if (gp.ui.menuNum == 2){
-                    // LeaderBoard
-                    gp.gameState = gp.leaderBoardState;
-                }
-                else if (gp.ui.menuNum == 3){
-                    // SETTINGS
-                    gp.gameState = gp.settingsState;
-                }
-                else if (gp.ui.menuNum == 4){
-                    // HELP
-                    gp.gameState = gp.helpState;
-                }
-                else if (gp.ui.menuNum == 5){
-                    // EXIT
-                    //Save Values
-                    timeEnd = System.currentTimeMillis();  
-                    gp.player.totalTime+= timeEnd-timeStart;
-                    gp.writePlayersValuesToFile(gp.player.name);
-                    System.exit(code);
-                }
+
+                Thread.sleep((long) remainingTime);   
+
+                nextDrawTime += drawInterval;
                 
-            }
-        }
-        //INVENTORY STATE
-        else if (gp.gameState == gp.inventoryState) {
-            if (code == KeyEvent.VK_I || code == KeyEvent.VK_ESCAPE) {
-                gp.gameState = gp.playState;
-                gp.inventory.setVisible(false);
-            }
-        }
-        //HELP STATE
-        else if (gp.gameState == gp.helpState){
-            if (code == KeyEvent.VK_ESCAPE){ //exiting to menu state back
-                gp.gameState = gp.menuState;
-            }
-        }
-        //SETTINGS STATE
-        else if (gp.gameState ==gp.settingsState){
-            if (code == KeyEvent.VK_W){
-                gp.ui.settingsNum--;
-                if (gp.ui.settingsNum < 0){
-                    gp.ui.settingsNum = 1;
-                }
-            }
-            if (code == KeyEvent.VK_S){
-                gp.ui.settingsNum++;
-                if (gp.ui.settingsNum > 1){
-                    gp.ui.settingsNum = 0;
-                }
-            }
-            if (code == KeyEvent.VK_ENTER && gp.ui.settingsNum == 0){
-                //fullscreen
-                Main.fullScreen();
-            }
-            else if (gp.ui.settingsNum == 1 && code == KeyEvent.VK_D){ //increasing sound
-                if (gp.ui.musicLevel < 8){
-                    gp.ui.musicLevel++;
-                    gp.getSound().setVolume(gp.ui.musicLevel);
-                }
-            }
-            else if (gp.ui.settingsNum == 1 && code == KeyEvent.VK_A){ //decreasing sound
-                if (gp.ui.musicLevel > 0){
-                    gp.ui.musicLevel--;
-                    gp.getSound().setVolume(gp.ui.musicLevel);
-                }
-            }
-            else if (code == KeyEvent.VK_ESCAPE){ //exiting to menu state back
-                gp.gameState = gp.menuState;
-            }
-        }
-        //LEADERBOARD STATE
-        else if (gp.gameState == gp.leaderBoardState){
-            if (code == KeyEvent.VK_ESCAPE){ //exiting to menu state back
-                gp.gameState = gp.menuState;
-            }
-        }
-        //WEAPONLIST STATE
-        else if (gp.gameState == gp.weaponListState){
-            if (code == KeyEvent.VK_ESCAPE){ //exiting to menu state back
-                gp.player.weapons = WeaponListPanel.weapons;
-                gp.gameState = gp.playState;
-                gp.weaponList.setVisible(false);
-            }
-        }
-        else if (gp.gameState == gp.deathState){
-            if (code == KeyEvent.VK_W){
-                gp.ui.deathScreenNum--;
-                if (gp.ui.deathScreenNum < 0){
-                    gp.ui.deathScreenNum = 3;
-                }
-            }
-            if (code == KeyEvent.VK_S){
-                gp.ui.deathScreenNum++;
-                if (gp.ui.deathScreenNum > 3){
-                    gp.ui.deathScreenNum = 0;
-                }
-            }
-            if (code == KeyEvent.VK_ENTER){
-                if (gp.ui.deathScreenNum == 0){
-                    gp.player.health += 1;
-                    gp.gameState = gp.playState;
-                }
-                else if (gp.ui.deathScreenNum == 1){
-                    // new game no SAVING AND RESET THE ENTİRE GAME
-                }
-                else if (gp.ui.deathScreenNum == 2){
-                    gp.gameState = gp.titleState;
-                    // DO SAVING AND PUT THE CORRECT MUSIC
-                    gp.writePlayersValuesToFile(gp.player.name);
-
-                }
-                else if (gp.ui.deathScreenNum == 3){
-                    // EXIT
-                    System.exit(code);
-                }
-            }
-        }
-        if(code == KeyEvent.VK_Q) {
-                if(gp.gameState == gp.playState){
-                    gp.gameState = gp.mapState;
-                    gp.mapPanel.setVisible(true);
-                    gp.mapPanel.repaint();
-                }else if (gp.gameState == gp.mapState){
-                    gp.gameState = gp.playState;
-                    gp.mapPanel.setVisible(false);
-                }
-            } 
-
-        if (previousState != gp.gameState){ //if gameState changes by pressing a key, it changes the music
-            if (previousState == gp.titleState){ // if previousstate was titlestate
-                playMusicByState(gp.gameState);
-            }
+            } catch (InterruptedException e) {}
         }
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
+    public void update(){
+
+
+        if (gameState == playState){
+            //player
+            player.update();
+            int currentFloor = player.currentFloor;
+            tileM.loadMap("\"/res/maps/map02.txt\"");
+            //npc
+            for (int i = 0; i <npc.length; i++){
+                if (npc[currentFloor][i] != null){
+                    npc[currentFloor][i].update();
+                }
+            }
+            for (int i = 0; i < monster[0].length; i++) {
+                if (monster[currentFloor][i] != null) {
+                    monster[currentFloor][i].update();
+                }
+            }
+            for (int i = 0; i < projectiles.size(); i++) {
+                if (projectiles.get(i) != null) {
+                    projectiles.get(i).update();
+                }
+                if(projectiles.get(i).alive == false){
+                    projectiles.remove(i);
+                }
+            }
+        }
+        if (gameState == pauseState){
+
+        }
+        if (gameState == mapState) {
+            mapPanel.update();
+        }
+
+        if(monster[3][0] == null && haskilledSlimeBoss == false){
+
+            haskilledSlimeBoss = true;
+            obj[3][2] = new OBJ_Key();
+            obj[3][2].x = 11 * tileSize;
+            obj[3][2].y = 7 * tileSize;
+
+            obj[3][3] = new OBJ_Chest(this, "diamond sword");
+            obj[3][3].x = 10 * tileSize;
+            obj[3][3].y = 5 * tileSize;
+            
+        }
+    }
+    public void paintComponent(Graphics g){
+
+        super.paintComponent(g);
+        int currentFloor = player.currentFloor;
+
+        Graphics2D g2 = (Graphics2D)g;
+
+        // TİTLE SCREEN
+        if (gameState == titleState){
+            ui.draw(g2);
+        }
+        //INVENTORY SCREEN
+        else if (gameState == inventoryState)
+        {
+            inventory.paintComponent(g);
+        }
+        //LEADERBOARD SCREEN
+        else if (gameState == leaderBoardState)
+        {
+            LeaderBoard lb = new LeaderBoard(this);
+            lb.paintComponent(g);
+        }
+        //WEAPON LIST
+        else if(gameState == weaponListState) {
+            weaponList.paintComponent(g);
+        }
+        //MAP
+        else if (gameState == mapState) {
+            mapPanel.paintComponent(g);
+        }
+
+        // OTHERS
+        else {
+            // TİLE
+        tileM.draw(g2);
+
+        // OBJECT
+        for (int i = 0; i < obj[0].length; i++){
+            if (obj[currentFloor][i] != null){
+                obj[currentFloor][i].draw(g2, this);
+            }
+        }
+
+        //WEAPON
+        for (SuperWeapon wp : weapon) {
+            if (wp != null) {
+                g2.drawImage(wp.image, wp.x, wp.y, tileSize, tileSize, null);
+            }
+        }
+
+
+        //NPC
+        for(int i = 0; i < npc[0].length; i++){
+            if (npc[currentFloor][i] != null){
+                npc[currentFloor][i].draw(g2);
+            }
+        }
+
+        //MONSTER
+        for(int i = 0; i < monster[0].length; i++){
+            if (monster[currentFloor][i] != null){
+                monster[currentFloor][i].draw(g2);
+            }
+        }
+
+        //PROJECTILE
+        for(int i = 0; i < projectiles.size(); i++){
+            if(projectiles.get(i) != null && projectiles.get(i).alive == true){
+                projectiles.get(i).draw(g2);
+            }
+        }
+
+        //PLAYER
+        player.draw(g2);
+
+        //Environment
+        if (player.currentFloor == 2){
+            eManager.draw(g2);
+        }
+
+        //UI
+        ui.draw(g2);
         
-        int code = e.getKeyCode();
-
-        if (code == KeyEvent.VK_W){
-            upPressed = false;
-        }
-        if (code == KeyEvent.VK_S){
-            downPressed = false;
-        }
-        if (code == KeyEvent.VK_A){
-            leftPressed = false;
-        }
-        if (code == KeyEvent.VK_D){
-            rightPressed = false;
-        }
-        if (code == KeyEvent.VK_F){
-            fPressed = false;
-        }
-        if(code == KeyEvent.VK_ENTER){
-            enterPressed = false;
-        }
-        if(code == KeyEvent.VK_SPACE){
-            spacePressed = false;
-        }
-        if(code == KeyEvent.VK_1){
-            onePressed = false;
-        }
-        if(code == KeyEvent.VK_2){
-            twoPressed = false;
-        }
-        if(code == KeyEvent.VK_3){
-            threePressed = false;
+        g2.dispose();
         }
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
+    public Sound getSound() {
+        return sound;
     }
 
-    private void playMusicByState(int currentGameState){
-        stopMusic();
-        if (currentGameState == gp.titleState){
-            playMusic(0);
-        }
-        else{
-            playMusic(1);
-        }
-        previousState = currentGameState;
-    }
-    
     public void playMusic(int i){
-        gp.getSound().setFile(i);
-        gp.getSound().play();
-        gp.getSound().loop();
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
     }
-
     public void stopMusic(){
-        gp.getSound().stop();
+        sound.stop();
+
+    }
+    public void askName(){
+        String name = showInputDialog("What is your name?");
+        while(true) {
+            if (checkNameValidity(name)) {
+                player.name = name;
+                writeNameToFile();
+                break;
+            } else {
+                showMessageDialog("Your name already exists. Please enter another");
+                name = showInputDialog("What is your name?");
+            }
+        }
+    }
+    public void askNameAndSetPlayerValues(){
+        String name = showInputDialog("Enter name for Load game");
+        while(true) {
+            if (!checkNameValidity(name)) {
+                player.name = name;
+                readAndSetPlayerValuesFromFile(name);
+                break;
+            } else {
+                showMessageDialog("Couldnt find your name. Please enter another");
+                name = showInputDialog("Enter name for Load game");
+            }
+        }
+    }
+    public void writeNameToFile() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("names.txt", true))) {
+            writer.println("Start");
+            writer.println(player.name);
+            writer.println("End");
+        } catch (IOException e) {
+            showMessageDialog("Error");
+        }
     }
 
-    public void playSoundEffect(int i){
-        gp.getSound().setFile(i);
-        gp.getSound().play();
+    private void showMessageDialog(String s) {
+        JOptionPane.showMessageDialog(this, s);
+    }
+    //Looks all names and if its same returns false if its first time returns true
+    private boolean checkNameValidity(String name) {
+        try (Scanner fileScanner = new Scanner(new File("names.txt"))) {
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine().trim();
+                if (!line.isEmpty() && name.equals(line)) {
+                    return false;
+                }
+            }
+            return true;
+        } catch (FileNotFoundException e) {
+            System.err.println("names.txt not found; assuming first run.");
+            return true;
+        }
     }
     
+    public void writePlayersValuesToFile(String name) {
+        ArrayList<String> lines = new ArrayList<>();
+        try (Scanner fileScanner = new Scanner(new File("names.txt"))) {
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine().trim();
+                lines.add(line);
+            }
+            int startIndex = lines.indexOf(name);
+            int endIndex=0;
+            for(int i=startIndex;i<lines.size();i++){
+                if(lines.get(i).equals("End")){
+                    endIndex=i;
+                }
+            }
+            for (int i = startIndex; i <= endIndex; i++) {
+                lines.remove(startIndex);
+            }
+            lines.add(startIndex, name);
+            lines.add(++startIndex, String.valueOf(player.currentFloor));
+            lines.add(++startIndex, String.valueOf(player.health));
+            lines.add(++startIndex, String.valueOf(player.totalTime));
+            int count =0;
+            for(int i=0; i<player.weapons.size();i++){
+                if(player.weapons.get(i).name.equals("Bow")){
+                    count=player.weapons.get(i).life;
+                }
+            }
+            lines.add(++startIndex, String.valueOf(count));
+            lines.add(++startIndex, "Obj");
+            for (SuperObject obj : player.objects) {
+                lines.add(++startIndex, obj.name);
+            }
+            lines.add(++startIndex, "Weapons");
+            for (SuperWeapon wpn : player.weapons) {
+                lines.add(++startIndex, wpn.name);
+            }
+            lines.add(++startIndex, "End");
+            try (PrintWriter writer = new PrintWriter(new File("names.txt"))) {
+                for (String line : lines) {
+                    writer.println(line);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            showMessageDialog("Error");
+        }
+    }
+
+    public void readAndSetPlayerValuesFromFile(String name) {
+        try (Scanner fileScanner = new Scanner(new File("names.txt"))) {
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine().trim();
+                if (line.equals(name)) {
+                    player.currentFloor = Integer.parseInt(fileScanner.nextLine());
+                    int health = Integer.parseInt(fileScanner.nextLine());
+                    if(health<=0){
+                        health= health+2;
+                    }
+                    player.health=health;
+                    player.totalTime =Long.parseLong(fileScanner.nextLine());
+                    int arrowCount = (Integer.parseInt(fileScanner.nextLine()));
+                    String s = fileScanner.nextLine();
+                    player.objects.clear();
+                    while (!s.equals("Weapons")) {
+                        if (s.equals("boots")) {
+                            player.objects.add(new OBJ_Boots());
+                        } else if (s.equals("chest")) {
+                            //player.objects.add(new OBJ_Chest());
+                        } else if (s.equals("key")) {
+                            player.objects.add(new OBJ_Key());
+                        } else if (s.equals("door")) {
+                            player.objects.add(new OBJ_Door());
+                        } else if (s.equals("elevator")) {
+                            player.objects.add(new OBJ_Elevator());
+                        }
+                        s= fileScanner.nextLine();
+                    }
+                    player.weapons.clear();
+                    String st = fileScanner.nextLine();
+                    while (!st.equals("End")) {
+                        if (st.equals("Bow")) {
+                            player.weapons.add(new WPN_Bow());
+                        } else if (st.equals("Sword")) {
+                            player.weapons.add(new WPN_Sword());
+                        }
+                        st= fileScanner.nextLine();
+                    }
+                    for(int i=0; i<player.weapons.size();i++){
+                        if(player.weapons.get(i).name.equals("Bow")){
+                            player.weapons.get(i).life=arrowCount;
+                        }
+                    }
+                    break;
+                }         
+            }
+        } catch (FileNotFoundException e) {
+            showMessageDialog("Error");
+        }
+    }
 }
