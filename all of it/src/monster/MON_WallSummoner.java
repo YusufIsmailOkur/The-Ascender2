@@ -45,14 +45,14 @@ public class MON_WallSummoner extends Entity {
 
     public void getMonsterImage() {
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/res/monster/redslime_down_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/redslime_down_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/res/monster/redslime_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/redslime_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/res/monster/redslime_down_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/redslime_down_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/res/monster/redslime_down_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/redslime_down_2.png"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -171,7 +171,7 @@ public class MON_WallSummoner extends Entity {
                 }
                 break;
         }
-        g2.drawImage(image, x, y, gp.tileSize * 5, gp.tileSize * 5, null);
+        g2.drawImage(image, x, y, gp.tileSize * 5/2, gp.tileSize * 5, null);
     }
 
 }

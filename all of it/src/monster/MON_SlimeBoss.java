@@ -27,7 +27,7 @@ public class MON_SlimeBoss extends Entity{
         direction = "down";
         name = "Slime Boss";
         speed = 1;
-        maxHealth = 300;
+        maxHealth = 100;
         health = maxHealth;
         type = 2;
         isBoss = true;

@@ -264,7 +264,7 @@ public class AssetSetter {
         gp.obj[14][0].x = 0 * gp.tileSize;
         gp.obj[14][0].y = 7 * gp.tileSize;
 
-        gp.obj[14][1] = new OBJ_Elevator();
+        gp.obj[14][1] = new OBJ_OpenedElevator();
         gp.obj[14][1].x = 19 * gp.tileSize;
         gp.obj[14][1].y = 7 * gp.tileSize;
 
@@ -462,7 +462,7 @@ public class AssetSetter {
         gp.monster[13][0].y = 7 * gp.tileSize;
         gp.monster[13][1] = new MON_GreenSlime(gp);
         gp.monster[13][1].x = 4*gp.tileSize;
-        gp.monster[13][1].y = 14 * gp.tileSize;
+        gp.monster[13][1].y = 13 * gp.tileSize;
         gp.monster[13][2] = new MON_Zombie(gp);
         gp.monster[13][2].x = 8*gp.tileSize;
         gp.monster[13][2].y = 10 * gp.tileSize;
@@ -477,8 +477,8 @@ public class AssetSetter {
 
         //15 Wamuu
         gp.monster[15][0] = new MON_WallSummoner(gp);
-        gp.monster[15][0].x = 10 * gp.tileSize;
-        gp.monster[15][0].y = 7 * gp.tileSize;
+        gp.monster[15][0].x = 8 * gp.tileSize;
+        gp.monster[15][0].y = 5 * gp.tileSize;
 
         //16 preparation room
 
