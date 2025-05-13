@@ -98,7 +98,7 @@ public class KeyHandler implements KeyListener {
             if(code == KeyEvent.VK_5){
                 gp.gameState = gp.weaponListState;
                 gp.weaponList.setVisible(true);
-            }
+            }  
             if (gp.player.health <= 0){
                 gp.gameState = gp.deathState;
             }
@@ -260,6 +260,16 @@ public class KeyHandler implements KeyListener {
                 }
             }
         }
+        if(code == KeyEvent.VK_Q) {
+                if(gp.gameState == gp.playState){
+                    gp.gameState = gp.mapState;
+                    gp.mapPanel.setVisible(true);
+                    gp.mapPanel.repaint();
+                }else if (gp.gameState == gp.mapState){
+                    gp.gameState = gp.playState;
+                    gp.mapPanel.setVisible(false);
+                }
+            } 
 
         if (previousState != gp.gameState){ //if gameState changes by pressing a key, it changes the music
             if (previousState == gp.titleState){ // if previousstate was titlestate

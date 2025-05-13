@@ -71,6 +71,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int leaderBoardState=9;
     public final int storyState = 10;
     public final int weaponListState = 11;
+    public final int mapState = 12;
+    public MapPanel mapPanel = new MapPanel(this);
 
     static boolean haskilledSlimeBoss = false;
 
@@ -89,6 +91,11 @@ public class GamePanel extends JPanel implements Runnable{
         weaponList.setBounds(0, 0, screenWidth, screenHeight);
         weaponList.setVisible(false);
         this.add(weaponList);
+        //Map Panel
+        mapPanel.setBounds(0, 0, screenWidth, screenHeight);
+        mapPanel.setVisible(false);
+        this.add(mapPanel);
+
     }
 
     public void setupGame(){
@@ -168,6 +175,10 @@ public class GamePanel extends JPanel implements Runnable{
         if (gameState == pauseState){
 
         }
+        if (gameState == mapState) {
+            mapPanel.update();
+        }
+
         if(monster[3][0] == null && haskilledSlimeBoss == false){
 
             haskilledSlimeBoss = true;
@@ -207,6 +218,11 @@ public class GamePanel extends JPanel implements Runnable{
         else if(gameState == weaponListState) {
             weaponList.paintComponent(g);
         }
+        //MAP
+        else if (gameState == mapState) {
+            mapPanel.paintComponent(g);
+        }
+
         // OTHERS
         else {
             // TİLE
