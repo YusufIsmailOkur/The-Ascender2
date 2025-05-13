@@ -7,15 +7,11 @@ import javax.imageio.ImageIO;
 import mainn.GamePanel;
 
 public class OBJ_KeyElevator extends SuperObject{
-
-    public GamePanel gp;
-    public boolean hasGeneratedKey = false;
     
-    public OBJ_KeyElevator(GamePanel gp){
+    public OBJ_KeyElevator(){
 
         name = "keyelevator";
         craftable = false;
-        this.gp = gp;
 
         try {
 
@@ -24,27 +20,5 @@ public class OBJ_KeyElevator extends SuperObject{
             e.printStackTrace();
         }
         collision = true;
-    }
-
-    public void interact(){
-        boolean generateKey = true;
-        for(int i = 0; i < gp.monster[gp.player.currentFloor].length && generateKey; i++){
-            if(gp.monster[gp.player.currentFloor][i] != null){
-                generateKey = false;
-            }
-        }
-        if(generateKey && !hasGeneratedKey){
-            gp.gameState = gp.dialogueState;
-            
-            gp.ui.currentDialogue = "A key has spawned!";
-            hasGeneratedKey = true;
-        }
-        else if(hasGeneratedKey == true){
-
-        }
-        else{
-            gp.gameState = gp.dialogueState;
-            gp.ui.currentDialogue = "There are still monsters nearby!";
-        }
     }
 }
