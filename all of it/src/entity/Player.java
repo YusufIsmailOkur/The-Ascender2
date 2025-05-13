@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.imageio.ImageIO;
 
@@ -37,6 +38,9 @@ public class Player extends Entity{
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
     public SuperWeapon currentWeapon;
     public WPN_Bow bow;
+    public boolean[] discoveredFloors = new boolean[100];
+
+
 
     public int currentFloor = 0;
 
@@ -375,6 +379,7 @@ public class Player extends Entity{
                 break;
 
                 case "openedelevator":
+                discoveredFloors[currentFloor] = true;
                 currentFloor++;
                 gp.tileM.loadMap("/res/maps/map" + (currentFloor+1) + ".txt");
                 x = 1*gp.tileSize;
