@@ -155,7 +155,7 @@ public class AssetSetter {
 
        gp.obj[10][3] = new OBJ_Statue1(gp);
        gp.obj[10][3].x = 3 * gp.tileSize;
-       gp.obj[10][3].y = 10 * gp.tileSize;
+       gp.obj[10][3].y = 11 * gp.tileSize;
 
 
        gp.obj[10][4] = new OBJ_Statue2(gp);
@@ -185,16 +185,16 @@ public class AssetSetter {
 
        gp.obj[10][9] = new OBJ_Statue7(gp);
        gp.obj[10][9].x = 7 * gp.tileSize;
-       gp.obj[10][9].y = 10 * gp.tileSize;
+       gp.obj[10][9].y = 11 * gp.tileSize;
 
 
        gp.obj[10][10] = new OBJ_Statue8(gp);
        gp.obj[10][10].x = 5 * gp.tileSize;
        gp.obj[10][10].y = 13 * gp.tileSize;
 
-       gp.obj[10][10] = new OBJ_TestDoorClosed("yes");
-       gp.obj[10][10].x = 18 * gp.tileSize;
-       gp.obj[10][10].y = 12 * gp.tileSize;
+       gp.obj[10][11] = new OBJ_TestDoorClosed("yes");
+       gp.obj[10][11].x = 18 * gp.tileSize;
+       gp.obj[10][11].y = 12 * gp.tileSize;
 
        gp.obj[10][12] = new OBJ_TestDoorClosed("athena");
        gp.obj[10][12].x = 18 * gp.tileSize;
@@ -215,14 +215,10 @@ public class AssetSetter {
        gp.obj[10][16] = new OBJ_Chest(gp, "screwdriver");
        gp.obj[10][16].x = 17 * gp.tileSize;
        gp.obj[10][16].y = 9 * gp.tileSize;
-
-       gp.obj[10][17] = new OBJ_Key();
-       gp.obj[10][17].x = 16 * gp.tileSize;  
-       gp.obj[10][17].y = 13  * gp.tileSize;   
        
-       gp.obj[10][18] = new OBJ_ClosedElevator();
-       gp.obj[10][18].x = 0 * gp.tileSize;
-       gp.obj[10][18].y = 7 * gp.tileSize;
+       gp.obj[10][17] = new OBJ_ClosedElevator();
+       gp.obj[10][17].x = 0 * gp.tileSize;
+       gp.obj[10][17].y = 7 * gp.tileSize;
 
        //11
         gp.obj[11][0] = new OBJ_ClosedElevator();
