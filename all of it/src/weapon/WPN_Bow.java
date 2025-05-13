@@ -10,7 +10,7 @@ public class WPN_Bow extends SuperWeapon{
     public WPN_Bow() {
 
         name = "Bow";
-        attackValue = 3;
+        attackValue = 4;
         collision = true;
         solidArea.x = 0;
         solidArea.y = 0;

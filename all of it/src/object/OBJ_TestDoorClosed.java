@@ -1,11 +1,8 @@
 package object;
 
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-
-import mainn.KeyHandler;
 
 public class OBJ_TestDoorClosed extends SuperObject{
     String password;

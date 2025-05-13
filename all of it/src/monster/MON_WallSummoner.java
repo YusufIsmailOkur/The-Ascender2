@@ -29,11 +29,11 @@ public class MON_WallSummoner extends Entity {
         this.health = maxHealth;
         this.type = 2;
         this.isBoss = true;
-        int size = gp.tileSize * 5;
-        solidArea.x = 45;
-        solidArea.y = 80;
-        solidArea.width = size - gp.tileSize * 3 / 2;
-        solidArea.height = size - gp.tileSize * 2;
+        int size = gp.tileSize * 5/2;
+        solidArea.x = 20;
+        solidArea.y = 20;
+        solidArea.width = size - gp.tileSize;
+        solidArea.height = size + gp.tileSize;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         prevTileX = 8;

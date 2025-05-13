@@ -9,9 +9,7 @@ import javax.imageio.ImageIO;
 
 import entity.Entity;
 import entity.Player;
-import entity.Projectile;
 import mainn.GamePanel;
-import object.OBJ_Elevator;
 import object.OBJ_Rock;
 
 public class MON_SlimeBoss extends Entity{

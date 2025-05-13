@@ -34,7 +34,6 @@ public class MapPanel extends JPanel {
                 Point p = e.getPoint();
                 for (int i = 0; i < floorCount; i++) {
                     if (floorButtons[i].contains(p)) {
-                        boolean unlocked = gp.player.discoveredFloors[i];
                         if (true) {
                             gp.player.currentFloor = i;
                             gp.tileM.loadMap("/res/maps/map" + (gp.player.currentFloor + 1) + ".txt");
@@ -89,16 +88,5 @@ public class MapPanel extends JPanel {
     public void update() {
         this.requestFocusInWindow(); // Request focus every update to ensure it gets input
         repaint();
-    }
-
-    private BufferedImage generatePreviewImage(int floorIndex) {
-        BufferedImage img = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = img.createGraphics();
-        g2.setColor(new Color(50 + (floorIndex * 20 % 200), 100, 150));
-        g2.fillRect(0, 0, 40, 40);
-        g2.setColor(Color.WHITE);
-        g2.drawString(String.valueOf(floorIndex), 10, 25);
-        g2.dispose();
-        return img;
     }
 }

@@ -1,13 +1,8 @@
 package object;
 
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
-import entity.Entity;
 import mainn.GamePanel;
-import mainn.WeaponListPanel;
-import weapon.WPN_DiamondSword;
 
 public class OBJ_Statue8 extends SuperObject{
 

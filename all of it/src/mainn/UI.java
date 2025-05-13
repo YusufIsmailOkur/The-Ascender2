@@ -1,17 +1,10 @@
 package mainn;
 
 import java.awt.image.BufferedImage;
-import java.sql.Time;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 import entity.*;
-import monster.MON_GreenSlime;
-import weapon.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-
-import object.OBJ_Key;
 
 public class UI {
 
@@ -78,7 +71,7 @@ public class UI {
             drawHealthBar();
             drawManaBar();
             drawWeaponSlots();
-            if(isSetup && gp.player.currentFloor != 2 && gp.player.currentFloor != 5){
+            if(isSetup && gp.player.currentFloor != 5 && gp.player.currentFloor != 9){
                 drawMonsterHealthBar();
             }
         }

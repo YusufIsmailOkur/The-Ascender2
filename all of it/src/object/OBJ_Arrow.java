@@ -22,7 +22,7 @@ public class OBJ_Arrow extends Projectile{
         speed = 8;
         maxLife = 400;
         life = maxLife;
-        attack = 1;
+        attack = 4;
 
         getImage();
         

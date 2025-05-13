@@ -17,7 +17,7 @@ public class MON_Zombie extends Entity{
         direction = "down";
         name = "Zombie";
         speed = 2;
-        maxHealth = 8;
+        maxHealth = 12;
         health = maxHealth;
         type = 2;
         damage = 2;

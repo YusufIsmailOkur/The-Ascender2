@@ -1,6 +1,5 @@
 package entity;
 import java.io.IOException;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 

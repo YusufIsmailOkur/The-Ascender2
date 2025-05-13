@@ -10,7 +10,6 @@ import javax.imageio.ImageIO;
 import mainn.GamePanel;
 import mainn.KeyHandler;
 import object.OBJ_Arrow;
-import object.OBJ_ClosedElevator;
 import object.OBJ_Fireball;
 import object.OBJ_Key;
 import object.OBJ_OpenedElevator;
@@ -393,8 +392,9 @@ public class Player extends Entity{
 
                     discoveredFloors[currentFloor+1] = true;
                     currentFloor++;
-                    gp.keyH.avoidMusicRepeat();
-
+                    if (currentFloor == 4 || currentFloor == 10 || currentFloor == 15){
+                        gp.keyH.avoidMusicRepeat();
+                    }
                     gp.tileM.loadMap("/res/maps/map" + (currentFloor+1) + ".txt");
                     x = 1*gp.tileSize;
                     y = 7*gp.tileSize;
@@ -405,7 +405,9 @@ public class Player extends Entity{
                 case "openedelevator":
                 discoveredFloors[currentFloor+1] = true;
                 currentFloor++;
-                gp.keyH.avoidMusicRepeat();
+                if (currentFloor == 4 || currentFloor == 10 || currentFloor == 15){
+                        gp.keyH.avoidMusicRepeat();
+                }
                 gp.tileM.loadMap("/res/maps/map" + (currentFloor+1) + ".txt");
                 x = 1*gp.tileSize;
                 y = 7*gp.tileSize;
@@ -438,7 +440,9 @@ public class Player extends Entity{
 
                     discoveredFloors[currentFloor+1] = true;
                     currentFloor++;
-                    gp.keyH.avoidMusicRepeat();
+                    if (currentFloor == 4 || currentFloor == 10 || currentFloor == 15){
+                        gp.keyH.avoidMusicRepeat();
+                    }
 
                     gp.tileM.loadMap("/res/maps/map" + (currentFloor+1) + ".txt");
                     x = 1*gp.tileSize;

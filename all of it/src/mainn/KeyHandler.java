@@ -1,12 +1,7 @@
 package mainn;
 
-import weapon.SuperWeapon;
-
-import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import javax.swing.plaf.multi.MultiScrollBarUI;
 
 public class KeyHandler implements KeyListener {
     int previousState = 0; // title state

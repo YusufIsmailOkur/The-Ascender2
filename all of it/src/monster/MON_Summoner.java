@@ -25,7 +25,7 @@ public class MON_Summoner extends Entity{
         direction = "down";
         name = "Summoner";
         speed = 0;
-        maxHealth = 500;
+        maxHealth = 300;
         this.gp = gp;
         isBoss = true;
         health = maxHealth;
@@ -33,10 +33,10 @@ public class MON_Summoner extends Entity{
         this.usedFloor = usedFloor;
         damage = 1;
 
-        solidArea.x = 48;
-        solidArea.y = 64;
-        solidArea.width = 42;
-        solidArea.height = 30;
+        solidArea.x = 24;
+        solidArea.y = 24;
+        solidArea.width = gp.tileSize*2;
+        solidArea.height = gp.tileSize*2;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         this.player = gp.player;
@@ -65,7 +65,7 @@ public class MON_Summoner extends Entity{
     }
 
     public void setAction(){
-        if(health <= 450 && phases[0] == false){
+        if(health <= 270 && phases[0] == false){
             gp.monster[usedFloor][1] = new MON_GreenSlime(gp);
             gp.monster[usedFloor][1].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][1].y = gp.tileSize * rand.nextInt(2,12);
@@ -78,7 +78,7 @@ public class MON_Summoner extends Entity{
 
             phases[0] = true;
         }
-        else if(health <= 400 && phases[1] == false){
+        else if(health <= 240 && phases[1] == false){
             gp.monster[usedFloor][4] = new MON_GreenSlime(gp);
             gp.monster[usedFloor][4].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][4].y = gp.tileSize * rand.nextInt(2,12);
@@ -93,7 +93,7 @@ public class MON_Summoner extends Entity{
             gp.monster[usedFloor][7].y = gp.tileSize * rand.nextInt(2,12);
             phases[1] = true;
         }
-        else if(health <= 350&& phases[2] == false){
+        else if(health <= 210&& phases[2] == false){
             gp.monster[usedFloor][8] = new MON_Zombie(gp);
             gp.monster[usedFloor][8].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][8].y = gp.tileSize * rand.nextInt(2,12);
@@ -112,7 +112,7 @@ public class MON_Summoner extends Entity{
 
             phases[2] = true;
         }
-        else if(health <= 300 && phases[3] == false){
+        else if(health <= 180 && phases[3] == false){
             gp.monster[usedFloor][13] = new MON_Zombie(gp);
             gp.monster[usedFloor][13].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][13].y = gp.tileSize * rand.nextInt(2,12);
@@ -131,7 +131,7 @@ public class MON_Summoner extends Entity{
             
             phases[3] = true;
         }
-        else if(health <= 250&& phases[4] == false){
+        else if(health <= 150&& phases[4] == false){
             gp.monster[usedFloor][18] = new MON_Zombie(gp);
             gp.monster[usedFloor][18].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][18].y = gp.tileSize * rand.nextInt(2,12);
@@ -150,7 +150,7 @@ public class MON_Summoner extends Entity{
             
             phases[4] = true;
         }
-        else if(health <= 200&& phases[5] == false){
+        else if(health <= 120&& phases[5] == false){
             gp.monster[usedFloor][22] = new MON_Zombie(gp);
             gp.monster[usedFloor][22].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][22].y = gp.tileSize * rand.nextInt(2,12);
@@ -172,7 +172,7 @@ public class MON_Summoner extends Entity{
         
             phases[5] = true;
         }
-        else if(health <= 150&& phases[6] == false){
+        else if(health <= 90&& phases[6] == false){
             gp.monster[usedFloor][28] = new MON_SkeletonArcher(gp);
             gp.monster[usedFloor][28].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][28].y = gp.tileSize * rand.nextInt(2,12);
@@ -191,7 +191,7 @@ public class MON_Summoner extends Entity{
             
             phases[6] = true;
         }
-        else if(health <= 100&& phases[7] == false){
+        else if(health <= 60&& phases[7] == false){
             // gp.monster[usedFloor][33] = new MON_SlimeBoss(gp);
             // gp.monster[usedFloor][33].x = gp.tileSize * rand.nextInt(2,18);
             // gp.monster[usedFloor][33].y = gp.tileSize * rand.nextInt(2,12);
@@ -204,7 +204,7 @@ public class MON_Summoner extends Entity{
 
             phases[7] = true;
         }
-        else if(health <= 50&& phases[8] == false){
+        else if(health <= 30&& phases[8] == false){
             gp.monster[usedFloor][36] = new MON_Zombie(gp);
             gp.monster[usedFloor][36].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][36].y = gp.tileSize * rand.nextInt(2,12);

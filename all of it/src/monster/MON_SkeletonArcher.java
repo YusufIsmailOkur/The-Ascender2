@@ -6,8 +6,6 @@ import mainn.GamePanel;
 import object.OBJ_Arrow;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
@@ -26,7 +24,7 @@ public class MON_SkeletonArcher extends Entity {
         direction = "down";
         name = "Skeleton Archer";
         speed = 1;
-        maxHealth = 10;
+        maxHealth = 8;
         health = maxHealth;
         damage = 3;
         type = 2;

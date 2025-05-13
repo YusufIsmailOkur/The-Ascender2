@@ -6,7 +6,6 @@ import monster.MON_SkeletonArcher;
 
 import monster.*;
 import object.*;
-import weapon.*;
 
 public class AssetSetter {
 
@@ -290,7 +289,7 @@ public class AssetSetter {
         gp.obj[16][0].x = 0 * gp.tileSize;
         gp.obj[16][0].y = 7 * gp.tileSize;
 
-        gp.obj[16][1] = new OBJ_Elevator();
+        gp.obj[16][1] = new OBJ_OpenedElevator();
         gp.obj[16][1].x = 19 * gp.tileSize;
         gp.obj[16][1].y = 7 * gp.tileSize;
 
@@ -484,8 +483,8 @@ public class AssetSetter {
 
         //17 final boss summoner
         gp.monster[17][0] = new MON_Summoner(gp, 17);
-        gp.monster[17][0].x = 10*gp.tileSize; 
-        gp.monster[17][0].y = 7*gp.tileSize;
+        gp.monster[17][0].x = 9*gp.tileSize; 
+        gp.monster[17][0].y = 5*gp.tileSize;
                 
     }
     public void setWeapon(){

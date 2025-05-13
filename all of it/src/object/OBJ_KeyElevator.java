@@ -1,10 +1,7 @@
 package object;
 
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
-import mainn.GamePanel;
 
 public class OBJ_KeyElevator extends SuperObject{
     
