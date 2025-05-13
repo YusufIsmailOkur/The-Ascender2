@@ -49,11 +49,11 @@ public class GamePanel extends JPanel implements Runnable{
     public Inventory inventory = new Inventory(this);
     public WeaponListPanel weaponList = new WeaponListPanel(this);
 
-    public SuperObject obj[][] = new SuperObject[10][20];
-    public Entity npc[][] = new Entity[10][10];
-    public Entity monster[][] = new Entity[10][50];
+    public SuperObject obj[][] = new SuperObject[20][20];
+    public Entity npc[][] = new Entity[20][20];
+    public Entity monster[][] = new Entity[20][50];
     public ArrayList <Entity> projectiles = new ArrayList<>();
-    public SuperWeapon[] weapon = new SuperWeapon[10];
+    public SuperWeapon[] weapon = new SuperWeapon[20];
     public String[] allObjects = {"Arrow","boots","chest","key","door","elevator","Fireball", "compass", "letter", "screwdriver"};//Should updated for every new object
     public String[] allWeapons = {"Bow","Sword"}; //Should updated for every new weapon
     public UtilityTool uTool = new UtilityTool();
@@ -152,6 +152,9 @@ public class GamePanel extends JPanel implements Runnable{
         if (gameState == playState){
             //player
             player.update();
+            if(monster[17][0] == null){
+                player.finishedGame = true;
+            }
             int currentFloor = player.currentFloor;
             tileM.loadMap("\"/res/maps/map02.txt\"");
             //npc
@@ -375,7 +378,7 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
             lines.add(++startIndex, String.valueOf(count));
-            for(int i=0;i<10;i++){
+            for(int i=0;i<18;i++){
                 lines.add(++startIndex, String.valueOf(player.discoveredFloors[i]));
             }
             lines.add(++startIndex, "Obj");
@@ -417,7 +420,7 @@ public class GamePanel extends JPanel implements Runnable{
                         player.finishedGame=false;
                     }
                     int arrowCount = (Integer.parseInt(fileScanner.nextLine()));
-                    for(int i =0; i<10;i++){
+                    for(int i =0; i<18;i++){
                         String s = fileScanner.nextLine();
                         if (s.equals("true")){
                             player.discoveredFloors[i]=true;

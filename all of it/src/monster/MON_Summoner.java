@@ -273,5 +273,5 @@ public class MON_Summoner extends Entity{
             break;
         }
         g2.drawImage(image, x, y, gp.tileSize * 3, gp.tileSize * 3, null);
-        }
+    }
 }
