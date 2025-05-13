@@ -38,6 +38,20 @@ public class UI {
         "Answers lie above… or maybe, monsters born of them."
     };
 
+    // END STORY variables
+    int endCharIndex = 0;
+    int endCounter = 0;
+    boolean endFinished = false;
+    int waitAfterEnd = 150; // ~2.5 saniye (60 FPS)
+
+    String[] endLines = {
+        "The monster is gone, but the scars remain.",
+        "In the silence, you find something else—clarity.",
+        "The world may be lost, but knowledge remains.",
+        "And maybe, just maybe… it’s not too late to rebuild.",
+        "Even from ashes."
+    };
+
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("#0.00");
 
@@ -98,6 +112,9 @@ public class UI {
         }
         if (gp.gameState == gp.storyState){
             drawStoryScreen(g2);
+        }
+        if (gp.gameState == gp.endStoryState) {
+            drawEndStory(g2);
         }
     }
 
@@ -567,6 +584,63 @@ public class UI {
         }
     }
 
+    public void drawEndStory(Graphics2D g2) {
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 22F));
+
+        int x = 50;
+        int y = 100;
+        int lineSpacing = 35;
+
+        for (int i = 0; i < endLines.length; i++) {
+            String fullLine = endLines[i];
+
+            if (i < endCharIndex) {
+                g2.setColor(Color.WHITE);
+                g2.drawString(fullLine, x, y + i * lineSpacing);
+            } else if (i == endCharIndex) {
+                int charsToShow = endCounter / 3;
+                if (charsToShow > fullLine.length()) charsToShow = fullLine.length();
+
+                String partial = fullLine.substring(0, charsToShow);
+                g2.setColor(Color.WHITE);
+                g2.drawString(partial, x, y + i * lineSpacing);
+
+                if (charsToShow == fullLine.length()) {
+                    endCharIndex++;
+                    endCounter = 0;
+                    if (endCharIndex == endLines.length) {
+                        endFinished = true;
+                    }
+                }
+                break;
+            }
+        }
+
+        if (!endFinished) {
+            endCounter++;
+        } else {
+            waitAfterEnd--;
+            if (waitAfterEnd <= 0) {
+                gp.gameState = gp.titleState;
+            }
+        }
+        if (endFinished) {
+            g2.setColor(Color.RED);
+            
+            Font bigFont = g2.getFont().deriveFont(Font.BOLD, 90F);
+            g2.setFont(bigFont);
+
+            String endText = "THE END";
+            int textWidth = g2.getFontMetrics().stringWidth(endText);
+            int xCenter = (gp.screenWidth - textWidth) / 2;
+            int yBottom = gp.screenHeight - 100;
+
+            g2.drawString(endText, xCenter, yBottom);
+        }
+    }
     public int getXForCenteredText(String text) {
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = gp.screenWidth / 2 - length / 2;

@@ -18,7 +18,6 @@ public class OBJ_Statue2 extends SuperObject{
         collision = true;
 
         try {
-
             image = ImageIO.read(getClass().getResourceAsStream("/res/objects/statue (2).png"));
         } catch(IOException e){
             e.printStackTrace();

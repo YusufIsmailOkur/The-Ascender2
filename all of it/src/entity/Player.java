@@ -299,17 +299,17 @@ public class Player extends Entity{
                 break;
 
                 case "door":
-                if (hasKey > 0){
-                    gp.obj[currentFloor][i] = null;
-                    hasKey--;
-                    for(SuperObject obj : objects){
-                         if(obj.name.equals("Key")){
-                              objects.remove(obj);
-                        }
+                boolean continueIfa = true;
+                for(int f = 0; f < gp.monster[gp.player.currentFloor].length && continueIfa; f++){
+                    if(gp.monster[gp.player.currentFloor][f] != null){
+                        continueIfa = false;
                     }
-                    gp.ui.showMessage("You opened the Door !!");
-                } else {
-                    gp.ui.showMessage("You need a key!");
+                }
+                if (continueIfa){
+                    gp.gameState = gp.endStoryState;
+                }else{
+                    gp.gameState = gp.dialogueState;
+                    gp.ui.currentDialogue = "There are still monsters nearby!";
                 }
                 break;
                 

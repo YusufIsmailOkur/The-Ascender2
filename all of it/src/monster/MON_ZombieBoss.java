@@ -19,7 +19,7 @@ public class MON_ZombieBoss extends Entity{
         
         direction = "down";
         speed = 2;
-        maxHealth = 100;
+        maxHealth = 130;
         isBoss = true;
         health = maxHealth;
         type = 2;

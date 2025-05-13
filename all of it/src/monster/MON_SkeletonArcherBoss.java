@@ -26,7 +26,7 @@ public class MON_SkeletonArcherBoss extends Entity {
         direction = "down";
         name = "Skeleton Archer Boss";
         speed = 1;
-        maxHealth = 80;
+        maxHealth = 100;
         health = maxHealth;
         damage = 3;
         type = 2;

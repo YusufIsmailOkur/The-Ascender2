@@ -73,6 +73,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int storyState = 10;
     public final int weaponListState = 11;
     public final int mapState = 12;
+    public final int endStoryState = 13;
     public MapPanel mapPanel = new MapPanel(this);
 
     static boolean haskilledSlimeBoss = false;

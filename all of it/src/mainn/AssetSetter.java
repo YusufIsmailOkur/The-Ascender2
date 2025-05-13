@@ -105,7 +105,7 @@ public class AssetSetter {
         gp.obj[7][0].x = 0 * gp.tileSize;
         gp.obj[7][0].y = 7 * gp.tileSize;
 
-        gp.obj[7][1] = new OBJ_Elevator();
+        gp.obj[7][1] = new OBJ_OpenedElevator();
         gp.obj[7][1].x = 19 * gp.tileSize;
         gp.obj[7][1].y = 7 * gp.tileSize;
 
@@ -224,7 +224,7 @@ public class AssetSetter {
         gp.obj[11][0].x = 0 * gp.tileSize;
         gp.obj[11][0].y = 7 * gp.tileSize;
 
-        gp.obj[11][1] = new OBJ_Elevator();
+        gp.obj[11][1] = new OBJ_OpenedElevator();
         gp.obj[11][1].x = 19 * gp.tileSize;
         gp.obj[11][1].y = 7 * gp.tileSize;
 
@@ -310,7 +310,7 @@ public class AssetSetter {
         gp.obj[17][0].x = 0 * gp.tileSize;
         gp.obj[17][0].y = 7 * gp.tileSize;
 
-        gp.obj[17][1] = new OBJ_KeyElevator();
+        gp.obj[17][1] = new OBJ_Door();
         gp.obj[17][1].x = 19 * gp.tileSize;
         gp.obj[17][1].y = 7 * gp.tileSize;
 
@@ -336,6 +336,15 @@ public class AssetSetter {
         gp.monster[1][2] = new MON_GreenSlime(gp);
         gp.monster[1][2].x = gp.tileSize * 8;
         gp.monster[1][2].y = gp.tileSize * 12;
+        gp.monster[1][3] = new MON_GreenSlime(gp);
+        gp.monster[1][3].x = gp.tileSize * 10;
+        gp.monster[1][3].y = gp.tileSize * 8;
+        gp.monster[1][4] = new MON_GreenSlime(gp);
+        gp.monster[1][4].x = gp.tileSize * 6;
+        gp.monster[1][4].y = gp.tileSize * 6;
+        gp.monster[1][5] = new MON_GreenSlime(gp);
+        gp.monster[1][5].x = gp.tileSize * 8;
+        gp.monster[1][5].y = gp.tileSize * 6;
         
         //2
         gp.monster[2][0] = new MON_Zombie(gp);
@@ -343,13 +352,13 @@ public class AssetSetter {
         gp.monster[2][0].y = gp.tileSize * 4;
         gp.monster[2][1] = new MON_Zombie(gp);
         gp.monster[2][1].x = gp.tileSize * 5;
-        gp.monster[2][1].y = gp.tileSize * 13;
+        gp.monster[2][1].y = gp.tileSize * 12;
         gp.monster[2][2] = new MON_SkeletonArcher(gp);
         gp.monster[2][2].x = gp.tileSize * 14;
         gp.monster[2][2].y = gp.tileSize * 4;
         gp.monster[2][3] = new MON_SkeletonArcher(gp);
         gp.monster[2][3].x = gp.tileSize * 14;
-        gp.monster[2][3].y = gp.tileSize * 13;
+        gp.monster[2][3].y = gp.tileSize * 12;
 
         //3
 
@@ -359,10 +368,13 @@ public class AssetSetter {
         gp.monster[4][0].y = gp.tileSize * 2;
         gp.monster[4][1] = new MON_Zombie(gp);
         gp.monster[4][1].x = gp.tileSize * 8;
-        gp.monster[4][1].y = gp.tileSize * 13;
+        gp.monster[4][1].y = gp.tileSize * 12;
         gp.monster[4][2] = new MON_Zombie(gp);
         gp.monster[4][2].x = gp.tileSize * 8;
-        gp.monster[4][2].y = gp.tileSize * 13;
+        gp.monster[4][2].y = gp.tileSize * 2;
+        gp.monster[4][3] = new MON_Zombie(gp);
+        gp.monster[4][3].x = gp.tileSize * 5;
+        gp.monster[4][3].y = gp.tileSize * 1;
 
         //5
         gp.monster[5][0] = new MON_GreenSlime(gp);
@@ -405,7 +417,16 @@ public class AssetSetter {
         gp.monster[6][2].y = gp.tileSize * 7;
         gp.monster[6][3] = new MON_GreenSlime(gp);
         gp.monster[6][3].x = gp.tileSize * 5;
-        gp.monster[6][3].y = gp.tileSize * 13;
+        gp.monster[6][3].y = gp.tileSize * 12;
+        gp.monster[6][4] = new MON_Zombie(gp);
+        gp.monster[6][4].x = gp.tileSize * 3;
+        gp.monster[6][4].y = gp.tileSize * 2;
+        gp.monster[6][5] = new MON_Zombie(gp);
+        gp.monster[6][5].x = gp.tileSize * 8;
+        gp.monster[6][5].y = gp.tileSize * 12;
+        gp.monster[6][6] = new MON_Zombie(gp);
+        gp.monster[6][6].x = gp.tileSize * 7;
+        gp.monster[6][6].y = gp.tileSize * 7;
 
         //7 (preperation room)
 
@@ -432,7 +453,7 @@ public class AssetSetter {
         gp.monster[9][4].y = 11 * gp.tileSize;
         gp.monster[9][5] = new MON_SkeletonArcher(gp);
         gp.monster[9][5].x = 2 * gp.tileSize;
-        gp.monster[9][5].y = 13 * gp.tileSize;
+        gp.monster[9][5].y = 12 * gp.tileSize;
         gp.monster[9][6] = new MON_Zombie(gp);
         gp.monster[9][6].x = 6 * gp.tileSize;
         gp.monster[9][6].y = 11 * gp.tileSize;
@@ -461,7 +482,7 @@ public class AssetSetter {
         gp.monster[13][0].y = 7 * gp.tileSize;
         gp.monster[13][1] = new MON_GreenSlime(gp);
         gp.monster[13][1].x = 4*gp.tileSize;
-        gp.monster[13][1].y = 13 * gp.tileSize;
+        gp.monster[13][1].y = 12 * gp.tileSize;
         gp.monster[13][2] = new MON_Zombie(gp);
         gp.monster[13][2].x = 8*gp.tileSize;
         gp.monster[13][2].y = 10 * gp.tileSize;
@@ -476,7 +497,7 @@ public class AssetSetter {
 
         //15 Wamuu
         gp.monster[15][0] = new MON_WallSummoner(gp);
-        gp.monster[15][0].x = 8 * gp.tileSize;
+        gp.monster[15][0].x = 9 * gp.tileSize;
         gp.monster[15][0].y = 5 * gp.tileSize;
 
         //16 preparation room

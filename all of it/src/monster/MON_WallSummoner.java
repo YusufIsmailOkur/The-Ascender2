@@ -25,7 +25,7 @@ public class MON_WallSummoner extends Entity {
         direction = "down";
         this.name = "Wamuu";
         this.speed = 0;
-        this.maxHealth = 120;
+        this.maxHealth = 180;
         this.health = maxHealth;
         this.type = 2;
         this.isBoss = true;
@@ -46,13 +46,13 @@ public class MON_WallSummoner extends Entity {
     public void getMonsterImage() {
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu3.png"));
             down1 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu3.png"));
             left1 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu3.png"));
             right1 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/res/monster/wamuu3.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
