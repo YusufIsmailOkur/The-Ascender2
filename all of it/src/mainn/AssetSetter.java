@@ -42,11 +42,11 @@ public class AssetSetter {
 
         //2
         gp.obj[2][0] = new OBJ_Elevator();
-        gp.obj[2][0].x = 19 * gp.tileSize;
-        gp.obj[2][0].y = 4 * gp.tileSize;
+        gp.obj[2][0].x = 0 * gp.tileSize;
+        gp.obj[2][0].y = 7 * gp.tileSize;
 
         gp.obj[2][1] = new OBJ_KeyElevator();
-        gp.obj[2][1].x = 0 * gp.tileSize;
+        gp.obj[2][1].x = 19 * gp.tileSize;
         gp.obj[2][1].y = 7 * gp.tileSize;
     
 
@@ -242,22 +242,22 @@ public class AssetSetter {
         gp.obj[11][3].y = 7 * gp.tileSize;
 
         //12
-        gp.obj[11][0] = new OBJ_ClosedElevator();
-        gp.obj[11][0].x = 0 * gp.tileSize;
-        gp.obj[11][0].y = 7 * gp.tileSize;
+        gp.obj[12][0] = new OBJ_ClosedElevator();
+        gp.obj[12][0].x = 0 * gp.tileSize;
+        gp.obj[12][0].y = 7 * gp.tileSize;
 
-        gp.obj[11][1] = new OBJ_KeyElevator();
-        gp.obj[11][1].x = 19 * gp.tileSize;
-        gp.obj[11][1].y = 7 * gp.tileSize;
+        gp.obj[12][1] = new OBJ_KeyElevator();
+        gp.obj[12][1].x = 19 * gp.tileSize;
+        gp.obj[12][1].y = 7 * gp.tileSize;
 
         //13
-        gp.obj[11][0] = new OBJ_ClosedElevator();
-        gp.obj[11][0].x = 0 * gp.tileSize;
-        gp.obj[11][0].y = 7 * gp.tileSize;
+        gp.obj[13][0] = new OBJ_ClosedElevator();
+        gp.obj[13][0].x = 0 * gp.tileSize;
+        gp.obj[13][0].y = 7 * gp.tileSize;
 
-        gp.obj[11][1] = new OBJ_KeyElevator();
-        gp.obj[11][1].x = 19 * gp.tileSize;
-        gp.obj[11][1].y = 7 * gp.tileSize;
+        gp.obj[13][1] = new OBJ_KeyElevator();
+        gp.obj[13][1].x = 19 * gp.tileSize;
+        gp.obj[13][1].y = 7 * gp.tileSize;
 
         //14
         gp.obj[14][0] = new OBJ_ClosedElevator();
@@ -452,7 +452,7 @@ public class AssetSetter {
         //11 preperation room
 
         //12 skeleton boss
-        gp.monster[12][0] = new MON_SkeletonArcher(gp);
+        gp.monster[12][0] = new MON_SkeletonArcherBoss(gp);
         gp.monster[12][0].x = 10 * gp.tileSize;
         gp.monster[12][0].y = 7 * gp.tileSize;
 
