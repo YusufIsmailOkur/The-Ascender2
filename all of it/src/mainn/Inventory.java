@@ -169,7 +169,6 @@ public class Inventory extends JPanel implements ActionListener {
                         break;
                     }
                 }
-                refreshObjectsAndWeapons();
             } else if (first.name.equals("letter") && second.name.equals("light") || first.name.equals("light") && second.name.equals("letter")) {
                 JOptionPane.showMessageDialog(this, "Crafted: Letter with lighted letter, Lighted letter crafted");
                 firstSelected = false;
