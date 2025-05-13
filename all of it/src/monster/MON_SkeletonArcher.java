@@ -101,16 +101,5 @@ public class MON_SkeletonArcher extends Entity {
         }
     }
 
-    public void draw(Graphics2D g2) {
-        BufferedImage image = null;
-
-        switch (direction) {
-            case "up": image = (spriteNumber == 1) ? up1 : up2; break;
-            case "down": image = (spriteNumber == 1) ? down1 : down2; break;
-            case "left": image = (spriteNumber == 1) ? left1 : left2; break;
-            case "right": image = (spriteNumber == 1) ? right1 : right2; break;
-        }
-
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
-    }
+    
 }
