@@ -32,7 +32,7 @@ public class OBJ_Statue3 extends SuperObject{
     public void interact(){
         gp.gameState = gp.dialogueState;
         StringBuilder sb = new StringBuilder();
-        sb.append("statue 3 message");
+        sb.append("zlcluao");
         gp.ui.currentDialogue = sb.toString();
     }
 }
