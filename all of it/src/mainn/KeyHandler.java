@@ -10,7 +10,7 @@ import javax.swing.plaf.multi.MultiScrollBarUI;
 
 public class KeyHandler implements KeyListener {
     int previousState = 0; // title state
-    long timeStart;
+    static long timeStart;
     long timeEnd;
     static boolean genocideMusic = false;
 

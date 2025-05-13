@@ -59,6 +59,9 @@ public class TileManager {
         setup(16, "random2", true);
         setup(17, "random3", true);
 
+        setup(18, "warningTile", false);
+        setup(19, "lava", false);
+
     }
     public void setup(int index, String imageName, boolean collision){
 
