@@ -8,7 +8,7 @@ import mainn.GamePanel;
 
 public class NPC_OldMan extends Entity{
     
-    public NPC_OldMan(GamePanel gp){
+    public NPC_OldMan(GamePanel gp, int index){
         super(gp);
 
         direction = "down";
@@ -16,7 +16,7 @@ public class NPC_OldMan extends Entity{
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         getImage();
-        setDialogue();
+        setDialogue(index);
     }
     public void getImage(){
 
@@ -35,12 +35,17 @@ public class NPC_OldMan extends Entity{
             e.printStackTrace();
         }
     }
-    public void setDialogue(){
+    public void setDialogue(int index){
 
-        dialogues[0] = "I see you've made it here, somehow… \nThe truth you're looking for—it's locked away, high above.";
-        dialogues[1] = "But the path is no longer safe. Security puzzles still guard the \nhalls, and failed experiments now roam free.";
-        dialogues[2] = "I wish I could help, but my body gave out long ago.";
-        dialogues[3] = "Take this key. It opens the first door… and your journey begins.";
+        if(index == 1){
+            dialogues[0] = "I see you've made it here, somehow… \nThe truth you're looking for—it's locked away, high above.";
+            dialogues[1] = "But the path is no longer safe. Security puzzles still guard the \nhalls, and failed experiments now roam free.";
+            dialogues[2] = "I wish I could help, but my body gave out long ago.";
+            dialogues[3] = "Take this key. It opens the first door… and your journey begins.";
+        }
+        else if(index == 2){
+            dialogues[0] = "Be careful for the next floor, a big danger might be present.\nPrepare accordingly...";
+        }
     }
 
 

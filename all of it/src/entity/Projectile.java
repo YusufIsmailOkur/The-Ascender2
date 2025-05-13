@@ -9,6 +9,7 @@ public class Projectile extends Entity {
     public int maxLife;
     public int attack;
     public Entity user;
+    public int labyrinthCountdown = 0;
 
     public Projectile(GamePanel gp){
         super(gp);
@@ -42,7 +43,15 @@ public class Projectile extends Entity {
             }
 
             gp.cChecker.checkTile(this);
-            if(collisionOn){
+            if(gp.player.currentFloor == 2 && collisionOn){
+                if(labyrinthCountdown < 30){
+                    labyrinthCountdown ++;
+                }
+                else{
+                    this.alive = false;
+                }
+            }
+            else if(collisionOn){
                 this.alive = false;
             }
         }
