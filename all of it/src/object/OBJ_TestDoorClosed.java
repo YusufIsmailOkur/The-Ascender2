@@ -28,8 +28,8 @@ public class OBJ_TestDoorClosed extends SuperObject{
     @Override
     public void interact() {
         if (opened) return;
-        //athena door
-        if (password.equals("athena")){
+        //arachne door
+        if (password.equals("arachne")){
             String input = JOptionPane.showInputDialog(null, "The door is locked. Enter the password:");
 
             if (input != null && input.trim().equalsIgnoreCase(password)) {
@@ -47,7 +47,7 @@ public class OBJ_TestDoorClosed extends SuperObject{
             }
         }
         //123 door
-        else if (password.equals("123")){
+        else if (password.equals("01548752")){
             String input = JOptionPane.showInputDialog(null, "The door is locked. Enter the password:");
 
             if (input != null && input.trim().equalsIgnoreCase(password)) {

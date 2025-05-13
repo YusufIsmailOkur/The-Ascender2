@@ -20,6 +20,10 @@ public class MON_SlimeBoss extends Entity{
     boolean rockCooldown = false;
     int rockCooldownCounter = 0;
     boolean isSpawned = false;
+    public boolean isSlimeStuck = false;
+    public int slimeStuckCounter = 0;
+    int prevX, prevY;
+    boolean previousDirectionSet = false;
 
     public MON_SlimeBoss(GamePanel gp) {
         super(gp);
@@ -27,7 +31,7 @@ public class MON_SlimeBoss extends Entity{
         direction = "down";
         name = "Slime Boss";
         speed = 1;
-        maxHealth = 100;
+        maxHealth = 300;
         health = maxHealth;
         type = 2;
         isBoss = true;
@@ -65,11 +69,23 @@ public class MON_SlimeBoss extends Entity{
 
     public void setAction(){
 
+        if(!isSlimeStuck){
+            if(prevX == x && prevY == y){
+                slimeStuckCounter ++;
+            }
+            else{
+                slimeStuckCounter = 0;
+            }
+            if(slimeStuckCounter > 30){
+                isSlimeStuck = true;
+            }
+        }
+
         actionLockCounter++;
 
-        if (actionLockCounter == 120){
-            String dx = player.x - this.x > 0 ? "right" : "left";
-            String dy = player.y - this.y < 0 ? "up" : "down";
+        if (actionLockCounter == 120 && !isSlimeStuck){
+            String dx = player.x - this.x - 32 > 0 ? "right" : "left";
+            String dy = player.y - this.y - 32 < 0 ? "up" : "down";
             if (Math.abs(player.x - this.x) < Math.abs(player.y - this.y)) {
                 direction = dy;
                 if (collisionOn){
@@ -83,12 +99,35 @@ public class MON_SlimeBoss extends Entity{
                 }
             }
             actionLockCounter = 0;
-
         }
 
-        int i = new Random().nextInt(100) + 1;
+        else if(isSlimeStuck){
+            if(!previousDirectionSet){
+                if(direction.equals("up")){
+                    direction = "down";
+                }
+                else if(direction.equals("down")){
+                    direction = "up";
+                }
+                else if(direction.equals("right")){
+                    direction = "left";
+                }
+                else if(direction.equals("left")){
+                    direction = "right";
+                }
+                previousDirectionSet = true;
+            }
+            else{
+                slimeStuckCounter--;
+            }
+            if(slimeStuckCounter == 0){
+                isSlimeStuck = false;
+                previousDirectionSet = false;
+            }
+        }
 
-        if((Math.abs(x - gp.player.x) < 100 || Math.abs(y - gp.player.y) < 100) && !rockCooldown){
+
+        if((Math.abs(x - gp.player.x) < 100 || Math.abs(y - gp.player.y) < 100) && !rockCooldown && !isSlimeStuck){
             projectile = new OBJ_Rock(gp);
             if(Math.abs(x - gp.player.x) < 100){
                 if(gp.player.y > y){
@@ -121,17 +160,17 @@ public class MON_SlimeBoss extends Entity{
             }
         }
 
-        if(!isSpawned && health < 50){
+        if(!isSpawned && health <= maxHealth / 2){
             Random rand = new Random();
-            gp.monster[3][1] = new MON_GreenSlime(gp);
-            gp.monster[3][1].x = gp.tileSize * rand.nextInt(18);
-            gp.monster[3][1].y = gp.tileSize * rand.nextInt(12);
-            gp.monster[3][2] = new MON_GreenSlime(gp);
-            gp.monster[3][2].x = gp.tileSize * rand.nextInt(18);
-            gp.monster[3][2].y = gp.tileSize * rand.nextInt(12);
-            gp.monster[3][3] = new MON_GreenSlime(gp);
-            gp.monster[3][3].x = gp.tileSize * rand.nextInt(18);
-            gp.monster[3][3].y = gp.tileSize * rand.nextInt(12);
+            gp.monster[4][1] = new MON_GreenSlime(gp);
+            gp.monster[4][1].x = gp.tileSize * rand.nextInt(18);
+            gp.monster[4][1].y = gp.tileSize * rand.nextInt(12);
+            gp.monster[4][2] = new MON_GreenSlime(gp);
+            gp.monster[4][2].x = gp.tileSize * rand.nextInt(18);
+            gp.monster[4][2].y = gp.tileSize * rand.nextInt(12);
+            gp.monster[4][3] = new MON_GreenSlime(gp);
+            gp.monster[4][3].x = gp.tileSize * rand.nextInt(18);
+            gp.monster[4][3].y = gp.tileSize * rand.nextInt(12);
 
             isSpawned = true;
         }
