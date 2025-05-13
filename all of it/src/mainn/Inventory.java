@@ -24,7 +24,7 @@ public class Inventory extends JPanel implements ActionListener {
     private GamePanel gp;
     private Font titleFont, sectionFont;
 
-    private int slotCol = 4, slotSize = 48, slotGap = 5;
+    private int slotCol = 4, slotSize = 48, slotGap = 48;
     private int frameX, frameY, frameWidth, frameHeight;
     private int slotsStartX, slotsStartY;
 
@@ -305,7 +305,7 @@ public class Inventory extends JPanel implements ActionListener {
         int y = slotsStartY + row * (slotSize + slotGap) - 30;
         JButton btn = new JButton("Craft");
         btn.setFont(new Font("Arial", Font.PLAIN, 14));
-        btn.setBounds(x, y, 60, 20);
+        btn.setBounds(x, y, 100, 20);
         btn.setActionCommand(getName());
         btn.addActionListener(this);
         add(btn);
@@ -334,7 +334,7 @@ public class Inventory extends JPanel implements ActionListener {
 
         g2.setFont(sectionFont);
         g2.setColor(Color.WHITE);
-        int weaponsY = slotsStartY + 4 * (slotSize + slotGap) + 40;
+        int weaponsY = slotsStartY + 4 * (slotSize + 5) + 40;
         g2.drawString("WEAPONS", frameX + 20, weaponsY - 10);
         drawSlots(g2, displayWeapons, weaponsY);
 
@@ -352,7 +352,7 @@ public class Inventory extends JPanel implements ActionListener {
         for (int row = 0; row < 2; row++) {
             for (int col = 0; col < slotCol; col++) {
                 int x = slotsStartX + col * (slotSize + slotGap);
-                int y = startY + row * (slotSize + slotGap);
+                int y = startY + row * (slotSize + 20);
 
                 g2.setColor(Color.BLACK);
                 g2.fillRect(x, y, slotSize, slotSize);
@@ -450,7 +450,6 @@ public class Inventory extends JPanel implements ActionListener {
         displayWeapons.clear();
         displayObjects.addAll(allObjects);
         displayWeapons.addAll(allWeapons);
-        applyFilters();
     }
 }
 

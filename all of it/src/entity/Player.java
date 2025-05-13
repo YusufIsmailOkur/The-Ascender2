@@ -13,6 +13,7 @@ import object.OBJ_Arrow;
 import object.OBJ_ClosedElevator;
 import object.OBJ_Fireball;
 import object.OBJ_Key;
+import object.OBJ_OpenedElevator;
 import object.SuperObject;
 import weapon.SuperWeapon;
 import weapon.WPN_Bow;
@@ -26,7 +27,6 @@ public class Player extends Entity{
     int hasKey;
     public int mana = 2000;
     public final int MAX_MANA = 2000;
-    public boolean attacking = false;
     public boolean bowCooldown = false;
     public boolean fireballCooldown = false;
     public int fireballCooldownCount = 0;
@@ -34,11 +34,10 @@ public class Player extends Entity{
     public int maxInventorySize = 8;
     public ArrayList<SuperObject> objects = new ArrayList<>();
     public ArrayList<SuperWeapon> weapons = new ArrayList<>();
-    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
     public SuperWeapon currentWeapon;
     public WPN_Bow bow;
-    public boolean[] discoveredFloors = new boolean[100];
-    public int previousCurrentFloor = -1;
+    public boolean[] discoveredFloors = new boolean[10];
+    public boolean tookKeyFromNPC = false;
 
 
 
@@ -52,6 +51,7 @@ public class Player extends Entity{
 
         super(gp); 
         this.keyH = keyH;
+        attacking = false;
 
         solidArea = new Rectangle();
         solidArea.x = 8;
@@ -70,6 +70,7 @@ public class Player extends Entity{
         setDefaultValues();
         getPlayerImage();
         getPlayerAttackImage();
+        discoveredFloors[0]=true;
     }
     public void setDefaultValues(){
         x = 1 * gp.tileSize;
@@ -139,6 +140,13 @@ public class Player extends Entity{
         if(attacking && (currentWeapon.name.equalsIgnoreCase("Sword") || currentWeapon.name.equalsIgnoreCase("diamond sword"))){
             getPlayerAttackImage();
             meleeAttackAnimation();
+            if (invincibility) {
+                iFrames++;
+                if (iFrames > 60) {
+                    invincibility = false;
+                    iFrames = 0;
+                }
+            }
             return;
         }
 
@@ -366,10 +374,11 @@ public class Player extends Entity{
                     int xs = gp.obj[currentFloor][i].x;
                     int ys = gp.obj[currentFloor][i].y;
                     gp.obj[currentFloor][i] = null;
-                    gp.obj[currentFloor][i] = new OBJ_ClosedElevator();
+                    gp.obj[currentFloor][i] = new OBJ_OpenedElevator();
                     gp.obj[currentFloor][i].x = xs;
                     gp.obj[currentFloor][i].y = ys;
 
+                    discoveredFloors[currentFloor+1] = true;
                     currentFloor++;
                     gp.keyH.avoidMusicRepeat();
 
@@ -381,7 +390,7 @@ public class Player extends Entity{
                 break;
 
                 case "openedelevator":
-                discoveredFloors[currentFloor] = true;
+                discoveredFloors[currentFloor+1] = true;
                 currentFloor++;
                 gp.keyH.avoidMusicRepeat();
                 gp.tileM.loadMap("/res/maps/map" + (currentFloor+1) + ".txt");
@@ -471,10 +480,11 @@ public class Player extends Entity{
                 gp.npc[currentFloor][i].speak();
             }
             gp.keyH.fPressed = false;
-            if (i == 0 && gp.npc[currentFloor][i] instanceof NPC_OldMan && gp.npc[currentFloor][i].hasfinishedTalking){
-                gp.obj[currentFloor][5] = new OBJ_Key();
-                gp.obj[currentFloor][5].x = gp.npc[currentFloor][i].x + gp.tileSize;
-                gp.obj[currentFloor][5].y = gp.npc[currentFloor][i].y + gp.tileSize;
+            if (i == 0 && gp.npc[currentFloor][i] instanceof NPC_OldMan && gp.npc[currentFloor][i].hasfinishedTalking && !tookKeyFromNPC){
+                gp.obj[currentFloor][3] = new OBJ_Key();
+                gp.obj[currentFloor][3].x = gp.npc[currentFloor][i].x + gp.tileSize;
+                gp.obj[currentFloor][3].y = gp.npc[currentFloor][i].y + gp.tileSize;
+                tookKeyFromNPC = true;
             }
         }
         else if (gp.keyH.enterPressed == true){

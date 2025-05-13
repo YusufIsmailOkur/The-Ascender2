@@ -94,6 +94,8 @@ public class GamePanel extends JPanel implements Runnable{
         //Map Panel
         mapPanel.setBounds(0, 0, screenWidth, screenHeight);
         mapPanel.setVisible(false);
+        mapPanel.setFocusable(false);
+        setLayout(null);
         this.add(mapPanel);
 
     }
@@ -371,6 +373,9 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
             lines.add(++startIndex, String.valueOf(count));
+            for(int i=0;i<10;i++){
+                lines.add(++startIndex, String.valueOf(player.discoveredFloors[i]));
+            }
             lines.add(++startIndex, "Obj");
             for (SuperObject obj : player.objects) {
                 lines.add(++startIndex, obj.name);
@@ -404,19 +409,49 @@ public class GamePanel extends JPanel implements Runnable{
                     player.health=health;
                     player.totalTime =Long.parseLong(fileScanner.nextLine());
                     int arrowCount = (Integer.parseInt(fileScanner.nextLine()));
+                    for(int i =0; i<10;i++){
+                        String s = fileScanner.nextLine();
+                        if (s.equals("true")){
+                            player.discoveredFloors[i]=true;
+                        }
+                        else {
+                            player.discoveredFloors[i]=false;
+                        }
+                    }
                     String s = fileScanner.nextLine();
                     player.objects.clear();
                     while (!s.equals("Weapons")) {
-                        if (s.equals("boots")) {
-                            player.objects.add(new OBJ_Boots());
-                        } else if (s.equals("chest")) {
-                            //player.objects.add(new OBJ_Chest());
-                        } else if (s.equals("key")) {
-                            player.objects.add(new OBJ_Key());
-                        } else if (s.equals("door")) {
-                            player.objects.add(new OBJ_Door());
-                        } else if (s.equals("elevator")) {
-                            player.objects.add(new OBJ_Elevator());
+                        switch (s.toLowerCase()) {
+                            case "boots":
+                                player.objects.add(new OBJ_Boots());
+                                break;
+                            case "key":
+                                player.objects.add(new OBJ_Key());
+                                break;
+                            case "compass":
+                                player.objects.add(new OBJ_Compass());
+                                break;
+                            case "light":
+                                player.objects.add(new OBJ_Light());
+                                break;
+                            case "health potion":
+                                player.objects.add(new OBJ_HealthPotion(this));
+                                break;
+                            case "photo":
+                                player.objects.add(new OBJ_Photo());
+                                break;
+                            case "letter":
+                                player.objects.add(new OBJ_Letter());
+                                break;
+                            case "lighted letter":
+                                player.objects.add(new OBJ_LightedLetter());
+                                break;
+                            case "screwdriver":
+                                player.objects.add(new OBJ_ScrewDriver());
+                                break;
+                            default:
+                                System.out.println("Unknown object: " + s);
+                                break;
                         }
                         s= fileScanner.nextLine();
                     }
@@ -427,6 +462,9 @@ public class GamePanel extends JPanel implements Runnable{
                             player.weapons.add(new WPN_Bow());
                         } else if (st.equals("Sword")) {
                             player.weapons.add(new WPN_Sword());
+                        }
+                        else if (st.equals("Diamond Sword")){
+                            player.weapons.add(new WPN_DiamondSword());
                         }
                         st= fileScanner.nextLine();
                     }
