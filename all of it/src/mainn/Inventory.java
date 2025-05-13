@@ -189,6 +189,12 @@ public class Inventory extends JPanel implements ActionListener {
                     }
                 }
             }
+            else
+            {
+                JOptionPane("This items can not merged");
+                firstSelected = false;
+                secondSelected = false;
+            }
         } else if (e.getSource() == useButton) {
             if (gp.player.health <= 10) {
                 gp.player.health += 10;
