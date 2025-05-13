@@ -11,31 +11,32 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
-public class MON_SkeletonArcher extends Entity {
+public class MON_SkeletonArcherBoss extends Entity {
 
     GamePanel gp;
     Player player;
     boolean arrowCooldown = false;
     int arrowCooldownCounter = 0;
 
-    public MON_SkeletonArcher(GamePanel gp) {
+    public MON_SkeletonArcherBoss(GamePanel gp) {
         super(gp);
         this.gp = gp;
         this.player = gp.player;
 
         direction = "down";
-        name = "Skeleton Archer";
+        name = "Skeleton Archer Boss";
         speed = 1;
-        maxHealth = 10;
+        maxHealth = 200;
         health = maxHealth;
         damage = 3;
         type = 2;
         projectile = new OBJ_Arrow(gp);
+        isBoss = true;
 
-        solidArea.x = 8;
-        solidArea.y = 16;
-        solidArea.width = 32;
-        solidArea.height = 32;
+        solidArea.x = 32;
+        solidArea.y = 56;
+        solidArea.width = 32 * 4;
+        solidArea.height = 32 * 4;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
@@ -62,7 +63,7 @@ public class MON_SkeletonArcher extends Entity {
 
         int dx = player.x - x;
         int dy = player.y - y;
-        int range = gp.tileSize * 5;
+        int range = gp.tileSize * 1000000;
 
         if ((Math.abs(dx) < range && Math.abs(dy) < gp.tileSize) ||
             (Math.abs(dy) < range && Math.abs(dx) < gp.tileSize)) {
@@ -74,7 +75,7 @@ public class MON_SkeletonArcher extends Entity {
                 }
 
                 projectile = new OBJ_Arrow(gp);
-                projectile.set(x, y, direction, true, this);
+                projectile.set(x + 2 * gp.tileSize, y + 2 * gp.tileSize, direction, true, this);
                 gp.projectiles.add(projectile);
 
                 arrowCooldown = true;
@@ -84,7 +85,7 @@ public class MON_SkeletonArcher extends Entity {
 
         if (arrowCooldown) {
             arrowCooldownCounter++;
-            if (arrowCooldownCounter >= 90) {
+            if (arrowCooldownCounter >= 20) {
                 arrowCooldown = false;
                 arrowCooldownCounter = 0;
             }
@@ -111,6 +112,6 @@ public class MON_SkeletonArcher extends Entity {
             case "right": image = (spriteNumber == 1) ? right1 : right2; break;
         }
 
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, x, y, gp.tileSize * 4, gp.tileSize * 4, null);
     }
 }

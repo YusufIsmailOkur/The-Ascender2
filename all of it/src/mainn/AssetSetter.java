@@ -4,6 +4,7 @@ import entity.NPC_OldMan;
 import monster.MON_GreenSlime;
 import monster.MON_SkeletonArcher;
 import monster.MON_SkeletonBoss;
+import monster.*;
 import monster.MON_SlimeBoss;
 import monster.MON_Zombie;
 import object.*;
@@ -18,7 +19,7 @@ public class AssetSetter {
     }
 
     public void setObject(){
-        gp.monster[0][0] = new MON_SkeletonBoss(gp);
+        gp.monster[0][0] = new MON_Summoner(gp, 0);
         gp.monster[0][0].x = gp.tileSize * 10;
         gp.monster[0][0].y = gp.tileSize * 7;
 
@@ -304,6 +305,7 @@ public class AssetSetter {
         gp.monster[4][0] = new MON_SlimeBoss(gp);
         gp.monster[4][0].x = gp.tileSize * 10;
         gp.monster[4][0].y = gp.tileSize * 7;
+
 
 
         gp.monster[6][0] = new MON_GreenSlime(gp);

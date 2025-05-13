@@ -31,7 +31,7 @@ public class MapPanel extends JPanel {
                 for (int i = 0; i < floorCount; i++) {
                     if (floorButtons[i].contains(p)) {
                         boolean unlocked = gp.player.discoveredFloors[i];
-                        if (unlocked) {
+                        if (true) {
                             gp.player.currentFloor = i;
                             gp.tileM.loadMap("/res/maps/map" + (gp.player.currentFloor + 1) + ".txt");
                             gp.player.x = 1 * gp.tileSize;
