@@ -86,8 +86,6 @@ public class MON_SlimeBoss extends Entity{
 
         }
 
-        int i = new Random().nextInt(100) + 1;
-
         if((Math.abs(x - gp.player.x) < 100 || Math.abs(y - gp.player.y) < 100) && !rockCooldown){
             projectile = new OBJ_Rock(gp);
             if(Math.abs(x - gp.player.x) < 100){
@@ -121,7 +119,7 @@ public class MON_SlimeBoss extends Entity{
             }
         }
 
-        if(!isSpawned && health < 50){
+        if(!isSpawned && health <= 50){
             Random rand = new Random();
             gp.monster[3][1] = new MON_GreenSlime(gp);
             gp.monster[3][1].x = gp.tileSize * rand.nextInt(18);
