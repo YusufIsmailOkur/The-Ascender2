@@ -339,7 +339,7 @@ public class KeyHandler implements KeyListener {
         if (gp.gameState == gp.titleState){
             playMusic(0);
         }
-        else if (gp.player.currentFloor == 1){
+        else if (gp.player.currentFloor == 10){
             playMusic(3);
         }
         else if (gp.player.currentFloor == 4){

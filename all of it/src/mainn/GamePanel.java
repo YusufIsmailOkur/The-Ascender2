@@ -20,6 +20,8 @@ import java.util.Scanner;
 import static javax.swing.JOptionPane.*;
 
 public class GamePanel extends JPanel implements Runnable{
+    Sound sound = new Sound();
+
     
     final int originalTileSize = 16; // 16x16 charachter
     final int scale = 3; // it will print it larger on the screen
@@ -32,7 +34,6 @@ public class GamePanel extends JPanel implements Runnable{
     public final int screenHeight = tileSize* maxScreenRow; // 576 pixels
 
     //sound
-    Sound sound = new Sound();
 
     // FPS
     int FPS = 60;
