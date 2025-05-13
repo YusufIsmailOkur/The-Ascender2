@@ -72,6 +72,7 @@ public class KeyHandler implements KeyListener {
             }
             if (code == KeyEvent.VK_I) {
                 gp.gameState = gp.inventoryState;
+                gp.inventory.refreshObjectsAndWeapons();
                 gp.inventory.setVisible(true);
             }
             if (code == KeyEvent.VK_F){
@@ -97,6 +98,7 @@ public class KeyHandler implements KeyListener {
             }
             if(code == KeyEvent.VK_5){
                 gp.gameState = gp.weaponListState;
+                gp.weaponList.refreshWeaponList();
                 gp.weaponList.setVisible(true);
             }  
             if (gp.player.health <= 0){
@@ -137,7 +139,6 @@ public class KeyHandler implements KeyListener {
             }
             if (code == KeyEvent.VK_ENTER){
                 if (gp.ui.menuNum == 0){
-                    gp.askName();
                     gp.gameState = gp.playState;
                 }
                 else if (gp.ui.menuNum == 1){

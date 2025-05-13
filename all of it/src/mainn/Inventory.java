@@ -17,10 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import object.OBJ_Compass;
-import object.OBJ_Letter;
-import object.OBJ_LightedLetter;
-import object.SuperObject;
+import object.*;
 import weapon.SuperWeapon;
 
 public class Inventory extends JPanel implements ActionListener {
@@ -44,8 +41,9 @@ public class Inventory extends JPanel implements ActionListener {
     private HashMap<JButton, SuperObject> interactableMap = new HashMap<>();
 
     private SuperObject first, second;
-    private boolean firstSelected = true;
+    private boolean firstSelected = false;
     private boolean secondSelected = false;
+    private JButton useButton;
 
     public Inventory(GamePanel gp) {
         this.gp = gp;
@@ -78,9 +76,20 @@ public class Inventory extends JPanel implements ActionListener {
         int sfY = frameY + 20;
         searchField.setBounds(sfX, sfY, sfW, sfH);
         searchField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override public void insertUpdate(DocumentEvent e) { applyFilters(); }
-            @Override public void removeUpdate(DocumentEvent e) { applyFilters(); }
-            @Override public void changedUpdate(DocumentEvent e) { applyFilters(); }
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                applyFilters();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                applyFilters();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                applyFilters();
+            }
         });
         add(searchField);
 
@@ -89,7 +98,7 @@ public class Inventory extends JPanel implements ActionListener {
         craftToggle.setFont(new Font("Arial", Font.PLAIN, 20));
         int ctW = 200, ctH = 40;
         int ctX = sfX + sfW + 10 - 200;
-        int ctY = sfY*2;
+        int ctY = sfY * 2;
         craftToggle.setBounds(ctX, ctY, ctW, ctH);
         craftToggle.addActionListener(this);
         add(craftToggle);
@@ -119,49 +128,109 @@ public class Inventory extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == craftToggle) {
             craftMode = !craftMode;
-            if(craftMode)
-            {
+            if (craftMode) {
                 craftToggle.setText("Exit Craft");
-            }
-            else
-            {
+            } else {
                 craftToggle.setText("Craft Mode");
             }
             applyFilters();//Apply filters after action
         } else if (craftButtons.contains(e.getSource())) {
-            if(!firstSelected)
-            {
+            if (!firstSelected) {
                 first = displayObjects.get(craftButtons.indexOf(e.getSource()));
                 firstSelected = true;
                 JOptionPane.showMessageDialog(this, "First item selected: " + first.name);
-            }
-            else if(!secondSelected)
-            {
+            } else if (!secondSelected) {
                 second = displayObjects.get(craftButtons.indexOf(e.getSource()));
                 secondSelected = true;
                 JOptionPane.showMessageDialog(this, "Second item selected: " + second.name);
-            }
-            else
-            {
+            } else {
                 //Crafting
                 JOptionPane.showMessageDialog(this, "Only two item");
             }
-            
+
         }
-        if(secondSelected && firstSelected) {
+        if (secondSelected && firstSelected) {
             if (first.name.equals("compass") && second.name.equals("screwdriver") || first.name.equals("screwdriver") && second.name.equals("compass")) {
                 JOptionPane.showMessageDialog(this, "Crafted: Compass with screwdriver, letter crafted");
                 firstSelected = false;
                 secondSelected = false;
                 gp.player.objects.add(new OBJ_Letter());
+                for(SuperObject obj : gp.player.objects)
+                {
+                    if (obj.name.equals("compass")){
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
+                for(SuperObject obj : gp.player.objects)
+                {
+                    if (obj.name.equals("screwdriver")){
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
             } else if (first.name.equals("letter") && second.name.equals("light") || first.name.equals("light") && second.name.equals("letter")) {
                 JOptionPane.showMessageDialog(this, "Crafted: Letter with lighted letter, Lighted letter crafted");
                 firstSelected = false;
                 secondSelected = false;
                 gp.player.objects.add(new OBJ_LightedLetter());
+                for(SuperObject obj : gp.player.objects)
+                {
+                    if (obj.name.equals("letter")){
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
+                for(SuperObject obj : gp.player.objects)
+                {
+                    if (obj.name.equals("light")){
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
             }
-        }
-        else if (interactButtons.contains(e.getSource())){
+            else
+            {
+                JOptionPane.showMessageDialog(this,"This items can not merged");
+                firstSelected = false;
+                secondSelected = false;
+                first = null;
+                second = null;
+            }
+        } else if (e.getSource() == useButton) {
+            if (gp.player.health <= 10) {
+                gp.player.health += 10;
+                JOptionPane.showMessageDialog(this,
+                        "You used a health potion.\nYou restored 10 health!",
+                        "Item Used",
+                        JOptionPane.INFORMATION_MESSAGE);
+                for (SuperObject obj : gp.player.objects) {
+                    if (obj.name.equals("Health Potion")) {
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
+            } else if (gp.player.health == 20) {
+                gp.player.health = 20;
+                JOptionPane.showMessageDialog(this,
+                        "You can not use health potion.\nYour health is maxed out!",
+                        "Item Used",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                gp.player.health = 20;
+                JOptionPane.showMessageDialog(this,
+                        "You used a health potion.\nYou restored 10 health!",
+                        "Item Used",
+                        JOptionPane.INFORMATION_MESSAGE);
+                for (SuperObject obj : gp.player.objects) {
+                    if (obj.name.equals("Health Potion")) {
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
+            }
+            repaint();
+        } else if (interactButtons.contains(e.getSource())) {
             interactableMap.get(e.getSource()).interact();
         }
     }
@@ -204,31 +273,25 @@ public class Inventory extends JPanel implements ActionListener {
     }
 
     public void refreshCraftButtons() {
-        for (JButton b : craftButtons)
-        {
+        for (JButton b : craftButtons) {
             remove(b);
         }
         craftButtons.clear();
 
-        if (!craftMode)
-        {
+        if (!craftMode) {
             return;
         }
 
-        for (int oindx = 0; oindx < displayObjects.size(); oindx++)
-        {
+        for (int oindx = 0; oindx < displayObjects.size(); oindx++) {
             SuperObject obj = displayObjects.get(oindx);
-            if (obj.craftable)
-            {
+            if (obj.craftable) {
                 addCraftButton(obj.name, oindx);
             }
         }
         int base = slotCol * 2;
-        for (int windx = 0; windx < displayWeapons.size(); windx++)
-        {
+        for (int windx = 0; windx < displayWeapons.size(); windx++) {
             SuperWeapon wp = displayWeapons.get(windx);
-            if (wp.craftable)
-            {
+            if (wp.craftable) {
                 addCraftButton(wp.name, base + windx);
             }
         }
@@ -269,16 +332,15 @@ public class Inventory extends JPanel implements ActionListener {
         drawSlots(g2, displayObjects, slotsStartY);
 
 
-
         g2.setFont(sectionFont);
         g2.setColor(Color.WHITE);
         int weaponsY = slotsStartY + 4 * (slotSize + slotGap) + 40;
         g2.drawString("WEAPONS", frameX + 20, weaponsY - 10);
         drawSlots(g2, displayWeapons, weaponsY);
 
+
         //Highlight craftable objects!!!!!!!!!!!Might NOT work properly
-        if (craftMode)
-        {
+        if (craftMode) {
             g2.setColor(Color.YELLOW);
             g2.setStroke(new BasicStroke(3));
         }
@@ -287,10 +349,8 @@ public class Inventory extends JPanel implements ActionListener {
     //DRAW SLOTS even EMPTY
     private void drawSlots(Graphics2D g2, ArrayList<?> items, int startY) {
         g2.setStroke(new BasicStroke(2));
-        for (int row = 0; row < 2; row++)
-        {
-            for (int col = 0; col < slotCol; col++)
-            {
+        for (int row = 0; row < 2; row++) {
+            for (int col = 0; col < slotCol; col++) {
                 int x = slotsStartX + col * (slotSize + slotGap);
                 int y = startY + row * (slotSize + slotGap);
 
@@ -309,19 +369,18 @@ public class Inventory extends JPanel implements ActionListener {
                         g2.setColor(Color.WHITE);
                         g2.setFont(new Font("Arial", Font.PLAIN, 15));
                         g2.drawString(so.name, x, y + slotGap + 60);
-                    }
-                    else if (obj instanceof SuperWeapon sw) {
+                    } else if (obj instanceof SuperWeapon sw) {
                         g2.drawImage(sw.imageRight, x, y, slotSize, slotSize, null);
                         //WRITE NAME
                         g2.setColor(Color.WHITE);
                         g2.setFont(new Font("Arial", Font.PLAIN, 15));
-                        g2.drawString(sw.name, x, y+slotGap+ 60);
+                        g2.drawString(sw.name, x, y + slotGap + 60);
 
                     }
                 }
             }
             //ADDING SPACE BETWEEN ROWS
-            startY += slotSize + slotGap;   
+            startY += slotSize + slotGap;
         }
     }
 
@@ -340,48 +399,58 @@ public class Inventory extends JPanel implements ActionListener {
     // }
 
     private void refreshInteractButtons() {
-    //clearing old buttons
-    for (JButton btn : interactButtons) {
-        remove(btn);
-    }
-    interactButtons.clear();
-    interactableMap.clear();
-
-    int idx = 0;
-
-    for (SuperObject obj : displayObjects) {
-        if (obj.isInteractable()) {
-            int col = idx % slotCol;
-            int row = idx / slotCol;
-            int x = slotsStartX + col * (slotSize + slotGap);
-            int y = slotsStartY + row * (slotSize + slotGap) + slotSize + 5; //place button
-
-            JButton button = new JButton("View");
-            button.setFont(new Font("Arial", Font.PLAIN, 12));
-            button.setBounds(x, y, 60, 20);
-            button.addActionListener(this);
-            interactableMap.put(button, obj);
-            interactButtons.add(button);
-            add(button);
+        //clearing old buttons
+        for (JButton btn : interactButtons) {
+            remove(btn);
         }
-        if(obj.usable == true){
-            int col = idx % slotCol;
-            int row = idx / slotCol;
-            int x = slotsStartX + col * (slotSize + slotGap);
-            int y = slotsStartY + row * (slotSize + slotGap) + slotSize + 5; //place button
+        interactButtons.clear();
+        interactableMap.clear();
 
-            JButton button = new JButton("Use");
-            button.setFont(new Font("Arial", Font.PLAIN, 12));
-            button.setBounds(x, y, 60, 20);
-            button.addActionListener(this);
-            interactableMap.put(button, obj);
-            interactButtons.add(button);
-            add(button);
+        int idx = 0;
+
+        for (SuperObject obj : displayObjects) {
+            if (obj.isInteractable()) {
+                int col = idx % slotCol;
+                int row = idx / slotCol;
+                int x = slotsStartX + col * (slotSize + slotGap);
+                int y = slotsStartY + row * (slotSize + slotGap) + slotSize + 5; //place button
+
+                JButton button = new JButton("View");
+                button.setFont(new Font("Arial", Font.PLAIN, 12));
+                button.setBounds(x, y, 60, 20);
+                button.addActionListener(this);
+                interactableMap.put(button, obj);
+                interactButtons.add(button);
+                add(button);
+            }
+            if (obj.usable == true) {
+                int col = idx % slotCol;
+                int row = idx / slotCol;
+                int x = slotsStartX + col * (slotSize + slotGap);
+                int y = slotsStartY + row * (slotSize + slotGap) + slotSize + 5; //place button
+
+                useButton = new JButton("Use");
+                useButton.setFont(new Font("Arial", Font.PLAIN, 12));
+                useButton.setBounds(x, y, 60, 20);
+                useButton.addActionListener(this);
+                interactableMap.put(useButton, obj);
+                interactButtons.add(useButton);
+                add(useButton);
+            }
+            idx++;
         }
-        idx++;
-    }
 
-    revalidate();
-    repaint();
+        revalidate();
+        repaint();
+    }
+    public void refreshObjectsAndWeapons() {
+        allObjects = gp.player.objects;
+        allWeapons = gp.player.weapons;
+        displayObjects.clear();
+        displayWeapons.clear();
+        displayObjects.addAll(allObjects);
+        displayWeapons.addAll(allWeapons);
+        applyFilters();
+    }
 }
-}
+
