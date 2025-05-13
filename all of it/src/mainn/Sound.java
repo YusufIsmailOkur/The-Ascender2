@@ -50,5 +50,4 @@ public class Sound {
             gainControl.setValue(value * 10.0f - 80.0f);
         }
     }
-
 }

@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public SuperObject obj[][] = new SuperObject[10][20];
     public Entity npc[][] = new Entity[10][10];
-    public Entity monster[][] = new Entity[10][10];
+    public Entity monster[][] = new Entity[10][12];
     public ArrayList <Entity> projectiles = new ArrayList<>();
     public SuperWeapon[] weapon = new SuperWeapon[10];
     public String[] allObjects = {"Arrow","boots","chest","key","door","elevator","Fireball", "compass", "letter", "screwdriver"};//Should updated for every new object
@@ -161,9 +161,28 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
             for (int i = 0; i < monster[0].length; i++) {
-                if (monster[currentFloor][i] != null) {
+                if (monster[currentFloor][i] != null && currentFloor != 6) {
                     monster[currentFloor][i].update();
                 }
+                if (currentFloor == 6){
+                    if (monster[currentFloor][0] != null || monster[currentFloor][1] != null || monster[currentFloor][2] != null || monster[currentFloor][3] != null || monster[currentFloor][4] != null || monster[currentFloor][5] != null ){
+                        monster[currentFloor][0].update();
+                        monster[currentFloor][1].update();
+                        monster[currentFloor][2].update();
+                        monster[currentFloor][3].update();
+                        monster[currentFloor][4].update();
+                        monster[currentFloor][5].update();
+                    }
+                    if (monster[currentFloor][0] == null && monster[currentFloor][1] == null && monster[currentFloor][2] == null && monster[currentFloor][3] == null && monster[currentFloor][4] == null && monster[currentFloor][5] == null){
+                        monster[currentFloor][6].update();
+                        monster[currentFloor][7].update();
+                        monster[currentFloor][8].update();
+                        monster[currentFloor][9].update();
+                        monster[currentFloor][10].update();
+                        monster[currentFloor][11].update();
+                    }
+                }
+                
             }
             for (int i = 0; i < projectiles.size(); i++) {
                 if (projectiles.get(i) != null) {
