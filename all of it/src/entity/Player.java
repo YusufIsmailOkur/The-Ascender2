@@ -428,6 +428,21 @@ public class Player extends Entity{
                     gp.obj[currentFloor][i] = new OBJ_OpenedElevator();
                     gp.obj[currentFloor][i].x = xs;
                     gp.obj[currentFloor][i].y = ys;
+                     
+                    for(SuperObject obj : objects){
+                        if(obj.name.equals("key")){
+                            objects.remove(obj);
+                            break;
+                        }
+                    }
+
+                    discoveredFloors[currentFloor+1] = true;
+                    currentFloor++;
+                    gp.keyH.avoidMusicRepeat();
+
+                    gp.tileM.loadMap("/res/maps/map" + (currentFloor+1) + ".txt");
+                    x = 1*gp.tileSize;
+                    y = 7*gp.tileSize;
                 }
                 else{
                     gp.gameState = gp.dialogueState;

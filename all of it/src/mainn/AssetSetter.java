@@ -28,7 +28,7 @@ public class AssetSetter {
         gp.obj[0][1].y = 7 * gp.tileSize;
 
         //1
-        gp.obj[1][0] = new OBJ_KeyElevator(gp);
+        gp.obj[1][0] = new OBJ_KeyElevator();
         gp.obj[1][0].x = 19 * gp.tileSize;
         gp.obj[1][0].y = 7 * gp.tileSize;
 
@@ -71,7 +71,7 @@ public class AssetSetter {
         gp.obj[4][0].x = 0 * gp.tileSize;
         gp.obj[4][0].y = 7 * gp.tileSize;
 
-        gp.obj[4][1] = new OBJ_KeyElevator(gp);
+        gp.obj[4][1] = new OBJ_KeyElevator();
         gp.obj[4][1].x = 19 * gp.tileSize;
         gp.obj[4][1].y = 7 * gp.tileSize;
 
@@ -90,7 +90,7 @@ public class AssetSetter {
        gp.obj[5][2].y = 2  * gp.tileSize; 
 
        //6
-       gp.obj[6][0] = new OBJ_KeyElevator(gp);
+       gp.obj[6][0] = new OBJ_KeyElevator();
        gp.obj[6][0].x = 19 * gp.tileSize;
        gp.obj[6][0].y = 7 * gp.tileSize;
 
@@ -118,7 +118,7 @@ public class AssetSetter {
 
 
         //8
-        gp.obj[8][0] = new OBJ_KeyElevator(gp);
+        gp.obj[8][0] = new OBJ_KeyElevator();
         gp.obj[8][0].x = 19 * gp.tileSize;
         gp.obj[8][0].y = 7 * gp.tileSize;
 
@@ -239,13 +239,17 @@ public class AssetSetter {
         gp.obj[11][3] = new OBJ_Chest(gp, "health potion");
         gp.obj[11][3].x = 6 * gp.tileSize;
         gp.obj[11][3].y = 7 * gp.tileSize;
+      
+        gp.obj[11][3] = new OBJ_Chest(gp, "diamond sword");
+        gp.obj[11][3].x = 5 * gp.tileSize;
+        gp.obj[11][3].y = 7 * gp.tileSize;
 
         //12
         gp.obj[11][0] = new OBJ_ClosedElevator();
         gp.obj[11][0].x = 0 * gp.tileSize;
         gp.obj[11][0].y = 7 * gp.tileSize;
 
-        gp.obj[11][1] = new OBJ_KeyElevator(gp);
+        gp.obj[11][1] = new OBJ_KeyElevator();
         gp.obj[11][1].x = 19 * gp.tileSize;
         gp.obj[11][1].y = 7 * gp.tileSize;
 
@@ -254,7 +258,7 @@ public class AssetSetter {
         gp.obj[11][0].x = 0 * gp.tileSize;
         gp.obj[11][0].y = 7 * gp.tileSize;
 
-        gp.obj[11][1] = new OBJ_KeyElevator(gp);
+        gp.obj[11][1] = new OBJ_KeyElevator();
         gp.obj[11][1].x = 19 * gp.tileSize;
         gp.obj[11][1].y = 7 * gp.tileSize;
 
@@ -280,7 +284,7 @@ public class AssetSetter {
         gp.obj[15][0].x = 0 * gp.tileSize;
         gp.obj[15][0].y = 7 * gp.tileSize;
 
-        gp.obj[15][1] = new OBJ_KeyElevator(gp);
+        gp.obj[15][1] = new OBJ_KeyElevator();
         gp.obj[15][1].x = 19 * gp.tileSize;
         gp.obj[15][1].y = 7 * gp.tileSize;
 
@@ -310,7 +314,7 @@ public class AssetSetter {
         gp.obj[17][0].x = 0 * gp.tileSize;
         gp.obj[17][0].y = 7 * gp.tileSize;
 
-        gp.obj[17][1] = new OBJ_KeyElevator(gp);
+        gp.obj[17][1] = new OBJ_KeyElevator();
         gp.obj[17][1].x = 19 * gp.tileSize;
         gp.obj[17][1].y = 7 * gp.tileSize;
 
@@ -343,13 +347,13 @@ public class AssetSetter {
         gp.monster[2][0].y = gp.tileSize * 4;
         gp.monster[2][1] = new MON_Zombie(gp);
         gp.monster[2][1].x = gp.tileSize * 5;
-        gp.monster[2][1].y = gp.tileSize * 10;
+        gp.monster[2][1].y = gp.tileSize * 13;
         gp.monster[2][2] = new MON_SkeletonArcher(gp);
         gp.monster[2][2].x = gp.tileSize * 14;
         gp.monster[2][2].y = gp.tileSize * 4;
         gp.monster[2][3] = new MON_SkeletonArcher(gp);
         gp.monster[2][3].x = gp.tileSize * 14;
-        gp.monster[2][3].y = gp.tileSize * 10;
+        gp.monster[2][3].y = gp.tileSize * 13;
 
         //3
 
