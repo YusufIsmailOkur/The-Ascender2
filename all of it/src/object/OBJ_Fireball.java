@@ -22,7 +22,7 @@ public class OBJ_Fireball extends Projectile{
         speed = 6;
         maxLife = 400;
         life = maxLife;
-        attack = 3;
+        attack = 10;
 
         getImage();
         

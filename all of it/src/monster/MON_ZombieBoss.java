@@ -1,5 +1,7 @@
 package monster;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -8,24 +10,26 @@ import entity.Entity;
 import entity.Player;
 import mainn.GamePanel;
 
-public class MON_Zombie extends Entity{
+public class MON_ZombieBoss extends Entity{
 
+    public GamePanel gp;
     public Player player;
-    public MON_Zombie(GamePanel gp) {
+    public MON_ZombieBoss(GamePanel gp) {
         super(gp);
         
         direction = "down";
-        name = "Zombie";
         speed = 2;
-        maxHealth = 8;
+        maxHealth = 100;
+        isBoss = true;
         health = maxHealth;
         type = 2;
-        damage = 2;
-
-        solidArea.x = 3;
-        solidArea.y = 18;
-        solidArea.width = 42;
-        solidArea.height = 38;
+        name = "Zombie Boss";
+        damage = 3;
+        this.gp = gp;
+        solidArea.x = 12;
+        solidArea.y = 60;
+        solidArea.width = 42 * 4;
+        solidArea.height = 38 * 4;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         this.player = gp.player;
@@ -71,4 +75,17 @@ public class MON_Zombie extends Entity{
             actionLockCounter = 0;
         }
     }
+    public void draw(Graphics2D g2) {
+        BufferedImage image = null;
+
+        switch (direction) {
+            case "up": image = (spriteNumber == 1) ? up1 : up2; break;
+            case "down": image = (spriteNumber == 1) ? down1 : down2; break;
+            case "left": image = (spriteNumber == 1) ? left1 : left2; break;
+            case "right": image = (spriteNumber == 1) ? right1 : right2; break;
+        }
+
+        g2.drawImage(image, x, y, gp.tileSize * 4, gp.tileSize * 4, null);
+    }
+    
 }
