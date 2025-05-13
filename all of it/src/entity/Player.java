@@ -38,6 +38,7 @@ public class Player extends Entity{
     public WPN_Bow bow;
     public boolean[] discoveredFloors = new boolean[10];
     public boolean tookKeyFromNPC = false;
+    public int previousCurrentFloor = -1;
 
 
 
