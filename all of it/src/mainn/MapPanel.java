@@ -2,6 +2,7 @@ package mainn;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 public class MapPanel extends JPanel {
@@ -41,6 +42,20 @@ public class MapPanel extends JPanel {
                             gp.repaint();
                             break;
                         }
+                    }
+                }
+            }
+        });
+        this.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e){
+                int code = e.getKeyCode();
+                if (code == KeyEvent.VK_Q || code == KeyEvent.VK_ESCAPE) {
+                    if (gp.gameState == gp.mapState) {
+                        gp.mapPanel.setVisible(false);
+                        gp.gameState = gp.playState;
+                        gp.requestFocusInWindow();
+                        gp.repaint();
                     }
                 }
             }
