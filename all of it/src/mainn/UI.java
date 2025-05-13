@@ -290,6 +290,23 @@ public class UI {
 
         drawSubWindow(x, y, width, height);
 
+        x += gp.tileSize;
+        y += gp.tileSize * 5 / 3;
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30F));
+
+        g2.drawString("Attack:  Enter", x, y);
+        y += 60;
+        g2.drawString("FireBall:   Space", x, y);
+        y +=60;
+        g2.drawString("Movement:   WASD", x, y);
+        y += 60;
+        g2.drawString("Interact:   F", x, y);
+        y += 60;
+        g2.drawString("Fast Travel:   Q", x, y);
+        y += 60;
+        g2.drawString("Menu:   M", x, y);
+        y += 60;
+        g2.drawString("Inventory:   I", x, y);
     }
 
     private void drawSettingsScreen() {
