@@ -60,43 +60,43 @@ public class AssetSetter {
         gp.obj[1][2].y = 4 * gp.tileSize;
 
         gp.obj[1][3] = new OBJ_Statue1(gp);
-        gp.obj[1][3].x = 7 * gp.tileSize;
-        gp.obj[1][3].y = 6 * gp.tileSize;
+        gp.obj[1][3].x = 3 * gp.tileSize;
+        gp.obj[1][3].y = 11 * gp.tileSize;
 
 
         gp.obj[1][4] = new OBJ_Statue2(gp);
-        gp.obj[1][4].x = 6 * gp.tileSize;
-        gp.obj[1][4].y = 8 * gp.tileSize;
+        gp.obj[1][4].x = 1 * gp.tileSize;
+        gp.obj[1][4].y = 9 * gp.tileSize;
 
 
         gp.obj[1][5] = new OBJ_Statue3(gp);
-        gp.obj[1][5].x = 6 * gp.tileSize;
-        gp.obj[1][5].y = 10 * gp.tileSize;
+        gp.obj[1][5].x = 3 * gp.tileSize;
+        gp.obj[1][5].y = 7 * gp.tileSize;
 
 
         gp.obj[1][6] = new OBJ_Statue4(gp);
-        gp.obj[1][6].x = 7 * gp.tileSize;
-        gp.obj[1][6].y = 12 * gp.tileSize;
+        gp.obj[1][6].x = 5 * gp.tileSize;
+        gp.obj[1][6].y = 5 * gp.tileSize;
 
 
         gp.obj[1][7] = new OBJ_Statue5(gp);
-        gp.obj[1][7].x = 11 * gp.tileSize;
-        gp.obj[1][7].y = 6 * gp.tileSize;
+        gp.obj[1][7].x = 7 * gp.tileSize;
+        gp.obj[1][7].y = 7 * gp.tileSize;
 
 
         gp.obj[1][8] = new OBJ_Statue6(gp);
-        gp.obj[1][8].x = 12 * gp.tileSize;
-        gp.obj[1][8].y = 8 * gp.tileSize;
+        gp.obj[1][8].x = 9 * gp.tileSize;
+        gp.obj[1][8].y = 9 * gp.tileSize;
 
 
         gp.obj[1][9] = new OBJ_Statue7(gp);
-        gp.obj[1][9].x = 12 * gp.tileSize;
-        gp.obj[1][9].y = 10 * gp.tileSize;
+        gp.obj[1][9].x = 7 * gp.tileSize;
+        gp.obj[1][9].y = 11 * gp.tileSize;
 
 
         gp.obj[1][10] = new OBJ_Statue8(gp);
-        gp.obj[1][10].x = 11 * gp.tileSize;
-        gp.obj[1][10].y = 12 * gp.tileSize;
+        gp.obj[1][10].x = 5 * gp.tileSize;
+        gp.obj[1][10].y = 13 * gp.tileSize;
 
         gp.obj[1][11] = new OBJ_TestDoorClosed("yes");
         gp.obj[1][11].x = 18 * gp.tileSize;
@@ -106,15 +106,15 @@ public class AssetSetter {
         gp.obj[1][12].x = 18 * gp.tileSize;
         gp.obj[1][12].y = 10 * gp.tileSize;
 
-        gp.obj[1][13] = new OBJ_TestDoorClosed("123");
+        gp.obj[1][13] = new OBJ_TestDoorClosed("01548752");
         gp.obj[1][13].x = 18 * gp.tileSize;
         gp.obj[1][13].y = 8 * gp.tileSize;
 
-        gp.obj[1][14] = new OBJ_TestDoorClosed("athena");
+        gp.obj[1][14] = new OBJ_TestDoorClosed("arachne");
         gp.obj[1][14].x = 18 * gp.tileSize;
         gp.obj[1][14].y = 6 * gp.tileSize;
 
-        gp.obj[1][15] = new OBJ_Chest(gp, "a dark photo and a screwdriver");
+        gp.obj[1][15] = new OBJ_Chest(gp, "screwdriver");
         gp.obj[1][15].x = 17 * gp.tileSize;
         gp.obj[1][15].y = 11 * gp.tileSize;
 
