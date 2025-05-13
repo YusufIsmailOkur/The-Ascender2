@@ -72,6 +72,7 @@ public class KeyHandler implements KeyListener {
             }
             if (code == KeyEvent.VK_I) {
                 gp.gameState = gp.inventoryState;
+                gp.inventory.refreshObjectsAndWeapons();
                 gp.inventory.setVisible(true);
             }
             if (code == KeyEvent.VK_F){
@@ -96,8 +97,8 @@ public class KeyHandler implements KeyListener {
                 threePressed = true;
             }
             if(code == KeyEvent.VK_5){
-                WeaponListPanel.weapons = gp.player.weapons;
                 gp.gameState = gp.weaponListState;
+                gp.weaponList.refreshWeaponList();
                 gp.weaponList.setVisible(true);
             }  
             if (gp.player.health <= 0){
