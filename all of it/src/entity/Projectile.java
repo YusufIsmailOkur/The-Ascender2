@@ -43,15 +43,7 @@ public class Projectile extends Entity {
             }
 
             gp.cChecker.checkTile(this);
-            if(gp.player.currentFloor == 2 && collisionOn){
-                if(labyrinthCountdown < 30){
-                    labyrinthCountdown ++;
-                }
-                else{
-                    this.alive = false;
-                }
-            }
-            else if(collisionOn){
+            if(collisionOn){
                 this.alive = false;
             }
         }
