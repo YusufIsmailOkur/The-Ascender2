@@ -3,10 +3,8 @@ package mainn;
 import entity.NPC_OldMan;
 import monster.MON_GreenSlime;
 import monster.MON_SkeletonArcher;
+
 import monster.*;
-import monster.MON_SlimeBoss;
-import monster.MON_WallSummoner;
-import monster.MON_Zombie;
 import object.*;
 import weapon.*;
 
@@ -331,22 +329,30 @@ public class AssetSetter {
 
         //1
         gp.monster[1][0] = new MON_GreenSlime(gp);
-        gp.monster[1][0].x = gp.tileSize * 10;
-        gp.monster[1][0].y = gp.tileSize * 7;
+        gp.monster[1][0].x = gp.tileSize * 8;
+        gp.monster[1][0].y = gp.tileSize * 8;
         gp.monster[1][1] = new MON_GreenSlime(gp);
-        gp.monster[1][1].x = gp.tileSize * 10;
-        gp.monster[1][1].y = gp.tileSize * 6;
-
+        gp.monster[1][1].x = gp.tileSize * 8;
+        gp.monster[1][1].y = gp.tileSize * 10;
+        gp.monster[1][2] = new MON_GreenSlime(gp);
+        gp.monster[1][2].x = gp.tileSize * 8;
+        gp.monster[1][2].y = gp.tileSize * 12;
+        
         //2
-        gp.monster[2][2] = new MON_Zombie(gp);
-        gp.monster[2][2].x = gp.tileSize * 13;
-        gp.monster[2][2].y = gp.tileSize * 2;
-        gp.monster[2][3] = new MON_Zombie(gp);
-        gp.monster[2][3].x = gp.tileSize * 8;
-        gp.monster[2][3].y = gp.tileSize * 13;
-        gp.monster[2][4] = new MON_SkeletonArcher(gp);
-        gp.monster[2][4].x = gp.tileSize * 8;
-        gp.monster[2][4].y = gp.tileSize * 9;
+        gp.monster[2][0] = new MON_Zombie(gp);
+        gp.monster[2][0].x = gp.tileSize * 5;
+        gp.monster[2][0].y = gp.tileSize * 4;
+        gp.monster[2][1] = new MON_Zombie(gp);
+        gp.monster[2][1].x = gp.tileSize * 5;
+        gp.monster[2][1].y = gp.tileSize * 15;
+        gp.monster[2][2] = new MON_SkeletonArcher(gp);
+        gp.monster[2][2].x = gp.tileSize * 14;
+        gp.monster[2][2].y = gp.tileSize * 4;
+        gp.monster[2][3] = new MON_SkeletonArcher(gp);
+        gp.monster[2][3].x = gp.tileSize * 14;
+        gp.monster[2][3].y = gp.tileSize * 15;
+
+        //3
 
         //4
         gp.monster[4][0] = new MON_ZombieBoss(gp);
@@ -389,15 +395,25 @@ public class AssetSetter {
         gp.monster[5][8].y = gp.tileSize * 5;
 
         //6
-        gp.monster[5][0] = new MON_Zombie(gp);
-        gp.monster[5][0].x = gp.tileSize * 13;
-        gp.monster[5][0].y = gp.tileSize * 2;
-        gp.monster[5][1] = new MON_GreenSlime(gp);
-        gp.monster[5][1].x = gp.tileSize * 8;
-        gp.monster[5][1].y = gp.tileSize * 13;
-        gp.monster[5][2] = new MON_SkeletonArcher(gp);
-        gp.monster[5][2].x = gp.tileSize * 8;
-        gp.monster[5][2].y = gp.tileSize * 9;
+        gp.monster[6][0] = new MON_Zombie(gp);
+        gp.monster[6][0].x = gp.tileSize * 8;
+        gp.monster[6][0].y = gp.tileSize * 7;
+        gp.monster[6][1] = new MON_GreenSlime(gp);
+        gp.monster[6][1].x = gp.tileSize * 5;
+        gp.monster[6][1].y = gp.tileSize * 8;
+        gp.monster[6][2] = new MON_SkeletonArcher(gp);
+        gp.monster[6][2].x = gp.tileSize * 14;
+        gp.monster[6][2].y = gp.tileSize * 7;
+        gp.monster[6][3] = new MON_GreenSlime(gp);
+        gp.monster[6][3].x = gp.tileSize * 5;
+        gp.monster[6][3].y = gp.tileSize * 13;
+
+        //7 (preperation room)
+
+        //8 Slime boss
+        gp.monster[8][0] = new MON_SlimeBoss(gp);
+        gp.monster[8][0].x = 10 * gp.tileSize;
+        gp.monster[8][0].y = 7 * gp.tileSize;
 
         //9
         gp.monster[9][0] = new MON_Zombie(gp);
@@ -430,6 +446,47 @@ public class AssetSetter {
         gp.monster[9][9] = new MON_SkeletonArcher(gp);
         gp.monster[9][9].x = 14 * gp.tileSize;
         gp.monster[9][9].y = 8 * gp.tileSize;
+
+        //10 puzzle room
+
+        //11 preperation room
+
+        //12 skeleton boss
+        gp.monster[12][0] = new MON_SkeletonArcher(gp);
+        gp.monster[12][0].x = 10 * gp.tileSize;
+        gp.monster[12][0].y = 7 * gp.tileSize;
+
+        //13 iskelet slime zombi
+        gp.monster[13][0] = new MON_GreenSlime(gp);
+        gp.monster[13][0].x = 4*gp.tileSize;
+        gp.monster[13][0].y = 7 * gp.tileSize;
+        gp.monster[13][1] = new MON_GreenSlime(gp);
+        gp.monster[13][1].x = 4*gp.tileSize;
+        gp.monster[13][1].y = 14 * gp.tileSize;
+        gp.monster[13][2] = new MON_Zombie(gp);
+        gp.monster[13][2].x = 8*gp.tileSize;
+        gp.monster[13][2].y = 10 * gp.tileSize;
+        gp.monster[13][3] = new MON_Zombie(gp);
+        gp.monster[13][3].x = 10*gp.tileSize;
+        gp.monster[13][3].y = 10 * gp.tileSize;
+        gp.monster[13][4] = new MON_SkeletonArcher(gp);
+        gp.monster[13][3].x = 14 * gp.tileSize;
+        gp.monster[13][3].y = 10 * gp.tileSize;
+
+        //14 preperation room
+
+        //15 Wamuu
+        gp.monster[15][0] = new MON_WallSummoner(gp);
+        gp.monster[15][0].x = 10 * gp.tileSize;
+        gp.monster[15][0].y = 7 * gp.tileSize;
+
+        //16 preparation room
+
+        //17 final boss summoner
+        gp.monster[17][0] = new MON_Summoner(gp, 17);
+        gp.monster[17][0].x = 10*gp.tileSize; 
+        gp.monster[17][0].y = 7*gp.tileSize;
+                
     }
     public void setWeapon(){
         // gp.weapon[0] = new WPN_Sword();
