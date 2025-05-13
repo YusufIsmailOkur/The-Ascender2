@@ -30,9 +30,18 @@ public class OBJ_Statue7 extends SuperObject{
     }
 
     public void interact(){
-        gp.gameState = gp.dialogueState;
-        StringBuilder sb = new StringBuilder();
-        sb.append("zljvuk");
-        gp.ui.currentDialogue = sb.toString();
+        if(!OBJ_TestDoorClosed.isChanged()){
+            gp.gameState = gp.dialogueState;
+            StringBuilder sb = new StringBuilder();
+            sb.append("zljvuk");
+            gp.ui.currentDialogue = sb.toString();
+        }
+        else{
+            gp.gameState = gp.dialogueState;
+            StringBuilder sb = new StringBuilder();
+            sb.append("ahg ljo tbhu ljou ubeosbr");
+            gp.ui.currentDialogue = sb.toString();
+
+        }
     }
 }

@@ -10,7 +10,9 @@ import mainn.KeyHandler;
 public class OBJ_TestDoorClosed extends SuperObject{
     String password;
     boolean opened;
-    
+    private static boolean changed = false;
+
+
     public OBJ_TestDoorClosed(String password){
 
         this.password = password;
@@ -53,7 +55,7 @@ public class OBJ_TestDoorClosed extends SuperObject{
             String input = JOptionPane.showInputDialog(null, "The door is locked. Enter the password:");
 
             if (input != null && input.trim().equalsIgnoreCase(password)) {
-                JOptionPane.showMessageDialog(null, "Correct password! The door opens.\n You heard something from statues.");
+                JOptionPane.showMessageDialog(null, "Correct password! The door opens.");
                 this.collision = false;
                 this.opened = true;
 
@@ -66,14 +68,15 @@ public class OBJ_TestDoorClosed extends SuperObject{
                 JOptionPane.showMessageDialog(null, "Incorrect password.");
             }
         }
-        //321 door
+        //athena door
         else if (password.equals("athena")){
             String input = JOptionPane.showInputDialog(null, "The door is locked. Enter the password:");
 
             if (input != null && input.trim().equalsIgnoreCase(password)) {
-                JOptionPane.showMessageDialog(null, "Correct password! The door opens.");
+                JOptionPane.showMessageDialog(null, "Correct password! The door opens.\nYou heard something from statues.");
                 this.collision = false;
                 this.opened = true;
+                setChanged(true);
 
                 try {
                     image = ImageIO.read(getClass().getResourceAsStream("/res/objects/testDoorOpened.png")); 
@@ -103,5 +106,13 @@ public class OBJ_TestDoorClosed extends SuperObject{
             }
         }
         
+    }
+
+    public static boolean isChanged() {
+        return changed;
+    }
+
+    public static void setChanged(boolean changed) {
+        OBJ_TestDoorClosed.changed = changed;
     }
 }

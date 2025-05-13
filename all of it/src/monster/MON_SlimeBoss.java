@@ -27,7 +27,7 @@ public class MON_SlimeBoss extends Entity{
         direction = "down";
         name = "Slime Boss";
         speed = 1;
-        maxHealth = 100;
+        maxHealth = 300;
         health = maxHealth;
         type = 2;
         isBoss = true;
@@ -119,7 +119,7 @@ public class MON_SlimeBoss extends Entity{
             }
         }
 
-        if(!isSpawned && health <= 50){
+        if(!isSpawned && health <= maxHealth / 2){
             Random rand = new Random();
             gp.monster[3][1] = new MON_GreenSlime(gp);
             gp.monster[3][1].x = gp.tileSize * rand.nextInt(18);
