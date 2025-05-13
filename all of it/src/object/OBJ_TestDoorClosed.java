@@ -5,6 +5,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
+import mainn.KeyHandler;
+
 public class OBJ_TestDoorClosed extends SuperObject{
     String password;
     boolean opened;
@@ -51,7 +53,7 @@ public class OBJ_TestDoorClosed extends SuperObject{
             String input = JOptionPane.showInputDialog(null, "The door is locked. Enter the password:");
 
             if (input != null && input.trim().equalsIgnoreCase(password)) {
-                JOptionPane.showMessageDialog(null, "Correct password! The door opens.");
+                JOptionPane.showMessageDialog(null, "Correct password! The door opens.\n You heard something from statues.");
                 this.collision = false;
                 this.opened = true;
 
@@ -65,7 +67,7 @@ public class OBJ_TestDoorClosed extends SuperObject{
             }
         }
         //321 door
-        else if (password.equals("321")){
+        else if (password.equals("athena")){
             String input = JOptionPane.showInputDialog(null, "The door is locked. Enter the password:");
 
             if (input != null && input.trim().equalsIgnoreCase(password)) {

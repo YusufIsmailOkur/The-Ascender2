@@ -11,6 +11,8 @@ public class KeyHandler implements KeyListener {
     int previousState = 0; //title state
     long timeStart;
     long timeEnd;
+    static boolean genocideMusic = false;
+
 
     public boolean upPressed, downPressed, leftPressed, rightPressed, fPressed, enterPressed, spacePressed, onePressed, twoPressed, threePressed;
     GamePanel gp;
@@ -272,11 +274,7 @@ public class KeyHandler implements KeyListener {
                 }
             } 
 
-        if (previousState != gp.gameState){ //if gameState changes by pressing a key, it changes the music
-            if (previousState == gp.titleState){ // if previousstate was titlestate
-                playMusicByState(gp.gameState);
-            }
-        }
+        avoidMusicRepeat();
     }
 
     @Override
@@ -320,15 +318,34 @@ public class KeyHandler implements KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
-    private void playMusicByState(int currentGameState){
+    public void avoidMusicRepeat(){
+        if (previousState != gp.gameState){ //if gameState changes by pressing a key, it changes the music
+            if (previousState == gp.titleState){ // if previousstate was titlestate
+                playMusic();
+            }
+            
+        }
+        if (gp.player.previousCurrentFloor != gp.player.currentFloor){
+            playMusic();
+            gp.player.previousCurrentFloor = gp.player.currentFloor;
+        }
+    }
+
+    public void playMusic(){
         stopMusic();
-        if (currentGameState == gp.titleState){
+        if (gp.gameState == gp.titleState){
             playMusic(0);
+        }
+        else if (gp.player.currentFloor == 1){
+            playMusic(3);
+        }
+        else if (gp.player.currentFloor == 4){
+            playMusic(2);
         }
         else{
             playMusic(1);
         }
-        previousState = currentGameState;
+        previousState = gp.gameState;
     }
     
     public void playMusic(int i){
@@ -345,5 +362,8 @@ public class KeyHandler implements KeyListener {
         gp.getSound().setFile(i);
         gp.getSound().play();
     }
-    
+        public static void setGenocideMusic(boolean genocideMusic) {
+        KeyHandler.genocideMusic = genocideMusic;
+    }
+
 }
