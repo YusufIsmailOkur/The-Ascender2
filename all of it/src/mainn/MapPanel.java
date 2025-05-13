@@ -13,6 +13,8 @@ public class MapPanel extends JPanel {
     public MapPanel(GamePanel gp) {
         this.gp = gp;
         this.setOpaque(false);
+        this.setFocusable(true); // Make it able to receive mouse input
+        this.requestFocusInWindow(); // Request focus when shown
         floorButtons = new Rectangle[floorCount];
         previews = new BufferedImage[floorCount];
 
@@ -22,17 +24,22 @@ public class MapPanel extends JPanel {
         }
 
         this.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent e) {
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent e) {
                 Point p = e.getPoint();
                 for (int i = 0; i < floorCount; i++) {
                     if (floorButtons[i].contains(p)) {
                         boolean unlocked = gp.player.discoveredFloors[i];
-                        // boolean valid = i % 4 == 0;
                         if (unlocked) {
                             gp.player.currentFloor = i;
+                            gp.tileM.loadMap("/res/maps/map" + (gp.player.currentFloor + 1) + ".txt");
+                            gp.player.x = 1 * gp.tileSize;
+                            gp.player.y = 7 * gp.tileSize;
                             gp.gameState = gp.playState;
                             gp.mapPanel.setVisible(false);
                             gp.requestFocusInWindow();
+                            gp.repaint();
+                            break;
                         }
                     }
                 }
@@ -51,21 +58,18 @@ public class MapPanel extends JPanel {
 
         for (int i = 0; i < floorButtons.length; i++) {
             boolean unlocked = gp.player.discoveredFloors[i];
-            // boolean valid = i % 4 == 0;
-
-            if (unlocked) g2.setColor(Color.GREEN);
-            else g2.setColor(Color.GRAY);   
-
+            g2.setColor(unlocked ? Color.GREEN : Color.GRAY);
             g2.fill(floorButtons[i]);
             g2.setColor(Color.BLACK);
             g2.drawRect(floorButtons[i].x, floorButtons[i].y, floorButtons[i].width, floorButtons[i].height);
-            g2.drawString("Floor " + (i+1) + (unlocked ? "[UNLOCKED]" : "[LOCKED]"), 
-            floorButtons[i].x + 10, floorButtons[i].y + 20);
+            g2.drawString("Floor " + (i + 1) + (unlocked ? "[UNLOCKED]" : "[LOCKED]"),
+                    floorButtons[i].x + 10, floorButtons[i].y + 20);
             g2.drawImage(previews[i], floorButtons[i].x + 200, floorButtons[i].y + 5, 40, 40, null);
         }
     }
 
     public void update() {
+        this.requestFocusInWindow(); // Request focus every update to ensure it gets input
         repaint();
     }
 

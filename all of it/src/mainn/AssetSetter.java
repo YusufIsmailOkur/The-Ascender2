@@ -40,9 +40,9 @@ public class AssetSetter {
         gp.obj[0][2].x = 10 * gp.tileSize;
         gp.obj[0][2].y = 7 * gp.tileSize;
 
-        gp.obj[0][3] = new OBJ_Chest(gp, "diamond sword");
-        gp.obj[0][3].x = 6 * gp.tileSize;
-        gp.obj[0][3].y = 7 * gp.tileSize;
+        gp.obj[0][4] = new OBJ_Chest(gp, "diamond sword");
+        gp.obj[0][4].x = 6 * gp.tileSize;
+        gp.obj[0][4].y = 7 * gp.tileSize;
 
         // gp.obj [0] [2] is set in player class
 
