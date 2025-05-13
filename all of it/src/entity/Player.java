@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import javax.imageio.ImageIO;
 
@@ -469,9 +468,9 @@ public class Player extends Entity{
             }
             gp.keyH.fPressed = false;
             if (i == 0 && gp.npc[currentFloor][i] instanceof NPC_OldMan && gp.npc[currentFloor][i].hasfinishedTalking){
-                gp.obj[currentFloor][2] = new OBJ_Key();
-                gp.obj[currentFloor][2].x = gp.npc[currentFloor][i].x + gp.tileSize;
-                gp.obj[currentFloor][2].y = gp.npc[currentFloor][i].y + gp.tileSize;
+                gp.obj[currentFloor][5] = new OBJ_Key();
+                gp.obj[currentFloor][5].x = gp.npc[currentFloor][i].x + gp.tileSize;
+                gp.obj[currentFloor][5].y = gp.npc[currentFloor][i].y + gp.tileSize;
             }
         }
         else if (gp.keyH.enterPressed == true){
