@@ -1,5 +1,7 @@
     package mainn;
 
+    import entity.Player;
+
     import javax.swing.*;
     import java.awt.*;
     import java.io.File;
@@ -30,29 +32,50 @@
         }
 
         public void getPlayerNameAndTimeAddToList() {
+            ArrayList<String> lines = new ArrayList<>();
             try (Scanner fileScanner = new Scanner(new File("names.txt"))) {
                 while (fileScanner.hasNextLine()) {
-                    if (fileScanner.nextLine().equals("Start")) {
-                        String name = fileScanner.nextLine();
-                        long time = 0;
-                        if (fileScanner.hasNextLine()){
-                            fileScanner.nextLine();
+                    lines.add(fileScanner.nextLine().trim());
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return;
+            }
+
+            for (int i = 0; i < lines.size(); i++) {
+                if ("Start".equals(lines.get(i))) {
+                    int endIdx = -1;
+                    for (int j = i + 1; j < lines.size(); j++) {
+                        if ("End".equals(lines.get(j))) {
+                            endIdx = j;
+                            break;
                         }
-                        if (fileScanner.hasNextLine()) {
-                            fileScanner.nextLine();
-                        }
-                        if (fileScanner.hasNextLine()) {
-                            time = Long.parseLong(fileScanner.nextLine());
+                    }
+
+                    if (endIdx == -1) {
+                        break;
+                    }
+
+                    ArrayList<String> block = new ArrayList<>(lines.subList(i + 1, endIdx));
+
+                    if (block.size() > 6 && "true".equals(block.get(5))) {
+                        String name = block.get(0);
+                        long time;
+                        try {
+                            time = Long.parseLong(block.get(3));
+                        } catch (NumberFormatException nfe) {
+                            i = endIdx;
+                            continue;
                         }
                         playerAndTimeList.add(new PlayerAndTime(name, time));
                     }
+                    i = endIdx;
                 }
-                playerAndTimeList = new ArrayList<>(playerAndTimeList);
-                sortBasedOnTime(playerAndTimeList);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             }
+
+            sortBasedOnTime(playerAndTimeList);
         }
+
 
         public void sortBasedOnTime(ArrayList<PlayerAndTime> arrList) {
             for(int i=1; i<arrList.size(); i++) {
@@ -90,6 +113,11 @@
                     y += 40;
                 }
             }
+            //Write user
+            g.drawString("You", frameX + 20,y+40);
+            long timeS = KeyHandler.timeStart;
+            String text2 = gp.player.name + ": " + (System.currentTimeMillis() - timeS);
+            g.drawString(text2.substring(0,text2.length()-3) + gp.player.totalTime,frameX,y +80);
         }
 
         static class PlayerAndTime {
