@@ -76,6 +76,8 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_I) {
                 gp.gameState = gp.inventoryState;
                 gp.inventory.refreshObjectsAndWeapons();
+                gp.inventory.refreshCraftButtons();
+                gp.inventory.refreshInteractButtons();
                 gp.inventory.setVisible(true);
             }
             if (code == KeyEvent.VK_F) {
@@ -168,6 +170,7 @@ public class KeyHandler implements KeyListener {
         // INVENTORY STATE
         else if (gp.gameState == gp.inventoryState) {
             if (code == KeyEvent.VK_I || code == KeyEvent.VK_ESCAPE) {
+                gp.inventory.refreshObjectsAndWeapons();
                 gp.gameState = gp.playState;
                 gp.inventory.setVisible(false);
             }
