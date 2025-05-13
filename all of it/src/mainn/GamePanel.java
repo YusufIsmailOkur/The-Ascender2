@@ -441,7 +441,7 @@ public class GamePanel extends JPanel implements Runnable{
                                 System.out.println("Unknown object: " + s);
                                 break;
                         }
-                        s= fileScanner.nextLine();
+                        s = fileScanner.nextLine();
                     }
                     player.weapons.clear();
                     String st = fileScanner.nextLine();

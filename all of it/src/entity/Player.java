@@ -27,7 +27,6 @@ public class Player extends Entity{
     int hasKey;
     public int mana = 2000;
     public final int MAX_MANA = 2000;
-    public boolean attacking = false;
     public boolean bowCooldown = false;
     public boolean fireballCooldown = false;
     public int fireballCooldownCount = 0;
@@ -35,7 +34,6 @@ public class Player extends Entity{
     public int maxInventorySize = 8;
     public ArrayList<SuperObject> objects = new ArrayList<>();
     public ArrayList<SuperWeapon> weapons = new ArrayList<>();
-    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
     public SuperWeapon currentWeapon;
     public WPN_Bow bow;
     public boolean[] discoveredFloors = new boolean[100];
@@ -53,6 +51,7 @@ public class Player extends Entity{
 
         super(gp); 
         this.keyH = keyH;
+        attacking = false;
 
         solidArea = new Rectangle();
         solidArea.x = 8;
