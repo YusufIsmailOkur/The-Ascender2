@@ -1,5 +1,7 @@
 package monster;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -11,9 +13,7 @@ import mainn.GamePanel;
 
 public class MON_Summoner extends Entity{
 
-    public int maxHealth;
     public Random rand = new Random();
-    public String name;
     public GamePanel gp;
     public Player player;
     public int usedFloor;
@@ -33,8 +33,8 @@ public class MON_Summoner extends Entity{
         this.usedFloor = usedFloor;
         damage = 1;
 
-        solidArea.x = 3;
-        solidArea.y = 18;
+        solidArea.x = 48;
+        solidArea.y = 64;
         solidArea.width = 42;
         solidArea.height = 30;
         solidAreaDefaultX = solidArea.x;
@@ -235,4 +235,43 @@ public class MON_Summoner extends Entity{
         }
 
     }
+    public void draw(Graphics2D g2){
+
+        BufferedImage image = null;
+        switch (direction){
+            case "up":
+            if(spriteNumber == 1){
+                image = up1;
+            }
+            if (spriteNumber == 2){
+                image = up2;
+            }
+            break;
+            case "down":
+            if(spriteNumber == 1){
+                image = down1;
+            }
+            if (spriteNumber == 2){
+                image = down2;
+            }
+            break;
+            case "left":
+            if(spriteNumber == 1){
+                image = left1;
+            }
+            if (spriteNumber == 2){
+                image = left2;
+            }
+            break;
+            case "right":
+            if(spriteNumber == 1){
+                image = right1;
+            }
+            if (spriteNumber == 2){
+                image = right2;
+            }
+            break;
+        }
+        g2.drawImage(image, x, y, gp.tileSize * 3, gp.tileSize * 3, null);
+        }
 }
