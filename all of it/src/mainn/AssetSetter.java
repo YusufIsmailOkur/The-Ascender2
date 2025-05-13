@@ -147,7 +147,6 @@ public class AssetSetter {
 
         gp.obj[2][2] = new OBJ_Key();
         gp.obj[2][2].x = 18 * gp.tileSize;  
-
         gp.obj[2][2].y = 2  * gp.tileSize;      
 
         //3    
@@ -309,6 +308,54 @@ public class AssetSetter {
 
 
 
+        gp.monster[6][0] = new MON_GreenSlime(gp);
+        gp.monster[6][0].x = 5 * gp.tileSize;
+        gp.monster[6][0].y = 5 * gp.tileSize;
+
+        gp.monster[6][1] = new MON_GreenSlime(gp);
+        gp.monster[6][1].x = 5 * gp.tileSize;
+        gp.monster[6][1].y = 8 * gp.tileSize;
+        
+        gp.monster[6][2] = new MON_GreenSlime(gp);
+        gp.monster[6][2].x = 5 * gp.tileSize;
+        gp.monster[6][2].y = 11 * gp.tileSize;
+
+        gp.monster[6][3] = new MON_Zombie(gp);
+        gp.monster[6][3].x = 7 * gp.tileSize;
+        gp.monster[6][3].y = 5 * gp.tileSize;
+    
+        gp.monster[6][4] = new MON_Zombie(gp);
+        gp.monster[6][4].x = 7 * gp.tileSize;
+        gp.monster[6][4].y = 8 * gp.tileSize;
+        
+        gp.monster[6][5] = new MON_Zombie(gp);
+        gp.monster[6][5].x = 7 * gp.tileSize;
+        gp.monster[6][5].y = 11 * gp.tileSize;
+
+        gp.monster[6][6] = new MON_Zombie(gp);
+        gp.monster[6][6].x = 7 * gp.tileSize;
+        gp.monster[6][6].y = 5 * gp.tileSize;
+    
+        gp.monster[6][7] = new MON_Zombie(gp);
+        gp.monster[6][7].x = 7 * gp.tileSize;
+        gp.monster[6][7].y = 8 * gp.tileSize;
+
+        gp.monster[6][8] = new MON_Zombie(gp);
+        gp.monster[6][8].x = 7 * gp.tileSize;
+        gp.monster[6][8].y = 11 * gp.tileSize;
+
+        gp.monster[6][9] = new MON_SkeletonArcher(gp);
+        gp.monster[6][9].x = 10 * gp.tileSize;
+        gp.monster[6][9].y = 5 * gp.tileSize;
+        
+        gp.monster[6][10] = new MON_SkeletonArcher(gp);
+        gp.monster[6][10].x = 10 * gp.tileSize;
+        gp.monster[6][10].y = 8 * gp.tileSize;
+
+        gp.monster[6][11] = new MON_SkeletonArcher(gp);
+        gp.monster[6][11].x = 10 * gp.tileSize;
+        gp.monster[6][11].y = 11 * gp.tileSize;
+        
     }
     public void setWeapon(){
         // gp.weapon[0] = new WPN_Sword();

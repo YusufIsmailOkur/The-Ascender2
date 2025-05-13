@@ -18,7 +18,8 @@ public class Sound {
     public Sound() {
         soundURL[0] = getClass().getResource("/res/sound/titleMusic.wav");
         soundURL[1] = getClass().getResource("/res/sound/inGameMusic.wav");
-        soundURL[2] = getClass().getResource("/res/sound/BossFightMusic.wav");
+        soundURL[2] = getClass().getResource("/res/sound/bossMusic.wav");
+        soundURL[3] = getClass().getResource("/res/sound/genocide.wav");
     }
 
     public void setFile(int i) {
@@ -49,5 +50,4 @@ public class Sound {
             gainControl.setValue(value * 10.0f - 80.0f);
         }
     }
-
 }

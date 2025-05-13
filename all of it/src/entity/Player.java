@@ -36,8 +36,9 @@ public class Player extends Entity{
     public ArrayList<SuperWeapon> weapons = new ArrayList<>();
     public SuperWeapon currentWeapon;
     public WPN_Bow bow;
-    public boolean[] discoveredFloors = new boolean[100];
+    public boolean[] discoveredFloors = new boolean[10];
     public boolean tookKeyFromNPC = false;
+    public int previousCurrentFloor = -1;
 
 
 
@@ -377,9 +378,18 @@ public class Player extends Entity{
                     gp.obj[currentFloor][i] = new OBJ_OpenedElevator();
                     gp.obj[currentFloor][i].x = xs;
                     gp.obj[currentFloor][i].y = ys;
+                     
+                    for(SuperObject obj : objects){
+                        if(obj.name.equals("key")){
+                            objects.remove(obj);
+                            break;
+                        }
+                    }
 
                     discoveredFloors[currentFloor+1] = true;
                     currentFloor++;
+                    gp.keyH.avoidMusicRepeat();
+
                     gp.tileM.loadMap("/res/maps/map" + (currentFloor+1) + ".txt");
                     x = 1*gp.tileSize;
                     y = 7*gp.tileSize;
@@ -390,6 +400,7 @@ public class Player extends Entity{
                 case "openedelevator":
                 discoveredFloors[currentFloor+1] = true;
                 currentFloor++;
+                gp.keyH.avoidMusicRepeat();
                 gp.tileM.loadMap("/res/maps/map" + (currentFloor+1) + ".txt");
                 x = 1*gp.tileSize;
                 y = 7*gp.tileSize;
