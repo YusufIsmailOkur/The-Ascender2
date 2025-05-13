@@ -113,11 +113,13 @@
                     y += 40;
                 }
             }
-            //Write user
-            g.drawString("You", frameX + 20,y+40);
-            long timeS = KeyHandler.timeStart;
-            String text2 = gp.player.name + ": " + (System.currentTimeMillis() - timeS);
-            g.drawString(text2.substring(0,text2.length()-3) + gp.player.totalTime,frameX,y +80);
+                if(gp.player.name != null){
+                    //Write user
+                    g.drawString("You", frameX + 20,y+40);
+                    long timeS = KeyHandler.timeStart;
+                    String text2 = gp.player.name + ": " + (System.currentTimeMillis() - timeS);
+                    g.drawString(text2.substring(0,text2.length()-3) + gp.player.totalTime,frameX,y +80);
+                }
         }
 
         static class PlayerAndTime {
