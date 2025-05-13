@@ -158,14 +158,14 @@ public class Inventory extends JPanel implements ActionListener {
                 for(SuperObject obj : gp.player.objects)
                 {
                     if (obj.name.equals("compass")){
-                        gp.player.remove(obj);
+                        gp.player.objects.remove(obj);
                         break;
                     }
                 }
                 for(SuperObject obj : gp.player.objects)
                 {
                     if (obj.name.equals("screwdriver")){
-                        gp.player.remove(obj);
+                        gp.player.objects.remove(obj);
                         break;
                     }
                 }
@@ -177,14 +177,14 @@ public class Inventory extends JPanel implements ActionListener {
                 for(SuperObject obj : gp.player.objects)
                 {
                     if (obj.name.equals("letter")){
-                        gp.player.remove(obj);
+                        gp.player.objects.remove(obj);
                         break;
                     }
                 }
                 for(SuperObject obj : gp.player.objects)
                 {
                     if (obj.name.equals("light")){
-                        gp.player.remove(obj);
+                        gp.player.objects.remove(obj);
                         break;
                     }
                 }
