@@ -17,10 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import object.OBJ_Compass;
-import object.OBJ_Letter;
-import object.OBJ_LightedLetter;
-import object.SuperObject;
+import object.*;
 import weapon.SuperWeapon;
 
 public class Inventory extends JPanel implements ActionListener {
@@ -46,6 +43,7 @@ public class Inventory extends JPanel implements ActionListener {
     private SuperObject first, second;
     private boolean firstSelected = true;
     private boolean secondSelected = false;
+    private JButton useButton;
 
     public Inventory(GamePanel gp) {
         this.gp = gp;
@@ -160,6 +158,45 @@ public class Inventory extends JPanel implements ActionListener {
                 secondSelected = false;
                 gp.player.objects.add(new OBJ_LightedLetter());
             }
+        }
+        else if (e.getSource()==useButton) {
+            if(gp.player.health <= 10){
+                gp.player.health += 10;
+                JOptionPane.showMessageDialog(this,
+                        "You used a health potion.\nYou restored 10 health!",
+                        "Item Used",
+                        JOptionPane.INFORMATION_MESSAGE);
+                for(SuperObject obj : gp.player.objects)
+                {
+                    if (obj.name.equals("Health Potion")){
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
+            }
+            else if (gp.player.health==20){
+                gp.player.health = 20;
+                JOptionPane.showMessageDialog(this,
+                        "You can not use health potion.\nYour health is maxed out!",
+                        "Item Used",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+            else
+            {
+                gp.player.health =20;
+                JOptionPane.showMessageDialog(this,
+                        "You used a health potion.\nYou restored 10 health!",
+                        "Item Used",
+                        JOptionPane.INFORMATION_MESSAGE);
+                for(SuperObject obj : gp.player.objects)
+                {
+                    if (obj.name.equals("Health Potion")){
+                        gp.player.objects.remove(obj);
+                        break;
+                    }
+                }
+            }
+            repaint();
         }
         else if (interactButtons.contains(e.getSource())){
             interactableMap.get(e.getSource()).interact();
@@ -370,13 +407,13 @@ public class Inventory extends JPanel implements ActionListener {
             int x = slotsStartX + col * (slotSize + slotGap);
             int y = slotsStartY + row * (slotSize + slotGap) + slotSize + 5; //place button
 
-            JButton button = new JButton("Use");
-            button.setFont(new Font("Arial", Font.PLAIN, 12));
-            button.setBounds(x, y, 60, 20);
-            button.addActionListener(this);
-            interactableMap.put(button, obj);
-            interactButtons.add(button);
-            add(button);
+            useButton = new JButton("Use");
+            useButton.setFont(new Font("Arial", Font.PLAIN, 12));
+            useButton.setBounds(x, y, 60, 20);
+            useButton.addActionListener(this);
+            interactableMap.put(useButton, obj);
+            interactButtons.add(useButton);
+            add(useButton);
         }
         idx++;
     }
