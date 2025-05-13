@@ -194,6 +194,8 @@ public class Inventory extends JPanel implements ActionListener {
                 JOptionPane.showMessageDialog(this,"This items can not merged");
                 firstSelected = false;
                 secondSelected = false;
+                first = null;
+                second = null;
             }
         } else if (e.getSource() == useButton) {
             if (gp.player.health <= 10) {
@@ -336,6 +338,7 @@ public class Inventory extends JPanel implements ActionListener {
         g2.drawString("WEAPONS", frameX + 20, weaponsY - 10);
         drawSlots(g2, displayWeapons, weaponsY);
 
+
         //Highlight craftable objects!!!!!!!!!!!Might NOT work properly
         if (craftMode) {
             g2.setColor(Color.YELLOW);
@@ -440,4 +443,14 @@ public class Inventory extends JPanel implements ActionListener {
         revalidate();
         repaint();
     }
+    public void refreshObjectsAndWeapons() {
+        allObjects = gp.player.objects;
+        allWeapons = gp.player.weapons;
+        displayObjects.clear();
+        displayWeapons.clear();
+        displayObjects.addAll(allObjects);
+        displayWeapons.addAll(allWeapons);
+        applyFilters();
+    }
 }
+
