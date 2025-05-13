@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 public class MapPanel extends JPanel {
     GamePanel gp;
     Rectangle[] floorButtons;
-    int floorCount = 10;
+    int floorCount = 18;
     BufferedImage[] previews;
 
     public MapPanel(GamePanel gp) {
@@ -20,8 +20,12 @@ public class MapPanel extends JPanel {
         previews = new BufferedImage[floorCount];
 
         for (int i = 0; i < floorCount; i++) {
-            floorButtons[i] = new Rectangle(100, 100 + i * 60, 300, 50);
-            previews[i] = generatePreviewImage(i);
+            if (i > 9) {
+                floorButtons[i] = new Rectangle(250 , 100 + i % 10 * 60, 120, 50);
+            }
+            else{
+                floorButtons[i] = new Rectangle(100 , 100 + i * 60, 120, 50);
+            }
         }
 
         this.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -31,7 +35,7 @@ public class MapPanel extends JPanel {
                 for (int i = 0; i < floorCount; i++) {
                     if (floorButtons[i].contains(p)) {
                         boolean unlocked = gp.player.discoveredFloors[i];
-                        if (true) {
+                        if (unlocked) {
                             gp.player.currentFloor = i;
                             gp.tileM.loadMap("/res/maps/map" + (gp.player.currentFloor + 1) + ".txt");
                             gp.player.x = 1 * gp.tileSize;
@@ -77,8 +81,7 @@ public class MapPanel extends JPanel {
             g2.fill(floorButtons[i]);
             g2.setColor(Color.BLACK);
             g2.drawRect(floorButtons[i].x, floorButtons[i].y, floorButtons[i].width, floorButtons[i].height);
-            g2.drawString("Floor " + (i + 1) + (unlocked ? "[UNLOCKED]" : "[LOCKED]"),
-                    floorButtons[i].x + 10, floorButtons[i].y + 20);
+            g2.drawString("Floor " + (i + 1), floorButtons[i].x + 10, floorButtons[i].y + 20);
             g2.drawImage(previews[i], floorButtons[i].x + 200, floorButtons[i].y + 5, 40, 40, null);
         }
     }

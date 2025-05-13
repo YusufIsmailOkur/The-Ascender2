@@ -25,8 +25,8 @@ public class Player extends Entity{
     int standCounter = 0;
     public long totalTime;
     int hasKey;
-    public int mana = 2000;
-    public final int MAX_MANA = 2000;
+    public int mana = 3000;
+    public final int MAX_MANA = 3000;
     public boolean bowCooldown = false;
     public boolean fireballCooldown = false;
     public int fireballCooldownCount = 0;
@@ -36,7 +36,7 @@ public class Player extends Entity{
     public ArrayList<SuperWeapon> weapons = new ArrayList<>();
     public SuperWeapon currentWeapon;
     public WPN_Bow bow;
-    public boolean[] discoveredFloors = new boolean[10];
+    public boolean[] discoveredFloors = new boolean[18];
     public boolean tookKeyFromNPC = false;
     public int previousCurrentFloor = -1;
 
@@ -46,6 +46,7 @@ public class Player extends Entity{
 
 
     public String name;
+    public boolean finishedGame;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -62,6 +63,7 @@ public class Player extends Entity{
         solidArea.width = 32;
         solidArea.height = 30;
 
+        finishedGame = false;
         health = 20;
         maxHealth = 20;
 
@@ -174,7 +176,7 @@ public class Player extends Entity{
         }
 
         if(keyH.spacePressed == true && mana > 100 && !fireballCooldown){
-            mana -= 400;
+            mana -= 600;
             fireballCooldown = true;
             fireball();
         }
