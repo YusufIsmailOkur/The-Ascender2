@@ -169,6 +169,10 @@ public class Inventory extends JPanel implements ActionListener {
                         break;
                     }
                 }
+                refreshObjectsAndWeapons();
+                refreshCraftButtons();
+                refreshInteractButtons();
+                craftMode=false;
             } else if (first.name.equals("letter") && second.name.equals("light") || first.name.equals("light") && second.name.equals("letter")) {
                 JOptionPane.showMessageDialog(this, "Crafted: Letter with lighted letter, Lighted letter crafted");
                 firstSelected = false;
@@ -210,6 +214,7 @@ public class Inventory extends JPanel implements ActionListener {
                         break;
                     }
                 }
+
             } else if (gp.player.health == 20) {
                 gp.player.health = 20;
                 JOptionPane.showMessageDialog(this,
@@ -229,6 +234,9 @@ public class Inventory extends JPanel implements ActionListener {
                     }
                 }
             }
+            refreshObjectsAndWeapons();
+            refreshInteractButtons();
+            refreshCraftButtons();
             repaint();
         } else if (interactButtons.contains(e.getSource())) {
             interactableMap.get(e.getSource()).interact();
@@ -398,7 +406,7 @@ public class Inventory extends JPanel implements ActionListener {
     //         }
     // }
 
-    private void refreshInteractButtons() {
+    public void refreshInteractButtons() {
         //clearing old buttons
         for (JButton btn : interactButtons) {
             remove(btn);

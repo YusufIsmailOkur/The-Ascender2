@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public SuperObject obj[][] = new SuperObject[10][20];
     public Entity npc[][] = new Entity[10][10];
-    public Entity monster[][] = new Entity[10][10];
+    public Entity monster[][] = new Entity[10][50];
     public ArrayList <Entity> projectiles = new ArrayList<>();
     public SuperWeapon[] weapon = new SuperWeapon[10];
     public String[] allObjects = {"Arrow","boots","chest","key","door","elevator","Fireball", "compass", "letter", "screwdriver"};//Should updated for every new object
@@ -164,6 +164,7 @@ public class GamePanel extends JPanel implements Runnable{
                 if (monster[currentFloor][i] != null) {
                     monster[currentFloor][i].update();
                 }
+                
             }
             for (int i = 0; i < projectiles.size(); i++) {
                 if (projectiles.get(i) != null) {
