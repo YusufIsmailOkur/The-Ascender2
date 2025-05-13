@@ -191,7 +191,7 @@ public class Inventory extends JPanel implements ActionListener {
             }
             else
             {
-                JOptionPane("This items can not merged");
+                JOptionPane.showMessageDialog("This items can not merged");
                 firstSelected = false;
                 secondSelected = false;
             }
