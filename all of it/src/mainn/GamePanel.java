@@ -373,7 +373,7 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
             lines.add(++startIndex, String.valueOf(count));
-            for(int i=0;i<10;i++){
+            for(int i=0;i<18;i++){
                 lines.add(++startIndex, String.valueOf(player.discoveredFloors[i]));
             }
             lines.add(++startIndex, "Obj");
@@ -409,7 +409,7 @@ public class GamePanel extends JPanel implements Runnable{
                     player.health=health;
                     player.totalTime =Long.parseLong(fileScanner.nextLine());
                     int arrowCount = (Integer.parseInt(fileScanner.nextLine()));
-                    for(int i =0; i<10;i++){
+                    for(int i =0; i<18;i++){
                         String s = fileScanner.nextLine();
                         if (s.equals("true")){
                             player.discoveredFloors[i]=true;

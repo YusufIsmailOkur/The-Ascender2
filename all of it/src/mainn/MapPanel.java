@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 public class MapPanel extends JPanel {
     GamePanel gp;
     Rectangle[] floorButtons;
-    int floorCount = 10;
+    int floorCount = 18;
     BufferedImage[] previews;
 
     public MapPanel(GamePanel gp) {
@@ -20,8 +20,12 @@ public class MapPanel extends JPanel {
         previews = new BufferedImage[floorCount];
 
         for (int i = 0; i < floorCount; i++) {
-            floorButtons[i] = new Rectangle(100, 100 + i * 60, 300, 50);
-            previews[i] = generatePreviewImage(i);
+            if (i > 9) {
+                floorButtons[i] = new Rectangle(250, 100 + i%10 * 60, 120, 50);
+            }
+            else{
+                floorButtons[i] = new Rectangle(100, 100 + i * 60, 120, 50);
+            }
         }
 
         this.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -77,8 +81,7 @@ public class MapPanel extends JPanel {
             g2.fill(floorButtons[i]);
             g2.setColor(Color.BLACK);
             g2.drawRect(floorButtons[i].x, floorButtons[i].y, floorButtons[i].width, floorButtons[i].height);
-            g2.drawString("Floor " + (i + 1) + (unlocked ? "[UNLOCKED]" : "[LOCKED]"),
-                    floorButtons[i].x + 10, floorButtons[i].y + 20);
+            g2.drawString("Floor " + (i + 1), floorButtons[i].x + 10, floorButtons[i].y + 20);
             g2.drawImage(previews[i], floorButtons[i].x + 200, floorButtons[i].y + 5, 40, 40, null);
         }
     }
@@ -86,16 +89,5 @@ public class MapPanel extends JPanel {
     public void update() {
         this.requestFocusInWindow(); // Request focus every update to ensure it gets input
         repaint();
-    }
-
-    private BufferedImage generatePreviewImage(int floorIndex) {
-        BufferedImage img = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = img.createGraphics();
-        g2.setColor(new Color(50 + (floorIndex * 20 % 200), 100, 150));
-        g2.fillRect(0, 0, 40, 40);
-        g2.setColor(Color.WHITE);
-        g2.drawString(String.valueOf(floorIndex), 10, 25);
-        g2.dispose();
-        return img;
     }
 }

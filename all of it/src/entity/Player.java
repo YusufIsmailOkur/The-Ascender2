@@ -36,7 +36,7 @@ public class Player extends Entity{
     public ArrayList<SuperWeapon> weapons = new ArrayList<>();
     public SuperWeapon currentWeapon;
     public WPN_Bow bow;
-    public boolean[] discoveredFloors = new boolean[10];
+    public boolean[] discoveredFloors = new boolean[18];
     public boolean tookKeyFromNPC = false;
     public int previousCurrentFloor = -1;
 
