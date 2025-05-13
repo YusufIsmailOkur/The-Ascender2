@@ -413,9 +413,33 @@ public class Player extends Entity{
                 case "closedelevator":
                 
                 break;
+
+                case "keyelevator":
+                boolean continueIf = true;
+                for(int f = 0; f < gp.monster[gp.player.currentFloor].length && continueIf; f++){
+                    if(gp.monster[gp.player.currentFloor][f] != null){
+                        continueIf = false;
+                    }
+                }
+                if(continueIf){
+                    int xs = gp.obj[currentFloor][i].x;
+                    int ys = gp.obj[currentFloor][i].y;
+                    gp.obj[currentFloor][i] = null;
+                    gp.obj[currentFloor][i] = new OBJ_OpenedElevator();
+                    gp.obj[currentFloor][i].x = xs;
+                    gp.obj[currentFloor][i].y = ys;
+                }
+                else{
+                    gp.gameState = gp.dialogueState;
+                    gp.ui.currentDialogue = "There are still monsters nearby!";
+                }
+                break;
+            }
+
+
             }
         }
-    }
+
 
     public void meleeAttackAnimation(){
 

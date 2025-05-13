@@ -192,9 +192,9 @@ public class MON_Summoner extends Entity{
             phases[6] = true;
         }
         else if(health <= 100&& phases[7] == false){
-            gp.monster[usedFloor][33] = new MON_SlimeBoss(gp);
-            gp.monster[usedFloor][33].x = gp.tileSize * rand.nextInt(2,18);
-            gp.monster[usedFloor][33].y = gp.tileSize * rand.nextInt(2,12);
+            // gp.monster[usedFloor][33] = new MON_SlimeBoss(gp);
+            // gp.monster[usedFloor][33].x = gp.tileSize * rand.nextInt(2,18);
+            // gp.monster[usedFloor][33].y = gp.tileSize * rand.nextInt(2,12);
             gp.monster[usedFloor][34] = new MON_GreenSlime(gp);
             gp.monster[usedFloor][34].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][34].y = gp.tileSize * rand.nextInt(2,12);
@@ -214,9 +214,9 @@ public class MON_Summoner extends Entity{
             gp.monster[usedFloor][38] = new MON_Zombie(gp);
             gp.monster[usedFloor][38].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][38].y = gp.tileSize * rand.nextInt(2,12);
-            gp.monster[usedFloor][39] = new MON_ZombieBoss(gp);
-            gp.monster[usedFloor][39].x = gp.tileSize * rand.nextInt(2,18);
-            gp.monster[usedFloor][39].y = gp.tileSize * rand.nextInt(2,12);
+            // gp.monster[usedFloor][39] = new MON_ZombieBoss(gp);
+            // gp.monster[usedFloor][39].x = gp.tileSize * rand.nextInt(2,18);
+            // gp.monster[usedFloor][39].y = gp.tileSize * rand.nextInt(2,12);
 
             phases[8] = true;
         }
@@ -227,9 +227,9 @@ public class MON_Summoner extends Entity{
             gp.monster[usedFloor][41] = new MON_SkeletonArcher(gp);
             gp.monster[usedFloor][41].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][41].y = gp.tileSize * rand.nextInt(2,12);
-            gp.monster[usedFloor][42] = new MON_SkeletonArcherBoss(gp);
-            gp.monster[usedFloor][42].x = gp.tileSize * rand.nextInt(2,18);
-            gp.monster[usedFloor][42].y = gp.tileSize * rand.nextInt(2,12);
+            // gp.monster[usedFloor][42] = new MON_SkeletonArcherBoss(gp);
+            // gp.monster[usedFloor][42].x = gp.tileSize * rand.nextInt(2,18);
+            // gp.monster[usedFloor][42].y = gp.tileSize * rand.nextInt(2,12);
 
             phases[9] = true;
         }
