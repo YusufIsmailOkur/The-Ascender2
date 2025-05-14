@@ -45,7 +45,7 @@ public class Player extends Entity{
 
 
     public String name;
-    public boolean finishedGame = true;
+    public boolean finishedGame = false;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -307,6 +307,7 @@ public class Player extends Entity{
                 }
                 if (continueIfa){
                     gp.gameState = gp.endStoryState;
+                    finishedGame = true;
                 }else{
                     gp.gameState = gp.dialogueState;
                     gp.ui.currentDialogue = "There are still monsters nearby!";
