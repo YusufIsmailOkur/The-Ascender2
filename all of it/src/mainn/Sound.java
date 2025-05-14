@@ -21,6 +21,10 @@ public class Sound {
         soundURL[2] = getClass().getResource("/res/sound/bossMusic.wav");
         soundURL[3] = getClass().getResource("/res/sound/genocide.wav");
         soundURL[4] = getClass().getResource("/res/sound/pillarMen.wav");
+        soundURL[5] = getClass().getResource("/res/sound/battleagaints.wav");
+        soundURL[6] = getClass().getResource("/res/sound/bonetrousle.wav");
+        soundURL[7] = getClass().getResource("/res/sound/finale.wav");
+
 
     }
 

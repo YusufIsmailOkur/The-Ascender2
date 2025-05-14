@@ -338,7 +338,16 @@ public class KeyHandler implements KeyListener {
             playMusic(3);
         }
         else if (gp.player.currentFloor == 4){
+            playMusic(5);
+        }
+        else if (gp.player.currentFloor == 12){
+            playMusic(6);
+        }
+                else if (gp.player.currentFloor == 8){
             playMusic(2);
+        }
+        else if (gp.player.currentFloor == 17){
+            playMusic(7);
         }
         else if (gp.player.currentFloor == 15){
             playMusic(4);
