@@ -89,7 +89,17 @@ public class AssetSetter {
        gp.obj[5][2].x = 18 * gp.tileSize;  
        gp.obj[5][2].y = 2  * gp.tileSize; 
 
+       gp.obj[5][2] = new OBJ_Chest(gp, "10");
+       gp.obj[5][2].x = 8 * gp.tileSize;
+       gp.obj[5][2].y = 9 * gp.tileSize;
 
+       gp.obj[5][3] = new OBJ_Chest(gp, "health potion");
+       gp.obj[5][3].x = 18 * gp.tileSize;
+       gp.obj[5][3].y = 13 * gp.tileSize;
+
+       gp.obj[5][4] = new OBJ_Chest(gp, "health potion");
+       gp.obj[5][4].x = 1 * gp.tileSize;
+       gp.obj[5][4].y = 1 * gp.tileSize;
 
        //6
         gp.obj[6][0] = new OBJ_KeyElevator();
@@ -99,18 +109,7 @@ public class AssetSetter {
         gp.obj[6][1] = new OBJ_ClosedElevator();
         gp.obj[6][1].x = 0 * gp.tileSize;
         gp.obj[6][1].y = 7 * gp.tileSize;
-       
-        gp.obj[6][2] = new OBJ_Chest(gp, "10");
-        gp.obj[6][2].x = 8 * gp.tileSize;
-        gp.obj[6][2].y = 9 * gp.tileSize;
-
-        gp.obj[6][3] = new OBJ_Chest(gp, "health potion");
-        gp.obj[6][3].x = 18 * gp.tileSize;
-        gp.obj[6][3].y = 13 * gp.tileSize;
-
-        gp.obj[6][4] = new OBJ_Chest(gp, "health potion");
-        gp.obj[6][4].x = 1 * gp.tileSize;
-        gp.obj[6][4].y = 1 * gp.tileSize;
+    
        
        //7
         gp.obj[7][0] = new OBJ_ClosedElevator();
