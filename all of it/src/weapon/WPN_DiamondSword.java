@@ -8,7 +8,7 @@ public class WPN_DiamondSword extends SuperWeapon {
     public WPN_DiamondSword() {
 
         name = "Diamond Sword";
-        attackValue = 8;
+        attackValue = 7;
         collision = true;
         solidArea.x = 0;
         solidArea.y = 0;

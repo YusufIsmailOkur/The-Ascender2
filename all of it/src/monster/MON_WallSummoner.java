@@ -25,7 +25,7 @@ public class MON_WallSummoner extends Entity {
         direction = "down";
         this.name = "Wamuu";
         this.speed = 0;
-        this.maxHealth = 180;
+        this.maxHealth = 250;
         this.health = maxHealth;
         this.type = 2;
         this.isBoss = true;
@@ -114,8 +114,9 @@ public class MON_WallSummoner extends Entity {
                 for (int dx = 0; dx < 3; dx++) {
                     for (int dy = 0; dy < 3; dy++) {
                         if (px == targetTileX + dx && py == targetTileY + dy && !gp.player.invincibility) {
-                            gp.player.health -= 5;
+                            gp.player.health -= 6;
                             gp.player.invincibility = true;
+                            health+=50;
                         }
                     }
                 }
