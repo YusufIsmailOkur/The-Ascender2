@@ -71,8 +71,8 @@ public class MON_WallSummoner extends Entity {
             targetTileX = gp.player.x / gp.tileSize;
             targetTileY = gp.player.y / gp.tileSize;
 
-            for (int dx = 0; dx < 3; dx++) {
-                for (int dy = 0; dy < 3; dy++) {
+            for (int dx = 0; dx < 4; dx++) {
+                for (int dy = 0; dy < 4; dy++) {
                     int x = targetTileX + dx;
                     int y = targetTileY + dy;
                     if (isSafeToReplace(x, y)) {
@@ -88,8 +88,8 @@ public class MON_WallSummoner extends Entity {
         if (preparingWall) {
             prepareCounter++;
             if (prepareCounter > 60) {
-                for (int dx = 0; dx < 3; dx++) {
-                    for (int dy = 0; dy < 3; dy++) {
+                for (int dx = 0; dx < 4; dx++) {
+                    for (int dy = 0; dy < 4; dy++) {
                         int x = prevTileX + dx;
                         int y = prevTileY + dy;
                         if (isSafeToReplace(x, y)) {
@@ -98,8 +98,8 @@ public class MON_WallSummoner extends Entity {
                     }
                 }
 
-                for (int dx = 0; dx < 3; dx++) {
-                    for (int dy = 0; dy < 3; dy++) {
+                for (int dx = 0; dx < 4; dx++) {
+                    for (int dy = 0; dy < 4; dy++) {
                         int x = targetTileX + dx;
                         int y = targetTileY + dy;
                         if (isSafeToReplace(x, y)) {
@@ -111,8 +111,8 @@ public class MON_WallSummoner extends Entity {
                 // Damage player if inside lava
                 int px = gp.player.x / gp.tileSize;
                 int py = gp.player.y / gp.tileSize;
-                for (int dx = 0; dx < 3; dx++) {
-                    for (int dy = 0; dy < 3; dy++) {
+                for (int dx = 0; dx < 4; dx++) {
+                    for (int dy = 0; dy < 4; dy++) {
                         if (px == targetTileX + dx && py == targetTileY + dy && !gp.player.invincibility) {
                             gp.player.health -= 6;
                             gp.player.invincibility = true;
@@ -132,6 +132,10 @@ public class MON_WallSummoner extends Entity {
 
         if (summonCooldown > 0) {
             summonCooldown--;
+        }
+
+        if(health <= 0){
+            gp.tileM.loadMap("/res/maps/map16.txt");
         }
     }
 
