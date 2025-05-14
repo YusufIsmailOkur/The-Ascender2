@@ -501,18 +501,22 @@ public class AssetSetter {
         gp.monster[13][0] = new MON_GreenSlime(gp);
         gp.monster[13][0].x = 4*gp.tileSize;
         gp.monster[13][0].y = 7 * gp.tileSize;
+        
         gp.monster[13][1] = new MON_GreenSlime(gp);
         gp.monster[13][1].x = 4*gp.tileSize;
         gp.monster[13][1].y = 12 * gp.tileSize;
+
         gp.monster[13][2] = new MON_Zombie(gp);
         gp.monster[13][2].x = 8*gp.tileSize;
         gp.monster[13][2].y = 10 * gp.tileSize;
+
         gp.monster[13][3] = new MON_Zombie(gp);
         gp.monster[13][3].x = 10*gp.tileSize;
         gp.monster[13][3].y = 10 * gp.tileSize;
+
         gp.monster[13][4] = new MON_SkeletonArcher(gp);
-        gp.monster[13][3].x = 14 * gp.tileSize;
-        gp.monster[13][3].y = 10 * gp.tileSize;
+        gp.monster[13][4].x = 14 * gp.tileSize;
+        gp.monster[13][4].y = 10 * gp.tileSize;
 
         //14 preperation room
 
