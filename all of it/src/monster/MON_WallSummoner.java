@@ -132,6 +132,10 @@ public class MON_WallSummoner extends Entity {
         if (summonCooldown > 0) {
             summonCooldown--;
         }
+
+        if(health <= 0){
+            gp.tileM.loadMap("/res/maps/map16.txt");
+        }
     }
 
     public void draw(Graphics2D g2) {
