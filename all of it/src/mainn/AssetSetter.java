@@ -67,6 +67,7 @@ public class AssetSetter {
         gp.obj[3][3].y = 7 * gp.tileSize;
 
 
+        //4
         gp.obj[4][0] = new OBJ_ClosedElevator();
         gp.obj[4][0].x = 0 * gp.tileSize;
         gp.obj[4][0].y = 7 * gp.tileSize;
@@ -89,9 +90,9 @@ public class AssetSetter {
        gp.obj[5][2].x = 18 * gp.tileSize;  
        gp.obj[5][2].y = 2  * gp.tileSize; 
 
-       gp.obj[5][2] = new OBJ_Chest(gp, "10");
-       gp.obj[5][2].x = 8 * gp.tileSize;
-       gp.obj[5][2].y = 9 * gp.tileSize;
+       gp.obj[5][5] = new OBJ_Chest(gp, "10");
+       gp.obj[5][5].x = 8 * gp.tileSize;
+       gp.obj[5][5].y = 9 * gp.tileSize;
 
        gp.obj[5][3] = new OBJ_Chest(gp, "health potion");
        gp.obj[5][3].x = 18 * gp.tileSize;

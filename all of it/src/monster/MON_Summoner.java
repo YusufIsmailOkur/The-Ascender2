@@ -192,44 +192,56 @@ public class MON_Summoner extends Entity{
             phases[6] = true;
         }
         else if(health <= 60&& phases[7] == false){
-            // gp.monster[usedFloor][33] = new MON_SlimeBoss(gp);
-            // gp.monster[usedFloor][33].x = gp.tileSize * rand.nextInt(2,18);
-            // gp.monster[usedFloor][33].y = gp.tileSize * rand.nextInt(2,12);
+            gp.monster[usedFloor][33] = new MON_GreenSlime(gp);
+            gp.monster[usedFloor][33].x = gp.tileSize * rand.nextInt(2,18);
+            gp.monster[usedFloor][33].y = gp.tileSize * rand.nextInt(2,12);
             gp.monster[usedFloor][34] = new MON_GreenSlime(gp);
             gp.monster[usedFloor][34].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][34].y = gp.tileSize * rand.nextInt(2,12);
             gp.monster[usedFloor][35] = new MON_GreenSlime(gp);
             gp.monster[usedFloor][35].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][35].y = gp.tileSize * rand.nextInt(2,12);
+            gp.monster[usedFloor][36] = new MON_Zombie(gp);
+            gp.monster[usedFloor][36].x = gp.tileSize * rand.nextInt(2,18);
+            gp.monster[usedFloor][36].y = gp.tileSize * rand.nextInt(2,12);
 
             phases[7] = true;
         }
         else if(health <= 30&& phases[8] == false){
-            gp.monster[usedFloor][36] = new MON_Zombie(gp);
-            gp.monster[usedFloor][36].x = gp.tileSize * rand.nextInt(2,18);
-            gp.monster[usedFloor][36].y = gp.tileSize * rand.nextInt(2,12);
             gp.monster[usedFloor][37] = new MON_Zombie(gp);
             gp.monster[usedFloor][37].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][37].y = gp.tileSize * rand.nextInt(2,12);
             gp.monster[usedFloor][38] = new MON_Zombie(gp);
             gp.monster[usedFloor][38].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][38].y = gp.tileSize * rand.nextInt(2,12);
-            // gp.monster[usedFloor][39] = new MON_ZombieBoss(gp);
-            // gp.monster[usedFloor][39].x = gp.tileSize * rand.nextInt(2,18);
-            // gp.monster[usedFloor][39].y = gp.tileSize * rand.nextInt(2,12);
+            gp.monster[usedFloor][39] = new MON_Zombie(gp);
+            gp.monster[usedFloor][39].x = gp.tileSize * rand.nextInt(2,18);
+            gp.monster[usedFloor][39].y = gp.tileSize * rand.nextInt(2,12);
+            gp.monster[usedFloor][40] = new MON_SkeletonArcher(gp);
+            gp.monster[usedFloor][40].x = gp.tileSize * rand.nextInt(2,18);
+            gp.monster[usedFloor][40].y = gp.tileSize * rand.nextInt(2,12);
 
             phases[8] = true;
         }
         else if(health <= 0 && phases[9] == false){
-            gp.monster[usedFloor][40] = new MON_SkeletonArcher(gp);
-            gp.monster[usedFloor][40].x = gp.tileSize * rand.nextInt(2,18);
-            gp.monster[usedFloor][40].y = gp.tileSize * rand.nextInt(2,12);
             gp.monster[usedFloor][41] = new MON_SkeletonArcher(gp);
             gp.monster[usedFloor][41].x = gp.tileSize * rand.nextInt(2,18);
             gp.monster[usedFloor][41].y = gp.tileSize * rand.nextInt(2,12);
-            // gp.monster[usedFloor][42] = new MON_SkeletonArcherBoss(gp);
-            // gp.monster[usedFloor][42].x = gp.tileSize * rand.nextInt(2,18);
-            // gp.monster[usedFloor][42].y = gp.tileSize * rand.nextInt(2,12);
+            gp.monster[usedFloor][42] = new MON_SkeletonArcher(gp);
+            gp.monster[usedFloor][42].x = gp.tileSize * rand.nextInt(2,18);
+            gp.monster[usedFloor][42].y = gp.tileSize * rand.nextInt(2,12);
+            gp.monster[usedFloor][43] = new MON_Zombie(gp);
+            gp.monster[usedFloor][43].x = gp.tileSize * rand.nextInt(2,18);
+            gp.monster[usedFloor][43].y = gp.tileSize * rand.nextInt(2,12);
+            gp.monster[usedFloor][44] = new MON_Zombie(gp);
+            gp.monster[usedFloor][44].x = gp.tileSize * rand.nextInt(2,18);
+            gp.monster[usedFloor][44].y = gp.tileSize * rand.nextInt(2,12);
+            gp.monster[usedFloor][45] = new MON_GreenSlime(gp);
+            gp.monster[usedFloor][45].x = gp.tileSize * rand.nextInt(2,18);
+            gp.monster[usedFloor][45].y = gp.tileSize * rand.nextInt(2,12);
+            gp.monster[usedFloor][46] = new MON_GreenSlime(gp);
+            gp.monster[usedFloor][46].x = gp.tileSize * rand.nextInt(2,18);
+            gp.monster[usedFloor][46].y = gp.tileSize * rand.nextInt(2,12);
 
             phases[9] = true;
         }
