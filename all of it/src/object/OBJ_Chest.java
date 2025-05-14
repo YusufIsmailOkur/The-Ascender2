@@ -35,26 +35,31 @@ public class OBJ_Chest extends SuperObject{
             StringBuilder sb = new StringBuilder();
             sb.append("You open the chest and find a " + loot + "!\n");
 
-            sb.append("You obtain the " + loot + "!");
             if(loot.equalsIgnoreCase("diamond sword")){
                 gp.player.weapons.add(new WPN_DiamondSword());
+                sb.append("You obtain the " + loot + "!");
             }
             else if(loot.equalsIgnoreCase("screwdriver")){
                 gp.player.objects.add(new OBJ_ScrewDriver());
+                sb.append("You obtain the " + loot + "!");
             }
             else if(loot.equalsIgnoreCase("light")){
                 gp.player.objects.add(new OBJ_Light());
+                sb.append("You obtain the " + loot + "!");
             }
             else if(loot.equalsIgnoreCase("health potion")){
                 gp.player.objects.add(new OBJ_HealthPotion(gp));
+                sb.append("You obtain the " + loot + "!");
             }
             else{
                 if(loot.equalsIgnoreCase("key")){
                     gp.player.objects.add(new OBJ_Key());
+                    sb.append("You obtain the " + loot + "!");
                 }
                 else{
                     int arrowCount = Integer.parseInt(loot);
                     gp.player.bow.life += arrowCount;
+                    sb.append("You obtained " + loot + " arrows!");
                 }
             }
             try {
