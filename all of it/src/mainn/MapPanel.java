@@ -72,7 +72,7 @@ public class MapPanel extends JPanel {
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("Arial", Font.BOLD, 24));
-        g2.drawString("Map - Click Unlocked Floor (x4) to Fast Travel", 100, 50);
+        g2.drawString("Map - Click Unlocked Floor to Fast Travel", 100, 50);
 
         for (int i = 0; i < floorButtons.length; i++) {
             boolean unlocked = gp.player.discoveredFloors[i];
