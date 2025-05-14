@@ -369,7 +369,7 @@ public class Inventory extends JPanel implements ActionListener {
                 g2.drawRect(x, y, slotSize, slotSize);
 
                 int idx = row * slotCol + col;
-                if (idx < items.size()) {
+                if (idx < items.size() && idx<8) {
                     Object obj = items.get(idx);
                     if (obj instanceof SuperObject so) {
                         g2.drawImage(so.image, x, y, slotSize, slotSize, null);
