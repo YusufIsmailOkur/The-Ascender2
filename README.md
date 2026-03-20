@@ -52,7 +52,19 @@ Players progress through multiple floors, each containing unique challenges and 
 
 
 
+## 📸 Screenshots
 
+### Menu
+![Menu](screenshots/menu.png)
+
+### Inventory System
+![Inventory](screenshots/inventory.png)
+
+### Boss Fight
+![Boss](screenshots/skeletonBoss.png)
+
+### Code Architecture
+![Architecture](screenshots/codeStructure.png)
 
 
 
